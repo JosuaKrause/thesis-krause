@@ -1,0 +1,29 @@
+\subsection{Machine Learning for Predictive Modeling}
+
+Data scientists often use machine learning to create predictive models based on known properties of  training data, which acts as the ground truth. 
+%Predictive modeling is a machine learning discipline that uses observed data to predict unobserved outcomes.
+%Often classification is used that instead of having a numeric outcome like risk has a few categories.
+%Numeric outcomes can always be converted into categories.
+%For example risk can be categorized into low, medium, and high risk.
+Machine learning algorithms typically work in two phases: the training phase and the prediction phase.
+In the training phase, parameters of the model are
+learned using training data.
+%In the training phase, outcomes from training data are used to verify the quality of prediction and make changes to internal values of the model until a local maximum is reached.
+% Typically unstructured data is converted into feature vectors to be usable with common machine learning algorithms.
+The prediction phase then computes predictions using the trained model. % The model does not change in this phase anymore.
+Below, we describe several machine learning algorithms that are commonly used and also utilized in the case study.
+
+A decision tree is one such algorithm, which is a tree whose nodes are rules that decide how to proceed down the branches of the tree, according to the range of values for a specific feature.  The decision making starts at the root of the tree and leaves carry the prediction results. Decision trees are popular in machine learning as they allow data scientists to model arbitrary functions.
+However, the more nodes a tree has, the harder it is to understand the reasoning behind outcomes.
+Logistic regression is another popular algorithm that is easier to understand, as features can only positively or negative influence the prediction, and the rate of influence is fixed.  This is achieved by defining a hyper-plane in the feature vector space, where the outcome of the prediction depends on how close to and on which side of the hyper-plane a point is.
+
+% Each feature contributes linearly to the outcome.
+% So a low value of a feature leads to a low outcome and a high value to a high outcome or a low value leads to a
+% high outcome and a high value to a low outcome.
+% Each feature is assigned one weight that determines how rapid changes in the value change the outcome.
+
+Another popular algorithm is random forests, which combine the output of multiple decision trees.
+A random forest is an example of an ensemble model, which combines the output of several weak machine learning models to yield an overall better result with less bias and variance than a single strong model.
+% Random forest is an example of a boosting model, which works under the assumption that combining the output of several weak machine learning models yield an overall better result than a single strong model.
+However, this makes ensemble models less interpretable since each weak model has only a small influence on the outcome.
+% Random forests are boosting models consisting of decision trees that are built using randomized thresholds that are improved during the training phase.  Randomization is necessary since otherwise all trees would be identical.

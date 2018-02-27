@@ -1,0 +1,62 @@
+% !TEX root = ../prospector.tex
+
+\section{Case Study: Predicting Diabetes}
+
+In order to evaluate the utility of \prospector, we chose to conduct a case study utilizing a team of real data scientists building their own predictive models on their own real-world datasets to demonstrate its effectiveness at reaching insights in practice. There is a growing belief in the visualization community that traditional evaluation metrics (e.g. measuring task time completion or number of errors) are often insufficient to evaluate visualization systems \cite{bertini_summaries:_2011,plaisant_challenge_2004,shneiderman_strategies_2006}. Using the evaluation methodology developed by Perer and Shneiderman \cite{perer_integrating_2008}, we conducted a 4-month long-term case study with a team of five data scientists interested in using predictive modeling on a longitudinal database of electronic medical records. The research team is interested in building a predictive model to predict if a patient is at risk of developing diabetes using a database of 4,000 patients from a major hospital in the United States.  Due to sensitive data agreements, this team wished to remain anonymous.  
+
+The initial phase of the case study involved understanding the data scientists' current tools and needs.  They presented their typical results after building predictive models, sharing stories of success when their stakeholders were pleased, as well as examples of less successful results when their stakeholders demanded answers they couldn't provide with existing tools.  Their use cases and experiences shaped the design and requirements of the tool.
+
+After the tool was developed, there were bi-weekly meetings with the data science team in which we discussed the current interface and identified shortcomings of the interface, necessary UI enhancements, and components that were not worth developing further.  Some of the elements originally proposed turned out not to be useful, such as overlaying distributions of risk in the partial dependence plots or using ICE plots \cite{goldstein14}.  However, focusing the meetings on examining the team's predictive models together using \prospector allowed us to determine which elements helped improve both the models and their comprehension of the models.
+
+\subsection{Understanding Model Classes}
+
+Initially, the data scientists were unsure which type of predictive models to build.  Although they had used simpler models in the past, such as decision trees and logistic regression, they were eager to use random forest models due the promise of higher accuracy but were worried about how interpretable the results would be.
+After building models using both logistic regression and random forests, they were curious to use partial dependence plots to understand the trade-offs of both approaches. An example of such trade-offs can be seen in Figure~\ref{figs:cmp_bmi}, which is a partial dependence plot of two logistic regression models and one random forest. Interestingly, for this feature (which refers to the number of times patients got their BMI recorded), the model types disagree substantially for higher values in the plot. This is surprising since the inspected feature is most important for all models and
+all models perform equally well using standard statistics like accuracy or AUC.
+
+While all three models have a decrease in average predicted risk when the count goes from 0 to 2, the logistic regression models continue to trend downward.  However, the random forest model (in red), illustrates the predictive risk increases as the count gets higher than two.  The data scientists were surprised to learn how differently the model classes treated this feature, but using the tool, they were able to devise a two-fold explanation.  On one hand, logistic regression models are not expressive enough to model the late increase after the initial drop, as logistic regression models are bound by a single curve.  On the other hand, most of the observed data points of the feature are zero, one, and two while the higher values occur extremely rare, as the histogram below the plot clearly illustrates.  This led the data scientist team to question whether to model everything as precisely as possible or using a simpler model for the sake of generality.
+
+\subsection{Unexpected Effects of Data Imputation}
+
+Due to limitations of their database, many of the patients were missing Glucose lab test results.  During the feature construction phase, the team made a decision that in order to work around the missing values, each patient who did not have a value would be given the average observed value of all other patients.  This imputation technique is popular among predictive modelers, as simply removing all patients without such data would make the data quite small.  However, once the data science team began to explore the Glucose feature in the tool, as shown in Figure~\ref{figs:sampling}, they began to realize the dramatic effects their imputation strategy can have.  Due to the imputation, patients that are either cases or controls often have the same lab test values which increases the noise of the predicted risk.  The partial dependence plot illustrates that, as noise increases, the predicted probability gets closer to the population average leading to a valley in the machine learning model.  Exploring this feature in \prospector suggested that a better strategy for handling missing values would be needed to overcome this problem.
+
+\subsection{The Need for Localized Inspection}
+
+Discussions in bi-weekly interviews also led to the development of the localized inspection of patients
+which aims to answer the following questions:
+\begin{enumerate}
+\item What impact does a feature have on an actual patient?
+\item Does the model behave correctly on a case-to-case basis?
+\item What are the most important features for a given patient?
+\item Why are certain patients not being accurately predicted?
+\item Can we identify high impact actionable features?
+\end{enumerate}
+
+The last question about identifying actionable features was of particular importance to the data science team.  They were interested to know if the model could be used to learn features that could be acted upon by the patients or their doctors to reduce the risk of diabetes.  However, the data science team were disappointed to learn, via \prospector, that many of the highest ranking features were not actionable.  For instance, some of the most predictive features for a high risk of diabetes involved having a high count of the number of lab tests.  Informing patients to get fewer lab tests would likely not correlate to lower risk of diabetes.  Instead, these lab test counts were likely a proxy for other features that correlated to more complicated or more sickly patients seeing their doctors more regularly and thus getting more lab tests.  Other demographic features that were highly predictive, like age, simply have no intervention as well.  The data science team then reconsidered which features should be a part of the predictive model, by creating features that are actionable and omitting others.  Of course, the model cannot know this by itself -- no matter what sophisticated feature selection algorithms are used -- so the access \prospector provides is critical for this process.
+
+\subsection{Impact into Data Scientists' Workflow}
+
+In addition to learning new insights about their predictive models, the tool also impacted the team's workflow.  Prior to \prospector, after each new predictive model was built, a data scientist would manually generate a set of reports describing the model.  Typically, this would involve exporting a list of the model's top features and their weights, and generating a bar chart for the other team members to review.  They would present these bar chart summaries during review meetings and discuss if the model seemed sensible enough.  If they believe the list of features made sense, they would then present this chart to their stakeholders.  If it didn't, they would brainstorm how to improve the predictive model (such as changing the classification or feature selection algorithms) and then repeat this process.  While this manual approach led to the deployment of predictive models in the past, many iterations were required and understanding impactful values of features were rarely considered.
+
+Once \prospector was integrated into their workflow, many of these shortcomings were overcome.  No longer did a data scientist need to generate a set of manual reports.  Instead, the predictive model can be loaded into the tool directly.  Since the tool is interactive, it also allows the team to ask questions that may have not been considered when static charts were created.  The tool also allowed them to ask questions beyond the top features that contributed to the models.  They could ask more patient-centric questions such as ``Why is this patient not being classified correctly?" by drilling down to incorrectly predicted patients and exploring the most impactful features for them. Beyond exploration, \prospector was also used to communicate models to the stakeholders, which allowed stakeholders to ask questions and see the results in real-time.  This rapid feedback helped gain support for deploying predictive models in future projects.  As a result of these successes, \prospector is now a part of their predictive modeling workflow and is used for other work than predicting the onset of diabetes.
+
+% R2 wanted more details about the how
+%   Prospector was used with respect to the other tools the data science team
+%   was already using, how Prospector impacted the larger organization, and
+%   how did it get used by other stakeholders mentioned
+
+%  We were pleased that all
+% of the reviewers appreciated our 4-month long deployment, but we do agree
+% more details can be provided. In the revision, we will describe how the
+% deployment led to an improved design, as some prototypes originally
+% considered turned out to be not useful for their tasks (shaded areas
+% showing distributions in risk, ICE plots). In addition, we will describe
+% how the tool fit into their workflow and also stories of how it impacted
+% the stakeholders (the participants actually used our visualization and
+% interactive demos to communicate the models to their executives and
+% scientists, which gained support for predictive modeling in new
+% projects). Prospector is now part of their workflow, and they are using
+% it for other modeling work, including domains beyond diabetes
+
+
+%\adam{Possible second story:  Better understand patients that weren’t being classified correctly}

@@ -1,0 +1,129 @@
+\section{Discussion}
+\label{sec:discussion}
+%\enrico{A few more random items from my side:}
+% The value of model visual semantic validation: confirming the expected and detecting the unexpected (relationship between knowledge in the data and domain knowledge that resides only in the domain expert ... this is the chasm that needs to be bridged).
+
+% The crucial value of domain knowledge.
+
+% (1) confirm obvious things
+% (2) detect things that are not obvious
+% (3) gaining insights on their possible root causes (how can we do this better?)
+% (4) devising a plan to solve the problem (interactive or not?)
+
+% VA is pretty good for (1) and (2) how about (3) and (4)?
+
+% $\rightarrow$ Initial draft for analytical workflow of model validation?
+% $\rightarrow$ How can VA support these steps better?
+
+%Model issues are often data issues ... more support needed there!
+
+%Model diagnostics leads to data diagnostics which leads to process diagnostics (doctors gain insights about what happens in the hospital!)
+
+%Flexible explanatory structures: instance-level explanations more flexible than trees / rules and decisions tables may be an interesting follow up.
+
+%Detecting bias. Very hard.
+%--
+
+Through our case study of patient visits, we have shown that by aggregating model decisions through explanations, we are able to make sense of a large number of interesting decisions: some expected and some unexpected; some useful and some less useful; and finally some leading to actionable knowledge and some requiring more introspection on the part of domain experts. This level of transparency is necessary for experts and data scientists to built trust in a model and, especially, generate ideas on how it can be improved.
+
+In our interactions we have also noticed the usefulness of using explanations as the main method to make sense of model decisions. As long as the features used for the problem can be interpreted by the user, the concepts expressed in the visualization are easy to grasp and learn. During our collaboration we have experimented with other structures such as trees and rules but we often found that these were either too complicated or hard to use for modeling complex phenomena reliably and succinctly.
+
+As we observed in the case study presented in Section~\ref{sec:case_study} it is important to understand which decisions a model is most certain about and also find the decisions about which it is uncertain. When issues are detected there are several possibilities: training a better model, finding better data, introducing new and more informative features, or deciding that the model can make decisions only for the subset of cases the experts are most certain about. One possible outcome is also deciding that the problem is simply too complex and that expert judgment is, at the current stage, preferable.
+
+From the experience we gained in this project we drew a number of important lessons, which we outline below.
+
+\par \noindent \textbf{Lessons Learned.}
+In our work we noticed that many of the issues we spot in our analysis cannot be corrected simply by training a better model with the same data, but need some major redesign of the feature space and a careful analysis of the biases contained in the data. In turn, while diagnosing one or more models built on one data set and set of features can bring useful knowledge, ultimately solutions often have to come from better data engineering. We believe visual analytics can and should play a major role in this regards and find ways to support analysts explore alternative data and feature spaces. This is even more relevant when we observe that visual analytics systems and research tends to focus on one single data set and one single set of features.
+Focusing on supporting external changes of data and models offers many challenges and opportunities for visual analytics.
+
+%In healthcare settings doctors and analysts are highly interested in figuring out which type of decisions made by the classifier are reliable and which not. That is, while the overall accuracy of the model is relevant and useful information, the domain knowledge healthcare professionals possess enables them to  ...
+
+% they might run into a scenario that for the given data, it is no longer possible to achieve higher prediction quality. For those case it is best left to the experts to use their own judgment about the patients rather than use the model decisions. 
+
+%\aritra{TO ADD: modeltracker has no way of telling us which items behave the same besides that they have the same prediction score?}
+
+% \aritra{put the following text in the context of interactive ML, the advantage of which is one can develop, diagnose and refine a model without context-switching. However there some practical problems, that we encountered during our collaboration with doctors and ML experts. describe..}
+
+%\par \noindent \textbf{Interactivity vs Post-Hoc Model Diagnosis.} 
+
+Another important observation pertains to the practical value of developing a visual validation system separated from and not interfering with the existing modeling pipeline. From Figure~\ref{figs:workflow} it may seem natural to envision visual analytics methods able to support the user in closing the loop and apply direct modifications to the model in order to improve it. This is the type of solution advocated by the \textit{interactive machine-learning} paradigm~\cite{amershi2014power}, in which the user can directly instruct the model on how to improve its decisions.
+
+However, through our collaboration, we realized that modelers and experts often have very specific tools they use for model development and refinement and it is often hard to intervene on their familiar processes and infrastructure. A much more viable solution is to develop a methodology that does not require a substantial modification of their existing workflow and infrastructure.
+
+We also observe that while this type of paradigm is useful to provide better examples to the model, it cannot solve the data acquisition shortcomings we have outlined above. Fixing these problems requires domain experts to rethink the whole approach of the stated machine learning problem. For example, improving the input data might require to capture new features from different sources or rethinking of pre-processing steps.
+% In the case of systematic biases the data acquisition methodology has to be refined, and sometimes reevaluating data requires even accepting models that describe a real world phenomenon in some parts better while having lower statistical correctness than other models.
+It seems important to figure out in future research which particular settings are the most appropriate for the ``out of the loop" solution we proposed here and which are more amenable to the interactive machine learning paradigm.
+
+A final observation is how the process of validating the model often leads to generating insights that pertain more to the reality being modelled than the model itself. In several occasion, our collaborators ended up spotting potential issues with how their patients are handled in the hospital. Typical examples include situations in which some patients are discharged and at the same time are given medications that represent a strong signal for a serious condition for the doctor.
+These kind of mismatches between the mental model of the doctor and the reality modeled is a potential source of process improvement and can be used to take important actions.
+
+In relation to this last observation, it seems interesting to reflect on how visual analytics can further leverage the power of modeling for exploratory data analysis and data sense making. While many %visualization
+systems focus on direct visualization of raw data as overview, there seem to be relevant opportunities on using modeling as a preparatory step so that the resulting visualization contains more signals about hidden associations among features and items in the data.
+
+\par \noindent \textbf{Limitations.}
+The workflow and its implementation we described work exclusively with sparse binary data and binary classification. Although, explanation generation can be extended to other input data types the visual representation of those explanations has to be redesigned in order to accommodate other data types. Similarly, handling classification for more than two classes is also not trivial.
+
+Our method works only with interpretable features, that is, features have a direct connection to a reality the user can easily understand. Many relevant machine learning problems however require the use of highly non-interpretable features. Classification of images, audio, and video, is a classic example of this case. In these settings the single features used by the model do not have any direct interpretation the user can directly use for model understanding.
+
+Our solution works best with analyzing one single model at a time but it does not provide direct support for \textit{model comparison}. In many practical cases modelers like to train multiple models and then figure out how they compare. While in practice most of these comparisons are currently performed on statistical aggregations, it would be useful to develop methods able to compare multiple models in terms of the \textit{decisions} they make and how they differ. This is even more important in those cases in which models display a similar performance but actually differ in the way the decisions they make.
+
+Merging same explanations with different outcomes, like in the case of \emph{Sodium Chloride}, was done to make a user aware of this case. However, merging penalizes the odds ratio. In the cases presented in this paper the odds ratio did not get affected as the correctness for both outcomes were similar. If, for example, the positive prediction were always right but the negative prediction equivalent to a random guess both cases would be underrepresented by the odds ratio.
+
+With respect to scalability, neither the total number of features nor the total number of instances is limiting, since only a subset of available features appear in explanations and many instances are aggregated. However, it can happen that explanations are consistently long or do not aggregate well. This is mostly dependent on the model. Long explanations can be a sign of overfitting or a highly complex model with few similar instances. Explanations in the latter case are less interpretable which demands for a strategy to simplify or shorten explanations.
+
+% as a preliminary stage \textit{before} visualization as a strategy for data visualization. 
+
+%that direct instructions to the model can create more, rather than less, uncertainty and also lead to the model overfitting over the instructions submitted by the user. 
+
+%Instead, by leveraging our model-agnostic, diagnostic workflow experts could readily differentiate between good and bad quality models and also between good and bad quality data without making the assumption that data is readily available.
+
+
+
+
+%It has been pointed out~\cite{amershi15} that context-switching outside the \textit{modus operandi} of model development can be lead to greater cognitive load.
+
+
+%This is the case with many previous feature engineering approaches~\cite{brooks2015featureinsight,heimerl2012featureforge,rheingans2000visualizing} assume that the given data is final and analysts just have to find the right set of features or data transformations to yield the best results.
+
+%In Section~\ref{sec:case_study} we demonstrated that our method is able to detect a variety of modeling errors caused by the underlying data as well as biases in the data itself.
+
+
+% i) Dealing with similar items and features: \aritra{include the last part of Section 7 here}
+
+% ii) Handling missing data:
+% \joschi{we cannot argue this anymore}
+% However, as we pointed out in Section~\ref{sec:bias} our method is only capable of showing errors that were actually captured by the model.
+% This is due to the method utilizing the model's view of the data.
+% It is not generally possible to detect biases that stem from \textit{missing} data.
+% In this case all trust lies on the domain experts' knowledge of and intuition about the data in finding occurrences that should be there but are not by looking through singular cases of misclassified data items.
+
+% iii) Model comparison [Enrico]
+
+
+% In Section~\ref{sec:case_study} and Section~\ref{sec:bias} we demonstrated that our method is able to detect a variety of modeling errors caused by the underlying data as well as biases in the data itself.
+% Previous feature engineering approaches \cite{brooks2015featureinsight,heimerl2012featureforge,rheingans2000visualizing} assume that the given data is final and analysts just have to find the right set of features or data transformations to yield the best results.
+% However, more recent machine learning methods take care of those steps by themselves.
+% Our findings point to data acquisition shortcomings that cannot be interactively fixed.
+% Fixing the problems requires domain experts to rethink their approach of the stated machine learning problem.
+% For example, improving the input data might require to capture new features from different sources or rethinking of preprocessing steps.
+% In the case of systematic biases the data acquisition methodology has to be refined.
+% Lastly, sometimes reevaluating data requires accepting that the model that more accurately describes a real world phenomenon has a lower statistical correctness than other models.
+
+% \par \noindent \textbf{Explanations and Human-Model Trust}:
+% \aritra{My goal here is to include some comments from the doctors which indicate that explanations help them develop trust in the model predictions and build confidence in their interpretations, some thing that was lacking from their workflow}
+
+
+
+\section{Conclusion \& Future Work}
+We demonstrated how visual explanations can be effectively leveraged by data scientists and medical experts for diagnosing model decisions and for ultimately making informed judgment about associations among medications and patients' diagnoses. 
+We will extend our method to non-binary data and multi-class problems. We will also extend our solution for letting data scientists compare explanations from multiple models and leverage our model-agnostic workflow for making informed choices about choosing machine learning models in real-world application scenarios.
+
+% At the same time, we will work on a new solution to address the model comparison problem.
+
+% We showed initial results of the efficacy of our proposed ``Model Diagnostics" workflow.
+
+% However, in its current form the user facing visual analytics are optimized for binary data items with binary classification tasks.
+
+% In terms of usability, so far all interactions with domain experts were together with visual analytics experts.
+% Therefore, a formal usability study is needed to show the effectiveness of the proposed visual interface.
+% However, this remains future work.

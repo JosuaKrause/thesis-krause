@@ -1,0 +1,100 @@
+% !TEX root = ../prospector.tex
+
+\section{Related Work}
+
+\subsection{Motivation for Interpretability}
+Modern machine learning algorithms are able to create more reliable and precise models
+but they are increasingly complex and come with the price of being harder and harder to interpret (Breiman~\cite{breiman2001}).
+This inverse relation of understandability versus expressiveness of a model introduces the need
+to find ways to improve the interpretability of complex models to overcome this disadvantage.
+Lim~\cite{Lim:2012:IUT:2518922} asks questions such as ``\emph{Why} did X happen?",
+``\emph{Why} not Y?", ``\emph{What} happens \emph{if} I do Z?", and ``\emph{How} do I make X happen?"
+to explain complex mechanisms like machine learning models.
+Our system allows users to interactively ask and answer such questions.
+Kulesza~\etal~\cite{Kulesza:2015:PED:2678025.2701399} use explanatory debugging by conveying how a model
+came to its prediction in order to be able to correct mistakes.
+On the other hand, Patel~\etal~\cite{DBLP:conf/ijcai/PatelDFKT11} use multiple classifiers
+to better understand input data.
+Steeg~and~Galstyan~\cite{NIPS2014_5580,steeg2015corex_theory} use total correlation to build
+a hierarchy of features explaining their role in the data.
+
+\subsection{Algorithm Specific Model Visualization}
+In the past, research has primarily focused on understanding and interacting with specific machine learning algorithms.
+Often the focus is on the internal weights of the trained models.
+For Bayesian networks, showing probabilities of the nodes (Becker~\etal~\cite{Becker:2001:VSB:383784.383809}) and how the input is propagated (Correa~\etal~\cite{DBLP:journals/isci/MartinsONHC13})
+has been used.
+For Support Vector Machines,
+projection techniques (Caragea~\etal~\cite{Caragea2001}) and
+Nomograms (Jakulin~\etal~\cite{Jakulin:2005:NVS:1081870.1081886})
+to see the ``cut" in the data points were utilized.
+Visualizing and interpreting the graph of a neural network has also been used by Tzeng and Ma~\cite{Tzeng:2005:OTB}.
+Kim~\etal~\cite{kim2014bayesian,kim2015MGM} introduce graphical models that allow for
+interpretability of its features.
+\cite{kim2015MGM} use a colored matrix of features by category to show distinguishable features computed by their model.
+Caruana~\etal~\cite{Caruana:2015:IMH:2783258.2788613} use high-performance generalized additive models (GA$^2$Ms) that allows visual inspection of the influence of its input features on the outcome much like partial dependence.
+
+\subsection{Model Result Visualization}
+However, showing only internal, algorithm specific weights is often not enough.
+Plate~\etal~\cite{DBLP:journals/neco/PlateBGB00} and Olden~\cite{citeulike:3733836} show how input features influence
+the outcome of neural network classifications.
+Xu~\etal~\cite{DBLP:journals/corr/XuBKCCSZB15} interprets
+the graph of a neural network used for image classification to
+retrieve which part of an image was responsible for a specific
+classification result.
+These techniques aim in the same direction as partial dependence but are limited to only neural networks.
+They cannot be used to support the ability to compare different machine learning models across algorithms.
+
+Having access to the internals of a machine learning algorithm also allows direct interaction with the models and to improve them on the fly.
+BaobabView (van den Elzen and van Wijk~\cite{6102453}) offers interactive decision tree construction.
+Steed~\etal~\cite{5332586,doi:10.1559/152304009788988314}
+guides regression model creation by enhancing interaction
+with the input data.
+EnsembleMatrix (Talbot~\etal~\cite{Talbot:2009:EIV:1518701.1518895})
+allows users to combine already computed classification models to
+build ensemble models.
+Some recent interactive machine learning tools \cite{
+export:241307,
+Amershi:2011:DEE:2046396.2046416,
+Amershi:2012:RIM:2207676.2207680,
+Amershi:2011:CHF:1978942.1978966,
+Kapoor:2010:IOS:1753326.1753529,
+kim2015scalable,
+Leung2014710,
+Mishra:2015:SAI:2700171.2791022,
+export:141330})
+are more algorithm agnostic, but depend on general
+performance measures like confusion matrices,
+area under ROC curve (AUC) measures,
+result distribution of data points, and
+feature weights according to model independent statistics.
+
+Frank and Hall~\cite{frank2003} use 2D projections of the data to show %classification
+results for multiple classification algorithms, as well as Rheingans and desJardins~\cite{885740} with self-organizing maps.
+
+\subsection{Probing Models}
+Partial dependence was proposed by Friedman~\cite{friedman2001} for analyzing
+gradient boosting models and has since been used for other models as well (\eg Ehrlinger~\cite{ehrlinger2015} uses partial dependence to analyze the behavior of random forests
+in the \emph{R} package \emph{ggRandomForests}).
+
+Cortez and Embrechts~\cite{cortez11,Cortez20131} and Kim~\etal~\cite{kim2014bayesian}
+use sensitivity analysis to analyze and compare machine learning models of different algorithms.
+Sensitivity analysis is similar to partial dependence except that it uses a few
+base vectors (usually the mean, median, or quartiles of all observed values)
+instead of computing the probabilities over all input points.
+This method is faster than partial dependence but may miss critical details
+about the prediction function especially if the function is strongly non-linear.
+
+Goldstein~\etal~\cite{goldstein14} extends the idea of partial dependence by using
+Individual Conditional Expectation (ICE) plots which show one line for each row of the input data.
+We found, however, that this often clutters the plots too much and makes them harder to interpret.
+We experimented further with showing standard deviations and quartiles of the partial dependence line
+but discarded this approach since the spread of the partial dependence results is always expected to
+be large unless one feature dominates the classification significantly and is able to solely change
+the classification even for the furthest data points.
+
+By not restricting ourselves to sampling only the observed input space, our approach on partial dependence
+enables a deeper analysis of the machine learning model. Furthermore, accepting the costs of computing
+partial dependence over all input points yields proper results even for highly non-linear models,
+while also not overwhelming users with too much detail.
+This is strengthened even further by our novel approach of using implementation details of the inspected
+models to improve the sampling and the representation of the results.

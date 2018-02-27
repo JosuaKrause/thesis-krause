@@ -1,0 +1,78 @@
+\chapter{Explainer}
+\label{chap:explainer}
+\input{explainer/ms.tex}
+
+\section{Context in Thesis}
+The presented workflow \cite{explainer} shows how instance-level explanations can be leveraged to get insights into a model's decision making process without overwhelming an analyst with the quantity of such individual explanations.
+We demonstrated the feasibility of the workflow using an example with exclusively binary features.
+While many problems can be expressed this way it is a limitation to the presented implementation of the proposed workflow.
+Furthermore, we evaluated the effectiveness of the workflow on the insights gained through it.
+Those problems illustrates the need for a more generalizable implementation and a formal study on the effectiveness of the workflow with regards to human confidence and trust in a model whose initial results are described in the next Chapter.
+
+% \section{INFUSE: Interactive Feature Selection for Predictive Modeling of High Dimensional Data}
+% \label{sec:INFUSE}
+% Predictive modeling techniques are increasingly being used by
+% data scientists to understand the probability of predicted outcomes.
+% However, for data that is high-dimensional, a critical step in predictive
+% modeling is determining which features should be included in the models.
+% Feature selection algorithms are often used to
+% remove non-informative features from models.
+% However, there are many different classes of feature selection algorithms.
+% Deciding which one to use is problematic as the algorithmic output
+% is often not amenable to user interpretation.
+% This limits the ability for users to utilize their
+% domain expertise during the modeling process.
+% To improve on this limitation, we developed \textbf{INFUSE},
+% a novel visual analytics system designed to help analysts
+% understand how predictive features are being ranked across
+% feature selection algorithms, cross-validation folds, and classifiers.
+% We demonstrate how our system can lead to important insights
+% in a case study involving clinical researchers predicting patient
+% outcomes from electronic medical records.
+
+% An overview of \textbf{INFUSE} can be seen in \figref{figs:infuse_overview}, a system for interactive feature selection.  On the left, the Feature View provides a way to visualize an overview of all features grouped by type and then sorted by importance.  The color key for the feature types and subtypes are shown at the bottom.  The buttons and combo boxes at the bottom can be used to switch layouts and define the axes of the scatterplot view.  On the top-right, the List View provides a sorted list of all features, useful for selections.
+% This list can be filtered using the search box above. Currently only features containing the term ``gl" are shown.
+% The remaining features are sorted by the number and position
+% of the search term occurrences.
+% On the bottom-right, the Classifier View provides access to the quality scores of each model.  Users can also select features and build custom models with the Interactive Model Builder.
+
+% \textbf{INFUSE} has been published as \cite{infuse}.
+
+% \input{figs/infuse/overview} %
+% %\input{figs/infuse/reading} %\figref{figs:infuse_reading}
+% %\input{figs/infuse/findings} %\figref{figs:infuse_findings}
+
+% \section{Class-Signatures: A Visual Analytics Workflow for Explanatory Analysis of Binary Classification Models}
+% \label{sec:Class-Signatures}
+
+% With \textbf{Class Signatures}, we propose a visual analytics workflow to interpret predictive associations between a large set of binary features and a binary target.
+% For this we use a $4$ step pipeline: \textit{model}, \textit{contrast}, \textit{cluster}, and \textit{rank}, and a visual analytics interface that allows the end user to detect and interpret such associations.
+% After modeling the predictive associations using a binary classifier we leverage the prediction scores with two user defined thresholds, one for positive cases and one for negative cases, to focus only on data items with a strong predictive signal, increasing contrast.
+% Then, we cluster both positive and negative examples \textit{separately}.
+% This groups together data points that have the same predicted outcome and a similar configuration of values.
+% Finally, we rank each feature in the computed clusters using discriminative analysis across \textit{all clusters}.
+
+% \input{figs/class_signatures/overview}
+
+% For interpreting the results with visual analytics, we use \textbf{Class Signatures} as shown in \figref{figs:class_signatures_overview}.
+% As our input features are binary in nature we show in the class signatures how consistently present
+% a feature is in a cluster.
+% This is indicated by bars growing both to the right (percentage of which feature is present) and the left (percentage of which feature is not present).
+% In combination with the discriminative measure of the features (computed as gini-importance; the shade of feature backgrounds is visually encoded, so darker means more discriminative) users can formulate rules that explain predictions for different subgroups of data items.
+
+% The proposed workflow allows for a more fine-grained analysis of the driving factors of a predictive task than using commonly used feature importance techniques.
+% This is due to the observation that many phenomena have multiple underlying reasons for the same result.
+% Thus an explanation is needed that distinguishes which features were actually responsible for given data points.
+% \textbf{Class Signatures} provide this distinction in the form of user interpretable rules.
+
+% Using \textbf{Class Signatures} to describe groups of patients admitted to the hospital
+% because of different medications can be seen in \figref{figs:class_signatures_overview}.
+% Each column represents one group (\emph{cluster}-step) whereas each row shows the amount of patients in this group taking a
+% particular medication (the bar from the middle towards the right shows the percentage of patients taking the medication; the bar towards the left shows not taking medication).
+% The color of the bar shows the distribution of the true outcome labels as found in the input data.
+% The background of the rows shows the discriminativeness of a medication (dark being more discriminative \emph{wrt.} all other clusters; \emph{rank}-step).
+% Above each group a \emph{t-SNE} projection of the items shows its relation to the other groups.
+% ROC, precision-recall, and accuracy curves are shown on the left to facilitate selecting two thresholds to filter high signal patients (\emph{contrast}-step).
+
+% \textbf{Class Signatures} has been published as work-in-progress as \cite{class_signatures}.
+% The further plans for this project are outlined in \chapref{sec:Outlook}.

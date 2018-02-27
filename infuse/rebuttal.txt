@@ -1,0 +1,30 @@
+INFUSE: Interactive Feature Selection for Predictive Modeling of High Dimensional Data
+Josua Krause, Adam Perer, and Enrico Bertini
+======================================================================================
+
+We thank the reviewers for their thoughtful comments, and accordingly, we made all of their required changes, which we believe made the paper stronger.
+
+We made all of the four enumerated changes pointed out by the summary review:
+
+1.  We expanded the discussion of user tasks and motivations to address R4's criticisms, including:
+
+- We added Section 2.3, titled “Task Analysis” where we provide more information about our tasks and how we derived them from our experts.
+- We added details about the search box functionality in the List View, which makes it easier to find features by name, at the end of Section 4.3.
+- We added Section 4.2.4. which describes all possible interactions with the Feature View as R4 suggested. That is: zooming, panning, selecting, lasso selection, tooltips, layout changes, double-clicking on glyphs and background
+- We clarified that the new model created with the interactive model builder is not shown in the glyph as was asked by R4. This is because the glyphs show feature ranks and not AUC scores. Feature ranks are not available when creating a model by hand. The suggestion would lead to an extra area in the glyph that is either totally filled (when the feature was selected) or not filled (when the feature was not chosen). Also, the feature set is the same for all cross-validation folds which would lead to all fold slices of that feature have the same “rank”.
+
+2.  The description of the evaluation was expanded.  In particular, as R3 requested, Section 2.2 now includes more details about each of the dimensions of the dataset, and the members of the clinical research team.
+
+3. We re-organized the paper, by swapping the positions of Section 2 (Related Work) and Section 3 (Motivation), as R1 suggested. Now Section 2 is Motivation and Section 3 is Related Work.
+
+4. All typos and grammatical errors were fixed. Also, the missing reference (Johansson and Johansson) was added.
+
+In addition to the changes suggested in the summary review, we also made other numerous fixes, such as:
+
+- We updated our usage of the term model to be more precise and not used in multiple ways throughout the document as R2 suggested. Especially in Section 4.2 and the formula for calculating the overall importance of a feature.
+- We updated the description of the available axes for the scatterplot view since there seemed to be confusion about which Standard Deviation is shown
+- We updated the definition of AUC at two positions in the text (Section 4.1 and 4.4) as R3 requested
+- We addressed scalability concerns in the Conclusion & Future Work Section
+- We reformulated the first sentence of the introduction as R1 suggested
+
+Again, we thank the reviewers for sharing their valuable feedback, and we believe that by integrating all of the required changes, our paper is now stronger.  We hope that by addressing  all of your required changes, we will be able to share our work with the audience at VAST.

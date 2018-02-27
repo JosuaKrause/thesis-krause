@@ -1,0 +1,113 @@
+% !TEX root = ../prospector.tex
+
+\input{prospector/sampling}
+
+\section{System}
+In order to integrate partial dependence and localized inspection into our pipeline we propose
+\prospector, a web-based interface.  The server side of \prospector can load any machine learning model accessible via python, or integrate with existing predictive modeling pipelines such as PARAMO \cite{paramo}.
+% This can be done via a special admin page in the UI which also allows to
+% precompute some partial dependence plots.
+Although this paper demonstrates the system on clinical data, the tool is able to handle predictive models for other domains.  For example, the tool has also been used with exploring models that predict real estate prices, as well as classic data sets from the UCI Machine Learning Repository \cite{Lichman:2013}.
+
+In this section, we first describe \prospector's novel enhancements of partial dependence plots.  Then, we describe how \prospector leverages partial dependence to support localized inspection.  Finally, we describe the workflow of how these techniques are integrated into \prospector's UI.
+\subsection{Partial Dependence Plots}
+
+Partial dependence is typically visualized as a partial dependence plot, which is a line graph that plots the fixed values for the target feature on the horizontal axis, and the corresponding predicted risk (probability of a certain outcome) on the vertical axis.  In \prospector, we enhance the plot by adding a red reference line with the average predicted risk of the model on the original data, as shown in Figure~\ref{figs:pdp}.  In addition, a black vertical line indicates the average observed value of the input data for the current feature.  Both reference lines are accompanied with dotted lines showing one standard deviation in both directions from the  mean value.  To help with validating insights and assigning importance, a histogram of the observed values in the original data is also shown below the plot.
+
+\subsubsection{Sampling Partial Dependence}
+
+% \adam{BE CLEAR INSPECTING PD is OUR CONTRIBUTION.}
+
+One of our core contributions is the ability to effectively treat partial dependence as a black-box for inspection.  However, na\"ively treating the predictive model as black-box may lead to inaccuracies in the generated plot.
+Often only observed input values are used for sampling which leaves the prediction
+function for other values undefined, even though those values might be of
+particular interest for understanding the internals of the model.
+Furthermore, the interpolation between those sample points may ignore inherent
+features of the prediction function.
+For example, Ehrlinger~\cite{ehrlinger2015} shows the usage of
+partial dependence plots via random forest models.
+The prediction function for those models can only change between thresholds
+appearing in the nodes of the trees.
+For all other values the prediction remains constant.
+However, the interpolation between sample points used in the examples
+is polynomial.
+This leads to the following misrepresentations of the prediction function:
+\begin{itemize}
+\item Some sampled prediction values are not included in the interpolation.
+\item The interpolation is a curve where it should be a constant which alludes to values that are impossible to achieve with the prediction function.
+\item Steps are interpolated as curves which gives the impression of a smooth ascent of values when it should be a series of sudden jumps.
+\end{itemize}
+
+We overcome those inaccuracies by acknowledging inherent properties of
+the prediction functions of our models.
+This is only possible by leveraging the internal design of model algorithms and
+therefore, \prospector must more effectively sample the range of the input features.
+For example, in decision tree or forest models, where the predicted risk will not change between thresholds of the nodes of those models' trees
+\prospector utilizes the knowledge that the plot will be a step function by only sampling values at the thresholds of the given feature to accurately
+compute the complete plot (see Figure~\ref{figs:sampling}).
+It does this by inspecting the decision rules in the nodes of the model to retrieve those thresholds.
+
+However some models, such as random forest models, produce a large number of points
+where the outcome might change which leads to a cluttered plot that impairs readability.
+One solution to this is to simplify the generated plot by finding almost co-linear points and reducing them to the end-points.
+Such visual optimizations support more comprehensible plots that are easier to read while still being accurate representations. Other machine learning algorithms may not require such optimizations.
+
+\prospector also enhances partial dependence plots by taking into account the context of the original data values.  For example, certain features only make sense as integer values (\eg, the number of times a laboratory test was performed) and it does not make sense to show non-integer values in the plots.
+Such features can be heuristically detected by inspecting the set of values in the original data set and \prospector restricts those features to only have integer values as input.
+Similarly, in the partial dependence plot, only integer values are computed.
+Furthermore, for predictive models using step functions the plot
+is horizontally shifted by $0.5$ so that jumps happen between values.
+This eases reading the actual value at the integer points.
+Even though this improvement leads to a slight misrepresentation of the prediction function for non-observable values the readability of the plot is significantly improved to support user tasks.
+For non-integer data types, these optimizations are not necessary.
+
+\subsection{Local Inspection}
+\input{prospector/local_inspection}
+
+\subsubsection{Comparing Multiple Models}
+
+%\joschi{TODO NaN values -- divergent models? there is not much to talk about this here...}
+
+\prospector also supports plotting multiple models in the same plot.  As the input domain and the output range are the same across different machine learning
+models on the same data,  partial dependence plots can also be used to compare multiple
+models as shown in Figure~\ref{figs:cmp_bmi}.  This is useful for comparing the expressiveness of models and seeing which models are possibly under- or over-fitting the input data.
+
+\subsection{Workflow}
+
+In order to support the workflow of clinical researchers, as described above in the Motivation, \prospector's UI is organized into three main tabs: patient selection, patient inspection, and partial dependence plots.
+
+\subsubsection{Patient Selection}
+
+The patient selection tab allows users to find patients they may want to inspect, based on their ground truth (\eg, whether they actually had diabetes) and their predicted risk (\eg, assessed likelihood by the predictive model of having the disease).  \prospector provides a visual summary of the patient population by providing a patient selection visualization. The visualization, as seen in Figure~\ref{figs:select}, consists of two columns dividing the population according to their ground truth
+(case patients being those actually diagnosed with diabetes and control patients being not).
+Each column is then separated into bins of predicted probabilities in steps of $0.1$
+which can be clicked to select the group of patients fitting those criteria.  For instance, if a case patient was predicted with a low risk score, that patient would appear in the top of the right column.  If a bin is too small to provide a clickable area, a box at the side of the column is displayed to allow choosing even small populations.  The selected population is then shown next to the visualization with the individual prediction results shown for each entry.
+
+In order to get more details about patients before selecting, users can hover over a patient in the list and see a summary for the patient, as shown in Figure~\ref{figs:summary}.
+In addition to the predicted risk and the ground truth, the interface shows the top 5 most impactful features, for both increasing and decreasing predicted risk, according to the local feature importance described above.  For each impactful feature, the original data value is shown as well as the suggested change and what the resulting predicted risk would be if such a change was made.  This summary provides a preview of how amenable a particular patient's predicted risk is to changing and which features are mostly responsible for their current predicted risk.
+
+\subsubsection{Patient Inspection}
+
+After users select a patient of interest, the UI switches to the
+patient inspection tab with the selected patient's data loaded, as shown in Figure~\ref{figs:ui}.
+All of the features' partial dependence bars are shown in a scrollable list, with the patient's feature values selected with circular labels.
+Users can drag the circular label to change the value of any feature and see the predicted risk change in real-time.
+Users can also select a feature and see the corresponding typical partial dependence plot of the feature.
+In this plot the local partial dependence of the current patient is shown as
+black curve and the global partial dependence of the whole population is shown
+in gray. The partial dependence plot is also clickable and users can change the feature value here as well, changing the black vertical line that, in this plot, shows the current value.  
+
+Users can change the sort order of the partial dependence bars by using the buttons at the top.  In addition to sorting by the feature weight and relevance as determined by the predictive model, users can also sort according to our local feature importance and impactful changes as described above.
+If impactful changes are chosen as the sort order, the suggested changes to each feature are indicated with a white circular label in the partial dependence bar, as shown in the bottom left of Figure~\ref{figs:ui}.
+
+Often after analysts have inspected a particular patient, they may wish to find other patients similar to them to see how they react to the predictive model.  If users wish to find patients similar to the one they are inspecting, they can click on the ``Neighborhood" button and \prospector will automatically find the closest patients to the current set of values using feature-wise Euclidean distance.  This similar set of patients are then used as the population in the patient selection tab that users can navigate.
+
+\subsubsection{Partial Dependence Plots}
+
+If users wish to browse the global partial dependence plots of a feature of interest, they can navigate to the third tab.  Users can view multiple models at once by using a combo-box at the top of the user interface to select the models they wish to view in the plot.  Each selected model is assigned a unique color using a quantitative color scale, and a color-coded key is displayed beneath the plot.  If more than one model is selected, the red ``Avg. Score" helper line is not shown.  Users can also filter the global population to a subset population of interest by using a  predicted probability bin or the ``Neighborhood" of a patient in the patient selection tab. This alters the plot accordingly allowing for a more focused analysis for \eg, mispredicted patients, outliers, or patient neighborhoods.
+
+\input{prospector/patient_select}
+
+\input{prospector/patient_summary}
+
+\input{prospector/ui}

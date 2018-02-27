@@ -1,0 +1,626 @@
+
+  * Address issues with the list view's scrolling interaction.
+
+The INFUSE uses three views, the feature view, the list view and the classifier view. The list view is potentially very long, and scrolling is certainly not sufficient interaction. Simple search is essential and it is missing from the system. Furthermore, some kind of Table-lens view would also be beneficial. Current, simple solution hinders the workflow in my opinion.
+
+Search is supported.  Screenshots now show search feature. Added text to describe it.
+
+Create section 4.2.4.  One paragraph includes:  Zoom.  Selection (Lasso).  Pan.  Change layout.
+
+  * How were the available layout options chosen?
+
+This is also true with different layouts. It is not clear how layout options available were chosen.
+
+Addressed above.
+
+2)  Expand evaluation: provide detail about the diabetes data set (e.g. the
+  count of dimensions, the type of dimensions - see Reviewer 3), and more
+  information on the domain researchers (e.g. how big is the team, are they
+  MDs, PhDs, what is their background).
+
+Adam will add details about # of features by feature type etc, and how big is the team.
+
+
+3) Rework paper organization (present motivation before literature review
+
+  Towards that end, I recommend placing section 3 on Motivation before
+  Section 2 on Related Work so that readers will have a better
+  understanding of the context driving the authors' research decisions.
+
+  The
+  last sentence in the Motivation section should explicitly summarize the
+  outcome of the case studies (describe what the important insights were.)
+
+Joschi will swap section 2 and 3
+
+4) see Reviewer 1) and correct grammatical errors (Reviewers 2 and 3).
+
+
+  * A couple of places where I thought the wrong term was used:
+
+
+j1)
+  Regarding related work, I think the authors should review previous work
+  on visualization of multi-variate data and reference prior work in
+  Section 2.1 (Visual Feature Selection) The following 3 papers provide
+  surveys of multi-variate visualization that seem directly relevant to the
+  research:
+
+  Wong, Pak Chung, and R. Daniel Bergeron. "30 Years of Multidimensional
+  Multivariate Visualization." Scientific Visualization. 1994.
+
+  Dos Santos, Selan Rodrigues. A framework for the visualization of
+  multidimensional and multivariate data. Diss. University of Leeds, 2004.
+
+  Chan, Winnie Wing-Yi. "A survey on multivariate data visualization."
+  Department of Computer Science and Engineering. Hong Kong University of
+  Science and Technology 8.6 (2006): 1-29.
+
+The paper should be edited for grammar before it is published. For
+  example, section 2.1 "Visual hierarchical dimension reduction allows as
+  well detection and...". Some references are missing, eg. 2.1. Johansson
+  and Johansson., reference 13 has a typo
+
+j2)
+
+  The first sentence of the introduction, and the start of Section 2, make
+  a few sweeping (and inaccurate) generalizations about the field of
+  visualization and will likely sour readers attitudes toward the authors'
+  research. Because the core focus of the paper is of interest to VA,
+  simply stating the intent of the research should be sufficient to engage
+  readers interest.
+
+-> Most of the visualization research community has traditionally focused on developing techniques and systems to support the analysis of datasets, with limited analysis of the relationship between datasets and the construction of models on top of them.
+
+Summary:
+! scalability
+#features
+#folds
+#feature selection algorithms
+! evaluation insufficient (one dataset -> more datasets, evaluation, lack of detail about dataset / researchers)
+! (analytical) user tasks and motivations behind design choices inadequately described
+! ? exposition could be improved
+survey paper about multivariate data
+reference for pipeline (PARAMO paper?)
+! grammar / typos
+! intro sentence / swap 3 and 2 and state outcome in Motivation
+model is used ambiguously
+how were axes chosen?
+be specific about user created models
+why no border in glyph?
+colors don’t match key
+alter Figure 4 (explanation of glyphs)
+what is the number of features?
+why 4 feature selection algorithms and 4 classification algorithms?
+more details about datasets
+specify how INFUSE can be accessed
+explain AUC to non-ML
+be more clear about what is shown (stddev of ranks not features)
+some references are missing?
+simple search
+table lens view
+overplotting
+add section for interaction
+
+================
+ ORIGINAL REVIEW
+================
+
+Dear Josua Krause -
+
+We are pleased to inform you that your paper
+
+ 301 - INFUSE: Interactive Feature Selection for Predictive Modelling of High Dimensional Data
+
+has been conditionally accepted by the IEEE VAST 2014 Program Committee to be published in IEEE TVCG and be presented at IEEE VIS, which will be held on November 9-14, 2014 in Paris, France. This year, VAST had 146 submissions, among them 33 were conditionally accepted into the TVCG track.
+
+To ensure that all papers are of the highest quality, this conditional acceptance is subject to the satisfactory completion of the required minor revision. The primary reviewer has identified, in the summary review, the most important issues raised by the reviewers that you should address. They are included with the reviews below. Furthermore, we encourage you to take all comments of reviewers seriously, and use them to improve your paper. We will verify if the changes you made are satisfactory and will inform you of our findings. Note that it is not guaranteed yet that your paper will be accepted. If the primary reviewer and co-chairs do not feel that you have adequately addressed the issues raised by reviewers during this second review cycle, your revised submission may be rejected or moved to the conference-only track.
+
+The next step for the process is now as follows:
+
+June 27: Submit a revised version for second stage review. Upload this version
+   via the conference management system PCS at
+   https://precisionconference.com/~vgtc/
+   This version should not be anonymized.
+   Also upload a text file summarizing the revisions made.
+   Please organize this summary by reviewer number and review
+   comment (as typical for journal revisions).
+
+July 11: Authors of conditionally accepted papers will be
+   notified of the final decision.
+
+August 1: Final papers and supplemental materials due, at:
+   https://precisionconference.com/~vgtc/
+
+Your camera-ready paper may be up to 10 pages in length, with the 10th page containing ONLY references (no additional text or figures). The website http://www.cs.sfu.ca/~vis/Tasks/camera_tvcg.html has complete information regarding formatting requirements of your final revised PDF and optional videos. We do not need hardcopy. Please note in particular the suggestions for ensuring that the images in your PDF document are stored at sufficiently high resolution instead of using the default lossy compression settings.
+
+You may also include other supplemental material such as additional images or videos. The web site http://www.cs.sfu.ca/~vis/Tasks/supplement_tvcg.html includes information on how to do so.
+
+The official conference web site, which will include final program and registration information as it becomes available, is: http://http://ieeevis.org/
+
+At least one author per accepted paper must register to present the work. In addition, an author from each paper will present a short preview during a fast-forward session. If your paper is accepted, please plan to arrive in Paris in time for the fast-forward session. The date and time of this fast-forward session will be announced soon.
+
+We are looking forward to an exciting and vibrant VAST 2014, with an outstanding set of papers. We thank you for your contribution to VAST 2014 Papers this year, and hope that you will succeed in producing a fully acceptable version of your paper.
+
+Below are the reviews for your paper.
+
+Sincerely yours,
+
+Min Chen, David Ebert and Chris North
+IEEE VAST 2014 Papers Co-Chairs
+
+------------------------ Submission 301, Review 2 ------------------------
+
+Title: INFUSE: Interactive Feature Selection for Predictive Modelling of High Dimensional Data
+
+Reviewer:           primary
+
+Overall Rating
+
+  6  (<b>Probably accept (TVCG track):</b> I would argue for accepting this paper.)
+
+Topic Classification
+
+  Analytical Reasoning and Decision-Making
+
+Best Paper Award
+
+  Maybe
+
+Contribution to the field of Visual Analytics
+
+  This paper presents INFUSE, a system for visually comparing and
+  interactively tuning models of high dimensional data.  It uses multiple,
+  linked views to evaluate the impacts of using different feature selection
+  algorithms on the resulting models.  Feature glyphs encode rankings for
+  multiple algorithms across multiple cross-validation folds.  A zoomable
+  interface enables focused examination of individual glyph information
+  when zoomed in, and a high-level view of glyph contextual relationships
+  when zoomed out.  Various glyph layouts facilitate answering questions
+  about feature ranking and usage by each of the feature selection
+  algorithms.  The system is a wonderful example of applying visual
+  analytics techniques to the problem of feature selection in predictive
+  modeling, combining carefully thought out visual representations,
+  interactive features (including brushing and linking between multiple
+  views, feature sorting orders, and glyph layouts), and using a
+  human-in-the-loop to create new models by combining components of the
+  automatically-generated models.  This last bit is especially important
+  because it allows models to be created that would not be possible using
+  any single existing feature selection algorithm.
+
+Expertise
+
+  4  (Expert)
+
+The Review
+
+  I really like this paper.  I think it is inspiring to other VAST
+  researchers as an example of a well done design study.  The authors
+  describe their design decisions, including discarded ideas and the
+  reasons for their dismissal. Additionally, feature selection is an
+  important problem in predictive modeling, so the work is very useful.
+
+  Strengths:
+
+  * Using visual analytics to evaluate algorithms and perform visual
+  debugging of algorithmic outputs is a powerful, yet under-utilized
+  application of our tools.
+
+  * Although I was initially skeptical about the glyph design, thinking
+  that the amount of detail crammed into each circle would be lost, as I
+  was looking at the figures and reading the reasoning behind the
+  representation, I came to appreciate its value.  I found that subtle
+  shape distinctions were visible in the high level views, and that they
+  helped me statically match glyphs with List View elements in figures 1,
+  3, and 9 (of course, with an interactive interface instead of this
+  lifeless paper, it would have been much quicker!).  Figures 10 and 11
+  demonstrate that high-level features, such as empty half circles from the
+  absence of ranks for two algorithms, provide rapidly interpretable
+  patterns that can inform our understanding of broad algorithm behaviors.
+  Neither of these uses for the glyphs required me to try to evaluate the
+  positions of the various folds or their ranks (though these could also be
+  available through zooming in, if desired).
+
+  * The interactive construction and evaluation of alternative models from
+  the best components (features) of the automatically generated models
+  enables the creation of unique models that capture the domain knowledge
+  of the users.
+
+  * The Classifier View summarizes the results of all combinations of
+  models, folds, and classification algorithms in a clear, simple fashion
+  that allows the user to understand at a glance the rankings and
+  variability of the feature selection algorithms being evaluated.
+  Additionally, selecting a model in this view highlights all of the
+  features that contributed to that model in the other views, which enables
+  a deeper understanding of how the features are combined to form that
+  model.
+
+  Weaknesses:
+
+  * Limitations to the work include limitations on scalability.  Although
+  the glyphs could conceivably be subdivided into ever smaller sections to
+  accommodate additional feature selection algorithms, the number of
+  algorithms presented in the paper seems near the limit.
+
+  * The term 'model' appears to have two meanings in the paper.  In section
+  4.2.2, M is defined to be the set of models for the equation.  Initially,
+  I was wondering why there was no mention of the folds in the calculation.
+   Then I came to the conclusion that each fold was treated as a separate
+  model (based on the axes for the Pick Counts going up to 40 in Figure 6 -
+  each of the 4 algorithms times the 10 folds).  Later, however, in the
+  section discussing the Classifier View and the Interactive Model Builder,
+  there are only 4 models.  So, in this case, a model appears to shift in
+  its definition to be the set of features selected (by the feature
+  selection algorithm being evaluated), and each fold is a difference
+  instance of that same model.  I realize that this is a subtle
+  distinction, but it impacted my understanding of how the equation was
+  calculated.
+
+  * The paper has a number of grammatical errors and typos.  Many involve
+  mismatches between counts. For instance in the last paragraph of section
+  4.1, it says, "Each feature is ranked by various feature selection
+  algorithm."  Using 'various' implies there is more than one algorithm, so
+  it should be 'algorithms'.
+
+  * A couple of places where I thought the wrong term was used:
+
+  - In the caption for Figure 10, it says, "the upper-half algorithms were
+  as clinically similarly as those picked by the bottom-half."  I think
+  what you mean to say is, "the upper-half algorithms were as clinically
+  significant as those picked by the bottom-half."
+
+  - In the caption for Figure 5, it says, "Saturation, as used in (d)...".
+  There is no color in (d), so I believe it would be more correct to say,
+  "Luminance, as used in (d)..."
+
+  - In the first sentence of the conclusion, "a tool that affords users
+  interactively create predictive models." -> "a tool that lets users
+  interactively create predictive models."
+
+Summary Rating
+
+  6  (<b>Probably accept  to TVCG track:</b> This paper will be acceptable after a minor revision.)
+
+The Summary Review
+
+  This paper provides a novel design study of an application that applies
+  visual analytics techniques to the problem of feature selection in
+  predictive modeling, which is an interesting and relevant topic to the
+  VAST community.  Using visual analytics to evaluate algorithms and
+  perform visual debugging of algorithmic outputs is a powerful, yet
+  under-utilized application of our tools.
+
+  Strengths:
+  - positive impact on understanding of analytical processes
+  - using visual analytics for algorithm comparison
+  - interactive construction of new combined models
+
+  Weaknesses:
+  - scalability of representation, relative to both the number of
+  algorithms being compared (the glyph) and to the number of features (the
+  scatterplot)
+  - evaluation insufficient: only one data set presented, not enough detail
+  about the diabetes data set, user evaluation lacked detail about
+  researchers referenced
+  - user tasks and motivations behind various design decisions inadequately
+  described
+  - exposition could be improved
+
+  Required Revisions:
+  - Expand discussion on user tasks and motivations behind design decisions
+  to address Reviewer 4's criticisms - specifically:
+  * Target the user tasks (distinct from the goals) more explicitly in the
+  motivation.
+  * Address issues with the list view's scrolling interaction.
+  * What interactions are supported in the feature view?
+  * How were the available layout options chosen?
+  * Are user added models also displayed in the glyphs?
+
+- Expand evaluation: provide detail about the diabetes data set (e.g. the
+  count of dimensions, the type of dimensions - see Reviewer 3), and more
+  information on the domain researchers (e.g. how big is the team, are they
+  MDs, PhDs, what is their background).
+
+  - Rework paper organization (present motivation before literature review
+
+  - see Reviewer 1) and correct grammatical errors (Reviewers 2 and 3).
+
+Second round final review
+
+
+
+Best Paper Award
+
+
+
+Second round comments
+
+
+
+------------------------ Submission 301, Review 1 ------------------------
+
+Title: INFUSE: Interactive Feature Selection for Predictive Modelling of High Dimensional Data
+
+Reviewer:           external
+
+Overall Rating
+
+  4  (<b>Merit a presentation:</b> I would argue for accepting this paper to the Conference track.)
+
+Topic Classification
+
+  Analytical Reasoning and Decision-Making
+
+Best Paper Award
+
+  No
+
+Contribution to the field of Visual Analytics
+
+  This paper describes a system to provide users insight to variability
+  among rankings of features' predictive scores by feature selection
+  algorithms enabling them to make better assessments about whether certain
+  features are clinically relevant and suitable for predictive models.
+
+  This is a Visual Analytics paper as it directly supports and improves
+  users' analytic processes by providing them with better information on
+  processes (feature selection algorithms) within an analytic pipeline.
+
+Expertise
+
+  3  (Knowledgeable)
+
+The Review
+
+  The paper tackles an important, complex, and core topic for Visual
+  Analytics.
+
+  A strength of the paper is it's positive impact on clinician's
+  understanding of their analytic processes, however I have several
+  recommendations for the authors.
+
+  The first sentence of the introduction, and the start of Section 2, make
+  a few sweeping (and inaccurate) generalizations about the field of
+  visualization and will likely sour readers attitudes toward the authors'
+  research. Because the core focus of the paper is of interest to VA,
+  simply stating the intent of the research should be sufficient to engage
+  readers interest.
+
+  Towards that end, I recommend placing section 3 on Motivation before
+  Section 2 on Related Work so that readers will have a better
+  understanding of the context driving the authors' research decisions. The
+  last sentence in the Motivation section should explicitly summarize the
+  outcome of the case studies (describe what the important insights were.)
+
+  Regarding related work, I think the authors should review previous work
+  on visualization of multi-variate data and reference prior work in
+  Section 2.1 (Visual Feature Selection) The following 3 papers provide
+  surveys of multi-variate visualization that seem directly relevant to the
+  research:
+
+  Wong, Pak Chung, and R. Daniel Bergeron. "30 Years of Multidimensional
+  Multivariate Visualization." Scientific Visualization. 1994.
+
+  Dos Santos, Selan Rodrigues. A framework for the visualization of
+  multidimensional and multivariate data. Diss. University of Leeds, 2004.
+
+  Chan, Winnie Wing-Yi. "A survey on multivariate data visualization."
+  Department of Computer Science and Engineering. Hong Kong University of
+  Science and Technology 8.6 (2006): 1-29.
+
+
+  In Section 3.1, a common workflow for predictive models is described, and
+  represented in Figure 2. It would be helpful to know whether this process
+  is described in another publication (in which case please provide the
+  reference) or whether this process is a distillation by the authors of
+  multiple variants in the research community. I found Figure 2 to be very
+  informative and an important part of the paper.
+
+  I also recommend making Figure 4 larger and labeling the quadrants
+  outside so that they are more easily read. Since this graphical encoding
+  is critical to the users' discovery in the case study it is an important
+  graphic for the reader as well.
+
+
+------------------------ Submission 301, Review 3 ------------------------
+
+Title: INFUSE: Interactive Feature Selection for Predictive Modelling of High Dimensional Data
+
+Reviewer:           external
+
+Overall Rating
+
+  4  (<b>Merit a presentation:</b> I would argue for accepting this paper to the Conference track.)
+
+Topic Classification
+
+  Visual representations and Interaction Techniques
+
+Best Paper Award
+
+  No
+
+Contribution to the field of Visual Analytics
+
+  This is a "meta analysis" using visual analytics. The authors present a
+  tool that is able to visually sort through results of feature selection
+  algorithms and classifiers.
+
+Expertise
+
+  3  (Knowledgeable)
+
+The Review
+
+  Strengths:
+  Although I am not the expert in the field, there seems to be a lack of
+  work in this arena. It is difficult to choose a feature selection or
+  classification algorithm, and almost impossible to rationally compare
+  across a number of them. This presented tool is a welcome addition to the
+  toolset of visual analytics.
+
+  The presented case study focuses on a single data set of a 15,038 cohort
+  of patients, half of them with a diabetes diagnosis. The goal of the
+  analysis is to find the features that are driving the diagnosis yes/no,
+  using 4 feature selection algorithms and 4 classifiers.
+
+  It is not clear why 4 have been chosen for each of the tasks, and I had
+  difficulty figuring out how many total features there are in the set
+  (besides counting them in Fig. 3 for example). I can gather from Figure 4
+  that increasing the number of models presented can be increased, but the
+  paper does not discuss the numbers that were still discernible to the
+  test users (how many models and how many fold slices were possible to be
+  analyzed). The ordering of models within a feature glyph (Fig. 4) is from
+  the first to the last starting with the 11 o'clock position. How does an
+  increase in the number of models change this analysis/understanding? I
+  can also imagine that if we have a larger number of models, let's say 8
+  or 10, these glyphs would be quite hard to see when the number of
+  sections is large as well.
+
+  I would prefer that this paper would have been expanded to at least one
+  more data set or renamed to address just the diabetes case study, instead
+  of being generalized to "any high-dimensional data set" without a proper
+  case study to follow. I can see how it could be useful to other and any
+  data set, but if diabetes prediction received 1 page of the paper, this
+  is really focused on the diabetes set, instead of a general approach.
+
+  Overall, it is an interesting approach in a fairly unexplored field, but
+  I would like to see it expanded with more datasets and user
+  evaluations/studies.
+
+  Weaknesses:
+  - I wish I could have a look at the data set. It appears this is their
+  internal data set, but not enough detailed information is provided to
+  fully understand its properties. The count of records is present, but I
+  wish I could also see the count of dimensions, the type of dimensions,
+  etc. Since it is used for classification as well, I assume that you have
+  classes provided, guessing that it is either diabetes yes/no set.
+  - No evaluation on a set of users was presented in detail, nor was it
+  accompanied by the numbers and types of users info. It is expected that
+  the learning curve for its use is quite high, especially with domain
+  experts in the field of healthcare.
+  - It is not clear if INFUSE is available for download, neither could I
+  determine how the results from PARAMO are passed into INFUSE
+  - Some of the terminology used might be novel to a visualization expert,
+  for example AUC, standard deviation of the feature (how is this
+  calculated)
+  - The paper should be edited for grammar before it is published. For
+  example, section 2.1 "Visual hierarchical dimension reduction allows as
+  well detection and...". Some references are missing, eg. 2.1. Johansson
+  and Johansson., reference 13 has a typo
+
+
+------------------------ Submission 301, Review 4 ------------------------
+
+Title: INFUSE: Interactive Feature Selection for Predictive Modelling of High Dimensional Data
+
+Reviewer:           secondary
+
+Overall Rating
+
+  3  (<b>Indecision:</b> I could not make up my mind about this paper.)
+
+Topic Classification
+
+  Applications of Visual Analysis Techniques
+
+Best Paper Award
+
+  No
+
+Contribution to the field of Visual Analytics
+
+  The paper presents a system for interactive exploration of prediction
+  models. As prediction models play a key role in many disciplines, it is
+  essential to have tools to validate them. INFUSE represents a system for
+  exploration of predictive models and as such it is relevant for visual
+  analytics.
+
+Expertise
+
+  4  (Expert)
+
+The Review
+
+  The paper describes the INFUSE system which is created t explore
+  prediction models. The paper is easy to follow, still I see some problems
+  which should be solved before the paper is ready for publication.
+
+  The INFUSE uses three views, the feature view, the list view and the
+  classifier view. The list view is potentially very long, and scrolling is
+  certainly not sufficient interaction. Simple search is essential and it
+  is missing from the system. Furthermore, some kind of Table-lens view
+  would also be beneficial. Current, simple solution hinders the workflow
+  in my opinion.
+  The feature view suffers from over plotting. Users can zoom (which is
+  just mentioned in the text) and the view supports different interactions.
+  I suggest to add a section in the paper where supported interactions are
+  described.
+  I suppose the authors analyzed the workflow of domain experts and
+  identified some analytical tasks. They should be described (not only on a
+  high level as in figure 2) and the interactions should be motivated by
+  these tasks. This is also true with different layouts. It is not clear
+  how layout options available were chosen.
+
+  The glyph design seems not to be scalable. In case of 4 models it is easy
+  to assign circle segments to models. What if there are 5 or 7 models?
+  Should there be some border between models in the glyph. When the user
+  adds a model (as in Figure 9) is it also displayed in glyphs? If yes
+  where is it added, if not why not? What happens if user wants additional
+  model? How many of them can be displayed with current solution? I think
+  scalability for glyph design is an issue. Probably user should be able to
+  select which models to show.
+
+  Finally, I would like to see a more critical evaluation. The case study
+  described shows that the system is useful in detecting errors in data,
+  and gives just a small example on a real case. It's a pity as it seems
+  that data is really large and domain experts were available.
+
+  For me, the paper tackles and interesting and relevant topic, but I am
+  missing a more detailed tasks description, justification of design of the
+  views and of interaction, description of interaction, solutions for
+  scalability problems, and a little bit more detailed evaluation.
+
+  The colors on the color key in figure 3 (and in the video) do not match
+  colors of glyphs.
+
+
+------------------------ Submission 301, Review 5 ------------------------
+
+Title: INFUSE: Interactive Feature Selection for Predictive Modelling of High Dimensional Data
+
+Reviewer:           external
+
+Overall Rating
+
+  4  (<b>Merit a presentation:</b> I would argue for accepting this paper to the Conference track.)
+
+Topic Classification
+
+  Visual representations and Interaction Techniques
+
+Best Paper Award
+
+  No
+
+Contribution to the field of Visual Analytics
+
+  It was hard for me to see the impact that this paper might have.  They
+  provided no compelling argument for their method, and missed this
+  opportunity to distinguish it from its myriad competitors. It is not at
+  al clear how the methods and tools will cope with very large data sets,
+  although it does seem effective with 'high' dimensions.
+
+Expertise
+
+  3  (Knowledgeable)
+
+The Review
+
+  As I said before, it does not seem to break enough new ground to warrant
+  presentation or publication.  Nor does it qualify as a survey paper,
+  comparing previous efforts in the field and then showing how their tool
+  addresses and solves these shortcomings.  I did appreciate their
+  incorporation of clinicians' comments, because, in the end, it is the
+  acceptance by a user community by which value is measured.
+

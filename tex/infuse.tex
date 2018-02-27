@@ -1,0 +1,88 @@
+\chapter{INFUSE}
+\label{chap:infuse}
+\input{infuse/featureselection}
+
+\section{Context in Thesis}
+\infuse~\cite{infuse} explored the viability of the popular method of using feature importance measures to understand model behavior.
+Even though there is no \emph{direct} influence from the model itself feature importance gives valuable insights due to its role in feature selection for the model and the similarity of its computation and the model's construction.
+However, our experiments showed that there is little consensus between different feature importance algorithms, even though equal model performances were achieved.
+This is likely due to redundancies in features in the input data but shows that those methods are not able to properly point out those occurrences.
+Furthermore, it also shows that those feature importance methods are too far from the actual model to gain sufficiently strong insights into the model's behavior.
+This result encouraged used to explore techniques of model dependent feature importance metrics, such as \prospector described in the next Chapter.
+
+% \section{SeekAView: An Intelligent Dimensionality Reduction Strategy for Navigating HD Data Spaces}
+% \label{sec:SeekAView}
+% % \input{figs/seekaview/workflow} \figref{figs:seekaview_workflow}
+% Dealing with the curse of dimensionality is a key challenge in high-dimensional data visualization. We present \textbf{SeekAView} to address three main gaps in the existing research literature. First, automated methods like dimensionality reduction or clustering suffer from a lack of transparency in letting analysts interact with their outputs in real-time to suit their exploration strategies. The results often suffer from a lack of interpretability, especially for domain experts not trained in statistics and machine learning. Second, exploratory visualization techniques like scatter plots or parallel coordinates suffer from a lack of visual scalability: it is difficult to present a coherent overview of interesting combinations of dimensions. Third, the existing techniques do not provide a flexible workflow that allows for multiple perspectives into the analysis process by automatically detecting and suggesting potentially interesting subspaces.
+% In \textbf{SeekAView} we address these issues using suggestion based visual exploration of interesting patterns for building and refining multidimensional subspaces. Compared to the state-of-the-art in subspace search and visualization methods, we achieve higher transparency in showing not only the results of the algorithms, but also interesting dimensions calibrated against different metrics. We integrate a visually scalable design space with an iterative workflow guiding the analysts by choosing the starting points and letting them slice and dice through the data to find interesting subspaces and detect correlations, clusters, and outliers. We present two usage scenarios for demonstrating how \textbf{SeekAView} can be applied in real-world data analysis scenarios.
+
+% \input{figs/seekaview/overview}
+
+% The user interface of \textbf{SeekAView} can be seen in \figref{figs:seekaview_overview}.
+% (1) is the list of all dimensions while (2) shows them as small multiple frequency plots. Selected dimensions are high-lighted (3)
+% and shown in the target plot (4). The current multivariate view can be seen in the multidimensional view panel consisting of parallel coordinates (5), a PCA scatter plot (6), and a scatter plot matrix (7). Views can be selected, created, removed, and annotated in the lower right (8).
+% Manual brushing can be configured at the top (9).
+% Subspace suggestions can be created with a one-to-many filter (10) or by computing subspace (``cluster") or dimension similarity (``stack") clusters (11).
+% The current state is the end of the Communities and Crime case study finding dimensions related to ``Violent Crimes per Pop."
+% and further clustering the item space.
+
+% \textbf{SeekAView} has been published as \cite{seekaview}.
+
+% \section{Patient-viz: Visual Inspection of Longitudinal Electronic Medical Records}
+% \label{sec:Patient-viz}
+% \input{figs/patientviz/overview}
+% Electronic medical records (EMRs) and administrative data contain a
+% large amount of distinct events, like diagnoses, laboratory tests, \etc ,
+% making it difficult to ``tell" the story of a patient.
+% We propose \textbf{Patient-viz} to address this issue by using
+% a visual representation of the data.
+% This allows us to provide the large number of distinct event types
+% and additional information like costs and hospital stays
+% in a manageable form.
+% Using both an anonymized public and an unaltered private dataset
+% we explore the usefulness of our tool.
+
+% Longitudinal studies and insurance claims data generate a large amount of
+% electronic medical records (EMRs) and administrative data.
+% This data contains a large number of distinct events throughout the
+% observed time window of the life of patients.
+% Understanding, interpreting, and finding relations in those records is a
+% challenging task that is hard to achieve using a tabular
+% or similar representation.
+% Therefore, visualization is needed to \eg %help data scientists
+% better understand predictive models built on top of the data,
+% impact of comorbidities,
+% progression of chronic diseases,
+% or contributors of health care costs.
+
+% Our proposed tool \textbf{Patient-viz} has a visually rich design aimed to
+% make the huge amount of administrative data manageable for
+% data scientists and medical doctors.
+% The goal of the tool is to provide a quick overview of one patient
+% which can be further explored to inspect detailed information.
+% The input can be any temporal event
+% data with a large number of differently typed events.
+% We test our tool with online accessible semi-synthetic data provided by CMS~(\cite{cms_data}) and privately collected data from a major US insurance company.
+
+% An overview of \textbf{Patient-viz} can be seen in \figref{figs:patientviz_overview}. The center shows events happening in the time-line
+% with each row containing only events of the same type. At the bottom
+% the cost of one day is shown.
+% The top allows to change axes, the
+% type aggregation level according to the CCS hiearchy~\cite{ccs},
+% connect subsequent events,
+% as well as change selection modes (vertical vs. horizontal),
+% %if a lens should be used for labeling events,
+% and shows general information about the patient.
+% The lists left and right of the main view show all types and the current
+% selection respectively.
+
+% \textbf{Patient-viz} has been published as \cite{patientviz_poster} and \cite{patientviz_vahc}.
+
+% \section{COQUITO: Supporting Iterative Cohort Construction with Visual Temporal Queries}
+% \label{sec:COQUITO}
+% \input{figs/coquito/overview}
+% Many researchers across diverse disciplines aim to analyze the behavior of cohorts whose behaviors are recorded in large event databases.  However, extracting cohorts from databases is a difficult yet important step, often overlooked in many analytical solutions.  This is especially true when researchers wish to restrict their cohorts to exhibit a particular temporal pattern of interest.  In order to fill this gap, we designed \textbf{COQUITO}, a visual interface that assists users defining cohorts with temporal constraints.  \textbf{COQUITO} was designed to be comprehensible to domain experts with no preknowledge of database queries and also to encourage exploration.  We then demonstrate the utility of \textbf{COQUITO} via two case studies, involving medical and social media researchers.
+
+% An overview of the \textbf{COQUITO} user interface can be seen in \figref{figs:coquito_overview}.  The center features the visual temporal query to define a cohort.  On the right, the search box is being used to locate additional event constraints.  Below the query, treemaps are shown to show the event distribution after the selected junction (``Glaucoma'' in yellow).  On the bottom right, demographics of the selected junction are also shown, including gender, ethnicity, and age distributions.
+
+% \textbf{COQUITO} has been published as \cite{coquito}.

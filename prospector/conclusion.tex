@@ -1,0 +1,22 @@
+% !TEX root = ../prospector.tex
+
+\section{Conclusion and Discussion}
+
+In this paper, we demonstrated how the design and implementation of an interactive visual analytics system,
+\prospector, can help data scientists assess the interpretability and actionable insights of trained predictive models. \prospector accomplishes this by supporting interactive partial dependence diagnostics for understanding how features affect the prediction overall by featuring novel visual representations, sampling strategies, and support for comparing multiple models.  Furthermore, \prospector supports localized inspection so data scientists can understand how and why specific datapoints are predicted as they are.  With support to interactively tweak feature values and see how the prediction responds, as well as finding the most impactful features using a novel local feature importance metric, data scientists can interact with models on a deeper level than possible with common tools.  Finally, we presented a case study, in the spirit of \#chi4good, which involved a team of data scientists using \prospector  to improve predictive models for detecting the onset of diabetes.  Their extended use of the tool led to better predictive models, as well as better communication of their models to their stakeholders.
+
+% In this paper we demonstrated how \systemname can be used to analyze, compare, and improve
+% machine learning models.
+% Furthermore, we took the concept of Partial Dependence and applied it to single cases
+% enabling ``what-if" scenarios which in turn can be used to retrieve a localized importance
+% of input features and suggestions for actionable changes which impact the predicted outcomes.
+
+% that is rarely the case.
+% Consider, for example, our system suggesting the change of a patient's Glucose value.
+% This change can be achieved using medication or a life-style change but it would thus most likely
+% change other values of the patient's input vector as well.
+
+Despite the novel features of \prospector and its successful case study, there is still much future work to continue to give users full comprehension of predictive models. \prospector relies on partial dependence for one input feature at a time, but this approach relies on the orthogonality of input features.  However, in real-world data, this is not often the case, as features may be correlated.  \prospector can only model changes along one axis at a time as it cannot take correlations or influences between features into account.
+We plan to address this limitation in future work by modeling valid sets of input points and visualizing how
+they react to changes in one or more features.  Another limitation is that \prospector was built to view predictive models after they had been built using users' own predictive modeling pipeline of choice.  However, this flexibility limits the ability for users to directly impact their predictive models based on insights reached during exploration. Also, \prospector can only handle single-class predictions, but we plan to extend this functionality to multi-class predictions in the future.
+Our future work also intends to integrate \prospector more directly into the predictive modeling pipeline so users can directly modify features for feature construction and feature selection and see how their models improve in a single user interface.  Despite these limitations, providing users with advanced visual tools to inspect black-boxes of machine learning shows great promise and helps users comprehend and retain control of their predictive models without sacrificing accuracy.

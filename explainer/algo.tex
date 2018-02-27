@@ -1,0 +1,84 @@
+\section{Explanation Method}
+\label{sec:algo}
+% As preliminary work we published previous iterations that helped to shape the proposed workflow here.
+% In \cite{class_signatures} we investigated alternative methods of grouping the data.
+% % set by relying solely on prediction scores of the model.
+% However, we realized that those methods mostly reflect the intrinsic structures of the data set instead of the decision making process of the model.
+% As such, detected relations stay superficial as those relations cannot be sufficiently complex to match those of a machine learning model.
+% In \cite{rivelo} we investigated model exploration capabilities of explanations by focusing on common features in explanations. This approach shows which features were used for predicting in general, which is at odds with mainly focusing on strongly correct or problematic behavior.
+
+
+% The goal of explanations is to group data items from the perspective of the machine learning model being analyzed.
+Using explanations, we intend to group data items from the perspective of the machine learning model being analyzed.
+In order to do so without relying on a particular model, that is, treating the model as black box, we can estimate which features were involved in its decision making process.
+In our initial approach, we had explored alternative methods for grouping the data by looking only at prediction scores of the model~\cite{class_signatures}. However, we realized that those methods mostly reflect the intrinsic structures of the data set instead of the decision making process of the model. Therefore, in this work we build explanations by finding the minimal amount of change necessary to change the prediction of the analyzed model, specifically, a binary classifier. Also, contrary to our previous approach of using explanations to detect only the commonly used features by a model~\cite{rivelo}, here we focus on explanations as a way for experts to diagnose correct or problematic model behavior and address the goals \emph{G1, G2, and G3}, that were outlined in Section~\ref{sec:model-diagnostics}.
+
+
+% For binary classifiers this is commonly done by finding the minimal amount of change necessary to change the prediction of the analyzed classifier.
+Explanations are created using a trained model by creating synthetic input values derived from observed data items revealing this input-output relationship.
+The set of changes to the values that swayed the outcome of the prediction is then called explanation $e$ for the given original data item:
+%
+\[
+\min_{e} \, L(v - e) \neq L(v)
+\]
+%
+where $L$ is the label function with ``positive" or ``negative" as result and $v$ is the data item to be explained.
+In order to compute $e$, the prediction function $P$ of the classifier is used with a threshold $t$:
+%
+\[
+L(v) = P(v) > t
+\]
+%
+The output of $P$, the prediction score, is a number between 0 and 1 indicating the confidence of a classifier in the predicted outcome.
+The threshold $t$ is chosen to yield the most correctly predicted items on the training data.
+
+Prospector~\cite{prospector} and LIME~\cite{DBLP:journals/corr/RibeiroSG16} both propose algorithms that can be used to create explanations. The metric used for minimizing $e$ depends on the explanation technique. Prospector assumes feature independence and thus minimizes $e$ by combining one-dimensional impactful changes of the prediction score. LIME on the other hand creates a local new simpler model by sampling the neighborhood of the analyzed data item and extracts $e$ from this transformed local space. Those two methods aim to approximate minimal explanations in real valued high-dimensional input data spaces.
+
+In our case we are dealing with high-dimensional \textit{binary} input data.
+For most applications, like text analysis or movie recommendation, binary input data is sparse, \ie, almost all feature values are 0 instead of 1. Therefore, binary data can also be interpreted as a bag of features. That is, a data item can be treated as set of features whose value is 1.
+
+Martens and Provost~\cite{Martens:2014:EDD:2600518.2600523} provide an algorithm for computing minimal explanations for binary input data.
+As Prospector and LIME only generate approximate explanations for data items we adopt and extend this method instead.
+The method allows for only removing features from the bag of features.
+This restriction comes from the observation that allowing additions to the bag of features can ``tone out" the original item by adding unrelated features with high impact on the prediction score.
+
+% \begin{algorithm}
+% \begin{algorithmic}[1]
+% \Procedure{CreateExplanation}{$vector$, $predict$, $threshold$}
+% \State $expl \gets \{\}$
+% \While{$vector \text{ has } 1$}
+%   \For{$f \gets nonzero(vector)$}
+%     \State $temp \gets vector$
+%     \State $temp[f] \gets 0$
+%     \State $p \gets predict()$
+%     \If{$p > threshold$}
+%     \EndIf
+%   \EndFor
+% \EndWhile
+% \end{algorithmic}
+% \end{algorithm}
+
+The algorithm to generate explanations using this method consists of successively removing features from the bag of features until the prediction outcome changes. The order of the removal is determined by the largest change in prediction score when removing a feature. \textit{The set of features that are removed from the bag of features in order to change the outcome of the prediction is then called an explanation of the original data item.}
+
+One problem with the original algorithm is that it contains a series of conditions that make it give up on explaining some of the instances when these conditions are met. In our case however we want to be able to provide a full picture of the data set and as a consequence we want to create an explanation for every instance provided in the data.
+%
+For this purpose we decided to introduce a few modifications to the original algorithm:
+%
+%adapted the explanation algorithm proposed by Martens and Provost to suit to our requirements for the analysis of classification models. We list our modifications below:
+% However, we changed some implementation details in order to adapt it :
+%
+\begin{itemize}
+% \par \noindent \textbf{Explanation length}:
+    \item The original algorithm enforces a maximum length of explanations and declares an item as unexplainable if it fails to find an explanation that is shorter than the limit. In our implementation we removed this restriction. The main consequence of this modification is that sometimes the algorithm may produce explanations that are very long and unintelligible. Those explanations however are interesting because they can help us detect and visualize edge cases which may reveal surprising information. In addition, having many long explanations that explain only a few data items can be an indicator of a highly complex model with few similar instances or that the model is overfitting as it is trying to memorize individual labels. 
+    
+% \par \noindent \textbf{Local maximum}:
+    \item The algorithm can run into plateaus where removing any feature does not change the prediction score. The original algorithm gives up in this case. We circumvent this problem using the following two-step strategy: in this case we select a feature at random and let the algorithm work as usual. Once an explanation has been computed, we follow-up with a ``clean-up" step removing features that do not contribute to a change of the prediction in the end. This extra-step can be very computationally expensive if the input data is not sparse, however, it is necessary to ensure that the resulting explanation is minimal.
+    
+% \par \noindent \textbf{Diverging Items}:
+    \item The original algorithm skips data items whose prediction outcome never changes. As we use explanations as estimate of which features were involved in the decision making process of the model we assign the explanation of those cases to be the original data item. That is, all features present in the original item make up the explanation as all of them were necessary for the model to compute the predicted label.
+\end{itemize}
+%
+%\aritra{I would put this paragraph in Discussions. Here, it breaks the rhythm of the paper for me.}
+The explanation algorithm can take several hours to compute even for small data sets depending on the sparseness of the data.
+This requires the generation to be performed offline before analyzing a model.
+In order to shorten the computation time we utilized caching of partial explanation results in order to reduce the number of queries to the machine learning model.

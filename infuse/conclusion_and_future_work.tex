@@ -1,0 +1,14 @@
+% !TEX root = ../featureselection.tex
+
+\section{Future Work and Conclusion}
+There remains a great deal of research to further improve the analytical process of predictive modelers. \infuse only focuses on the feature selection step of predictive modeling. Each of the other steps would benefit from a visual interface to explore and parameterize the pipeline as well.
+
+The search capabilities also have room for improvement by allowing more complex queries like features with a given range of ranks or features picked by a given algorithm, which would ease the task of finding relevant features for a user.
+Also, expanding the range of the search box to filter also in the Feature View may reduce the number of overlapping glyphs in the scatterplot view.
+Other clutter reduction techniques could also be available to users, such as a semantic zooming overlap resolution strategy that can jitter glyphs that overlap when the view is zoomed in.
+
+Finally, to date, this tool has been used extensively for predictive modeling on clinical data.
+However, \infuse was designed to be domain-independent and can easily be used for other domains in need of high-dimensional predictive modeling.  Our future work includes additional case studies in other domains to ensure the robustness of our tools.  This would also give the opportunity to explore the scalability of the design.  Typically, the number of cross-validation folds is not more than ten.  However, certain analysts may wish to compare a larger number of feature selection algorithms which would decrease the amount of space available per algorithm in the glyph.  While similarly-ranked features would still appear visually alike, it may become difficult to identify certain algorithms or folds without the help of interaction.  The overall number of features also plays a role in scalability concerns.
+
+In conclusion, predictive modeling techniques are increasingly being used by data scientists to understand the probability of predicted outcomes.  We present \infuse, a tool that
+lets users interactively create predictive models.  Typically, the predictive modeling pipeline leaves users out of the loop, and the algorithms operate as a black box.  By giving users the power to interact with the results of feature selection, cross validation folds, and classifiers, \infuse has shown promise to improve the predictive models of analysts.  We further demonstrated how our system can lead to important insights in a case study involving clinical researchers predicting patient outcomes from electronic medical records.

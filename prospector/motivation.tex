@@ -1,0 +1,21 @@
+% !TEX root = ../prospector.tex
+
+\section{Motivation}
+
+\input{prospector/ml_crash}
+
+\subsection{Predictive Modeling in Healthcare}
+
+In order to make our contributions concrete, we utilize a motivating scenario that emerged from our case study.  The case study involves a team of five data scientists interested in using predictive modeling on a longitudinal database of electronic medical records. The research team has a background in healthcare analytics and their database contains 4,000 patients from a major hospital in the United States. The team is interested in building a predictive model to predict if a patient is at risk of developing diabetes, a chronic disease of high blood sugar levels that may cause serious health complications.
+
+\input{prospector/pd-explain}
+
+The team of data scientists manages to develop a highly accurate predictive model for detecting patients at high risk of developing diabetes.  They determine its effectiveness by measuring the common metrics used by predictive models (e.g., accuracy and AUC scores \cite{kuhn2013applied}).  They also followed the best practices of building predictive models.  They worked with clinical researchers to properly define cohorts of patients with diabetes (cases) and matched patients without diabetes (controls) by thoroughly searching through the electronic medical records.  They constructed features based on lab tests, diagnosis codes, procedures, demographics, and patient conditions from the records.  They used cross-validation to ensure their models were robust.  They used a variety of state-of-the-art feature selection methods to utilize the most informative features in the model while keeping it as generalizable as possible.  And they used a variety of effective classifiers to do the training and evaluation.  After trying various combinations of these techniques, the model with the highest accuracy metrics was selected and presented to the appropriate stakeholders at the healthcare institution.
+
+Their stakeholders were impressed by the high accuracy scores of the model.  But when they asked the data scientists for more information about what was inside of the model, the reports only described the top features of the model and their associated ``importance" weights.  The stakeholders recognized many of the feature names, and it appeared to make clinical sense.  However, there were also some surprising ones that led to intellectual discussions.  But the stakeholders demanded to know more.  They wanted a clearer sense of how certain features impacted the prediction.  Furthermore, they wanted to understand how the values associated with the features (e.g., the results associated with lab tests) impacted the prediction.  They also were curious to interact with the model to test hypotheses about how the model would react to hypothetical patients of interest.  When confronted with these questions, the data scientists shrugged.  In the data scientist's defense, it is difficult to summarize and interpret complex models and there are few tools and techniques available to address the stakeholders' requests.  So now the stakeholders are faced with a hard decision:  do they deploy a predictive model in their institution that appears to have high accuracy but is also somewhat of a black-box?
+
+Although this scenario is motivated by our case study, our other projects and interviews suggest these are not atypical requirements.  Our work is motivated to support the development of more comprehensible predictive models. 
+
+\subsection{Partial Dependence}
+
+\input{prospector/partial_dependence}

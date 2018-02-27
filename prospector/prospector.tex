@@ -1,0 +1,192 @@
+% \documentclass{sigchi}
+
+% Use this command to override the default ACM copyright statement
+% (e.g. for preprints).  Consult the conference website for the
+% camera-ready copyright statement.
+
+% \toappear{Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from Permissions@acm.org. \\
+% {\emph{CHI'16}}, May 07 - 12, 2016, San Jose, CA, USA \\
+% Copyright is held by the owner/author(s). Publication rights licensed to ACM. \\
+% ACM 978-1-4503-3362-7/16/05...\$15.00 \\
+% DOI: \url{http://dx.doi.org/10.1145/2858036.2858529}}
+
+%% EXAMPLE BEGIN -- HOW TO OVERRIDE THE DEFAULT COPYRIGHT STRIP -- (July 22, 2013 - Paul Baumann)
+% \toappear{Permission to make digital or hard copies of all or part of this work for personal or classroom use is      granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org. \\
+% {\emph{CHI'14}}, April 26--May 1, 2014, Toronto, Canada. \\
+% Copyright \copyright~2014 ACM ISBN/14/04...\$15.00. \\
+% DOI string from ACM form confirmation}
+%% EXAMPLE END -- HOW TO OVERRIDE THE DEFAULT COPYRIGHT STRIP -- (July 22, 2013 - Paul Baumann)
+
+% Arabic page numbers for submission.  Remove this line to eliminate
+% page numbers for the camera ready copy 
+
+% \pagenumbering{arabic}
+
+% \usepackage{acmcopyright}
+
+% Load basic packages
+% \usepackage{balance}  % to better equalize the last page
+% \usepackage{graphicx} % for EPS, load graphicx instead 
+%\usepackage[T1]{fontenc}
+% \usepackage{txfonts}
+% \usepackage{times}    % comment if you want LaTeX's default font
+% \usepackage[pdftex]{hyperref}
+% \usepackage{url}      % llt: nicely formatted URLs
+% \usepackage[usenames,dvipsnames]{xcolor}
+% \usepackage{color}
+% \usepackage{textcomp}
+% \usepackage{booktabs}
+% \usepackage{ccicons}
+% \usepackage{todonotes}
+% \usepackage{xspace}
+% \usepackage{amsmath}
+
+% \newcommand{\joschi}[1]{\textcolor{RedOrange}{#1}}
+% \newcommand{\adam}[1]{\textcolor{RedOrange}{#1}}
+
+% \newcommand{\joschi}[1]{#1}
+% \newcommand{\adam}[1]{#1}
+
+% \newcommand{\eg}{\emph{e.g.}\xspace}
+% \newcommand{\etal}{\emph{et~al.}\xspace}
+
+% \newcommand{\prospector}{\emph{Prospector}\xspace}
+
+% \DeclareMathOperator*{\argmin}{arg\,min}
+% \DeclareMathOperator*{\argmax}{arg\,max}
+
+% llt: Define a global style for URLs, rather that the default one
+% \makeatletter
+% \def\url@leostyle{%
+%   \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\bf\ttfamily}}}
+% \makeatother
+% \urlstyle{leo}
+
+% To make various LaTeX processors do the right thing with page size.
+% \def\pprw{8.5in}
+% \def\pprh{11in}
+% \special{papersize=\pprw,\pprh}
+% \setlength{\paperwidth}{\pprw}
+% \setlength{\paperheight}{\pprh}
+% \setlength{\pdfpagewidth}{\pprw}
+% \setlength{\pdfpageheight}{\pprh}
+
+% Make sure hyperref comes last of your loaded packages, to give it a
+% fighting chance of not being over-written, since its job is to
+% redefine many LaTeX commands.
+% \definecolor{linkColor}{RGB}{6,125,233}
+% \hypersetup{%
+%   pdftitle={SIGCHI Conference Proceedings Format},
+%   pdfauthor={LaTeX},
+%   pdfkeywords={SIGCHI, proceedings, archival format},
+%   bookmarksnumbered,
+%   pdfstartview={FitH},
+%   colorlinks,
+%   citecolor=black,
+%   filecolor=black,
+%   linkcolor=black,
+%   urlcolor=linkColor,
+%   breaklinks=true,
+% }
+
+% create a shortcut to typeset table headings
+% \newcommand\tabhead[1]{\small\textbf{#1}}
+
+% End of preamble. Here it comes the document.
+% \begin{document}
+
+% \CopyrightYear{2016} 
+% \setcopyright{acmlicensed}
+% \conferenceinfo{CHI'16,}{May 07 - 12, 2016, San Jose, CA, USA}
+% \isbn{978-1-4503-3362-7/16/05}\acmPrice{\$15.00}
+% \doi{http://dx.doi.org/10.1145/2858036.2858529}
+
+% \title{Interacting with Predictions: Visual Inspection of Black-box Machine Learning Models}
+
+% \numberofauthors{3}
+
+% \author{%
+%   \alignauthor{Josua Krause\\
+%     \affaddr{New York\\University}\\
+%     \affaddr{New York, NY, USA}\\
+%     \email{josua.krause@nyu.edu}}\\
+%   \alignauthor{Adam Perer\\
+%     \affaddr{IBM T.J. Watson\\Research Center}\\
+%     \affaddr{Yorktown Heights, NY, USA}\\
+%     \email{adam.perer@us.ibm.com}}\\
+%   \alignauthor{Kenney Ng\\
+%      \affaddr{IBM T.J. Watson\\Research Center}\\
+%     \affaddr{Yorktown Heights, NY, USA}\\
+%     \email{kenney.ng@us.ibm.com}}\\
+% }
+% \maketitle
+
+  % UPDATED---\today. Abstracts should be about 150 words and
+  % are required.
+
+%%  Understanding predictive models is a challenging task. Often feature importance
+%% given by a model is only a rough estimate condensed into one number. Using
+%% partial-dependence plots for input features we can visually gain a feeling of
+%% how a model is influenced by a given feature. In order to achieve this we treat
+%% our machine learning model as a black-box, change our input data slightly, and
+%% show the changes of the prediction. Using this technique we gain interesting
+%% insights into multiple machine learning models and in turn how to improve them.
+%% Furthermore, in the domain of health-care analytics we also use this approach to
+%% focus on a single patient. Doing this we can interactively explore how
+%% influential features are for a patient. This local importance can be used to
+%% identify actionable features where a small change of the patient's state can
+%% lead to a significant change of the disease risk of this patient.
+
+% kng: I reworded the abstract ... feel free to not use if you don't like it
+\begin{quote}\textit{
+Understanding predictive models, in terms of interpreting and identifying actionable
+insights, is a challenging task.
+Often the importance of a feature in a model is only a rough estimate
+condensed into one number.  However, our research goes beyond these na\"ive estimates through the design and implementation of an interactive visual analytics system,
+\prospector. By providing interactive partial dependence diagnostics, data scientists can understand how features affect the prediction overall.  In addition, our support for localized inspection allows data scientists to understand how and why specific datapoints are predicted as they are, as well as support for  tweaking feature values and seeing how the prediction responds.  Our system is then evaluated using a case study involving a team of data scientists improving predictive models for detecting the onset of diabetes from electronic medical records.
+}\end{quote}
+% Using partial-dependence plots provides a way to visualize how a model
+% is influenced by a given feature.
+% This is achieved by treating the machine learning model as a black-
+% box, systematically changing the input data values, measuring and
+% then showing the changes in the prediction score.
+% Using this technique, insights into multiple machine learning models
+% can be obtained which can then in turn be used to improve them.
+% Furthermore, in the domain of health-care analytics, this approach can
+% be used to focus on a single patient. Specifically, one can
+% interactively explore how influential different features are for an
+% individual patient. This local importance can be used to identify
+% actionable features where a small change in the patient’s state can
+% lead to a significant change in the patient's predicted risk.
+
+\begin{quote}
+\textit{Josua Krause, Adam Perer, Kenney Ng}
+\end{quote}
+
+% \keywords{interactive machine learning; predictive modeling; partial dependence; %\joschi{sensitivity analysis;}
+% visual analytics; model visualization}
+
+% \category{H.5.m.}{Information Interfaces and Presentation
+%   (e.g. HCI)}{Miscellaneous}
+   % \category{See
+  % \url{http://acm.org/about/class/1998/} for the full list of ACM
+  % classifiers. This section is required.}{}{}
+
+\input{prospector/introduction}
+\input{prospector/motivation}
+\input{prospector/related_work}
+\input{prospector/system}
+\input{prospector/case_studies}
+\input{prospector/conclusion}
+% \balance{}
+
+% \bibliographystyle{SIGCHI-Reference-Format}
+% \bibliography{prospector}
+% \balance
+
+% \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

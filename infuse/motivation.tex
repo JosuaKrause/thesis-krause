@@ -1,0 +1,113 @@
+% !TEX root = ../featureselection.tex
+
+\section{Motivation}
+
+\subsection{Predictive Modeling in Healthcare}
+\label{sec:motivation_healthcare}
+Predictive modeling is a common and important methodology used
+in medical informatics and healthcare research.
+For instance, it can be used to detect diseases in patients early
+before they progress \cite{bellazzi2008predictive} and to
+personalize treatment guidelines to understand which populations
+will benefit from an intervention \cite{jensen2012mining}.
+In order to derive such insights and build successful predictive models,
+it is common for healthcare researchers to implement, evaluate,
+and compare many models with different parameters and algorithms.
+A common workflow for predictive models is a 5-step process,
+illustrated in Figure~\ref{fig:pipeline}:
+(1) cohort construction, (2) feature construction, (3) cross-validation,
+(4) feature selection, and (5) classification.
+There are currently few tools that support this complex
+workflow for predictive modelers.
+
+A recent platform, PARAllel predictive MOdeling (\textit{PARAMO}) \cite{paramo},
+enables users to specify a small number of high-level parameters
+to support this 5-step workflow.
+\textit{PARAMO} then uses Map-Reduce to execute these many tasks in parallel.
+After the models have been constructed and evaluated by classifiers,
+users can compare area under curve (AUC) scores of different models and select the
+ones with the highest predictive power.
+While this ability to construct and evaluate models at scale is
+an important breakthrough for clinical researchers, the clinical
+experts are still left out of the loop at each of these 5 stages,
+as each of the algorithms act as a black box.
+
+This type of workflow limits the ability of clinical researchers to use
+their domain knowledge to assist in the model building phase.
+While multiple models may have similar performance in terms of
+prediction accuracy, there is a desire to ensure that models
+with more clinically meaningful features are selected
+\cite{chen2006medical}.
+
+\subsection{Running Example: Diabetes Prediction}
+\label{sec:running_example}
+In order to make our contributions concrete, we
+utilize a running example from our case study.
+Our case study involves a team of four clinical researchers interested
+in using predictive modeling on a longitudinal database of
+electronic medical records. The research team consisted of one MD researcher with a background in emergency medicine, and three PhD researchers with backgrounds in healthcare analytics.
+Their database features over 300,000 patients from a major
+healthcare provider in the United States.
+The team is interested in building a predictive model to predict if a patient
+is at risk of developing diabetes, a chronic disease of high blood sugar levels
+that causes serious health complications.
+
+From this database, the team constructs
+a cohort (Step~1) of 15,038 patients.
+50\% of these patients (7,519) are considered
+incident cases with a diagnosis of diabetes.
+Each case was paired with a control patient based on
+age, gender, and primary care physician resulting
+in 7,519 control patients without diabetes.
+From the medical records of these patients,
+they extract four meaningful types of features (Step~2): diagnoses,
+lab tests, medications, and procedures.
+In total, there were 1,627,736 diagnosis events (6,709 unique types), 361,026 lab events (193 types), 818,802 medication events (344 types), and 853,539 procedures (4,403 types).
+For our visualization, we only consider types of features that were picked
+by feature selection algorithms which results in 859 features to display.
+
+Next, in order to reduce the bias of the predictive models,
+the team uses 10 cross-validation folds (i.e. random samples) (Step~3) to divide the
+population randomly into 10 groups.
+After cohorts, features, and folds are defined, the
+clinical researchers are ready to use feature selection.
+The team has four feature selection algorithms implemented
+and available to them (Step~4): these include \textit{Information Gain}
+and \textit{Fisher Score}, which have been used extensively by the researchers,
+as well as two new ones which were recently implemented by
+their technologists: \textit{Odds Ratio} and \textit{Relative Risk}.
+Finally, the team evaluates each selected feature set as a model using
+four classifiers (Step~5): \textit{Logistic Regression}, \textit{Decision Trees},
+\textit{Naive Bayes}, and \textit{K-Nearest Neighbors}.
+
+Typically, this team executes a pipeline of multiple feature selection
+algorithms, and chooses the model that ends up
+with the best scores from the classifier.
+Although this team has an interest in embedding domain knowledge
+into their models, their current platform for running predictive models
+does not have a user interface where users can view or edit the
+specific features that make up each model.
+Therefore, resulting models are typically not interpretable
+by domain experts,
+and do not support bringing in their medical expertise by prioritizing or removing features that may not be relevant to the disease they are modeling.
+
+\subsection{Task Analysis}
+\label{sec:task-analysis}
+
+The data analysis team initially expressed an interest of having a visual analytics system to aid them in making sense of the complex information generated by the modeling pipeline. During our interviews we agreed to focus on the feature selection and classification steps, as they needed visualizations to reason about the effects of choosing different combinations of the available algorithms. Without such visualizations, the researchers ability to choose among different algorithms is ineffective.
+
+Through our interactions with the analysts we derived three main tasks that guided the design of \infuse:
+
+
+\begin{description}
+\item[Task1 - Comparison of feature selection algorithms.] In data sets with thousands of features, it is important to have a quick way to understand how feature selection algorithms rank different features differently. Some of the typical questions the researchers ask are: ``\textit{Which features are consistently ranked highly by all the algorithms?}"; ``\textit{How much do the algorithms differ in their ranking?}"; ``\textit{Are there features that have a high rank with some algorithms and a low rank with some others?}"; ``\textit{How robust are the rankings with respect to different data samples?}"
+
+\item[Task 2 - Comparison of classification algorithms.] The output of each feature selection algorithm is used to feed a series of classification algorithms. At the end of this process, the user is left with a $F \times C$ number of performance comparisons, where $F$ is the number of feature selection algorithms and $C$ the number of classification algorithms. Typical questions our researchers ask are: ``\textit{Which combinations of feature selection and classification algorithms give the best scores?}"; ``\textit{Are there feature selection algorithms that score consistently better across the set of classification algorithms?}"; ``\textit{Are there classification algorithms that score consistently better across the set of feature selection algorithms?}"; ``\textit{Which sets of features are selected in the model(s) that give the highest performance?}"
+
+\item[Task 3 - Manual selection and testing of new feature sets.] Related to the last question of Task 2, the researchers see value in being able to add or remove features of interest from models. This is desired because there can be additional domain-relevant knowledge, beyond model performance, to introduce a desired feature or remove an undesired one.  Typical questions our researchers ask are: ``\textit{How does the performance of the model increase or decrease if I remove or add these features?}"; ``\textit{How does a new model compare to the models automatically built by the system?}"
+%;``\textit{How predictive is a single feature?}"
+%;``\textit{Could switching to a different lab-test yield similar performance while being less expensive?}".
+\end{description}
+
+
+\infuse was designed to support these three tasks by providing a visualization of large sets of features and how these features are used by the modeling algorithms. After several design iterations, we converged on a visual design where features are first-class citizens of the visual representation: that is, each visual object in the main view represents a feature and its design and layout reflects information obtained from the algorithms.  A representation centered on features aligns well with the analysts' mental model and makes features easily identifiable through their names. Each feature, in fact, represents real-world entities like medications, lab tests and diagnoses, that have rich semantics and can be easily identified and understood by domain experts.

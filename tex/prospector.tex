@@ -1,0 +1,37 @@
+\chapter{Prospector}
+\label{chap:prospector}
+\input{prospector/prospector}
+
+\section{Context in Thesis}
+\prospector~\cite{prospector16} explored model dependent feature importances that allow for a fine grained value influence analysis.
+From that we derived local feature importances that apply to single instances and give insights into the decision making process of the machine learning model in the given case.
+We showed that this method can be used to verify strengths and understand short-comings of models.
+However, the method focuses on individual features preventing insights related to combinations of features.
+Furthermore, the user has to choose between a heavily aggregated global view of the model's decision making or an individual instance-level view which is too fine grained to be useful for models with many instances.
+To overcome those problems we developed the workflow presented in the next Chapter.
+
+% \section{Prospector: Visual Inspection of Black-box Machine Learning Models}
+% \label{sec:Prospector}
+% \textbf{Prospector} is a novel visual analytics system designed to help analysts better understand predictive models \cite{prospector16}.  \textbf{Prospector} aims to support data scientists to go beyond judging predictive models solely based on their accuracy scores by also including model interpretability and actionable insights. It leverages the concept of partial dependence \cite{friedman2001}, a diagnostic technique that was designed to communicate how features affect the prediction, and makes this technique fully interactive. 
+
+% \input{figs/prospector/debug}
+
+% \figref{figs:prospector_debug} shows how partial dependence can be used to debug machine learning models in \textbf{Prospector}. In this example imputation of missing values created unexpected behaviour of the inspected
+% classifier. Partial dependence is given by
+% \[
+% pdp_f(v) = \frac{1}{N} \sum_i^N pred(x_i) \;\text{with}\; x_{if} = v
+% \]
+% where $N$ is the number of rows in the input matrix $x$,
+% $pred$ is the prediction function that takes one input row, a feature vector, and returns a prediction score,
+% and $f$ is the feature used to compute the partial dependence plot.
+% The formula computes the average outcome over all input rows while changing the value of feature $f$ to the
+% input value $v$ for each row $x_i$. The original input data is kept fixed. This allows for observing the influence of $f$
+% on the prediction scores. Unlike generalized additive models, \emph{eg.,}~\cite{Caruana:2015:IMH:2783258.2788613}, this technique is model agnostic.
+
+% \textbf{Prospector} also supports localized inspection, so users can understand why certain data results in a specific prediction, and even lets users hypothesize new data by tweaking values and seeing how the predictive model responds.  Users can interactively tweak feature values and see how the prediction responds, as well as find the most impactful features using a novel model agnostic local feature importance metric that only depends on partial dependence.
+
+% \input{figs/prospector/risk}
+
+% \figref{figs:prospector_risk} shows the prediction inspection portion of the \textbf{Prospector} UI, which allows users to examine the features contributing to the prediction of a selected data point. All of the features’ partial dependence bars are shown in a scrollable list, with the data's feature values set with circular labels. Users can drag the circular label to change the value of any feature and see the prediction change in real-time.
+% % Users can also select a feature and see the corresponding typical partial dependence plot of the feature. In this plot the local partial dependence of the current data point is shown as black curve and the global partial dependence of the whole population of data points is shown in gray. The partial dependence plot is also clickable and users can change the feature value here as well, changing the black vertical line that, in this plot, shows the current value.
+% Users can change the sort order of the partial dependence bars by using the buttons at the top. In addition to sorting by the feature weight and relevance as determined by the predictive model if available, users can also sort according to our local feature importance and impactful changes. If impactful changes are chosen as the sort order, the suggested changes to each feature are indicated with a white circular label in the partial dependence bar.

@@ -1,0 +1,78 @@
+\section{Related Work}
+% \begin{itemize}
+%     \item \joschi{model tracker looking at prediction score distribution and single items}
+%     \item \joschi{specialized models aka GAM}
+%     \item \joschi{TODO more and categorize papers}
+% \end{itemize}
+
+In the following, we discuss model explanations and visual analytics techniques used for interacting with classification models.
+
+\subsection{Model Explanations: \textit{Why} and \textit{How}}
+
+Explanations of behavior of autonomous systems~\cite{Lim:2009:ADI:1620545.1620576} or computational models~\cite{dasgupta2017familiarity} can lead to a high degree of human-machine trust. In machine learning, model explanations are beginning to be used in human-in-the-loop data analysis applications for communicating information about model behavior and predictions. While there are some studies~\cite{harmful} that show that explanations can lead to over-reliance on the system, generally it has been posited that model explanations lead to a high degree of human interpretability and trust~\cite{lipton2016mythos}. Similar to the latter, our goal in this work was to develop a visual analytic workflow for model explanations and to work closely with data scientists and domain experts to understand how that could lead them to understand and trust model behavior.
+
+In the literature, we find two contrasting purposes behind generating model explanations. The first approach is embedded within the interactive machine learning pipeline and helps end users in refining a model's predictions by interacting with the model structure. This helps users to build a mental model about the model reasoning process~\cite{Kulesza:2015:PED:2678025.2701399}. Through the EluciDebug approach, Kulesza \etal lay out a set of principles for the process of explanatory debugging using a Na\"ive Bayes classifier model.
+Although the principles are generally applicable, the explanation technique is specifically applicable only to a particular model.
+Furthermore, additive models enable intuitive explanations through feature contributions that allow both to visualize the decision making process for single instances \cite{Poulin:2006:VEE:1597122.1597143} and feature contributions on a population level \cite{Caruana:2015:IMH:2783258.2788613}.
+However, this solution requires the use of an additive model and as such it is not generally applicable.
+
+To overcome this limitation, a second approach for explanation generation is to treat the machine learning model as a black box, bypassing the model structure, while communicating the input-output relationships and their relevance to a model's decisions to an analyst, \eg, inferring rules from a neural network~\cite{Craven98usingneural}, or generating explanations~\cite{DBLP:journals/corr/RibeiroSG16,prospector}. We adopt this black-box approach in our workflow for benefiting domain experts, who are not trained in machine learning, and also for providing data scientists with a model-agnostic and generalizable diagnostic interface for inspecting model quality. In previous work, local explanations have been used to diagnose how models make decisions for single instances of a data set~\cite{infuse,prospector,DBLP:journals/corr/RibeiroSG16}.
+In contrast, we provide an interactive workflow where users can explore aggregated representations of explanations and better understand the context of model decisions by iterating across explanation-level and instance-level visual summaries of prediction quality.  
+
+% local explanations for deriving more holistic insights about the validity of model decisions. 
+
+
+
+
+
+% \subsection{Analyzing Model Predictions}
+
+
+
+% What questions data scientists or domain experts are interested in while analyzing the quality of model predictions?
+
+
+\subsection{Human-in-the-Loop Inspection of Classifiers}%Classification Models}
+
+Researchers have recently demonstrated how human interventions can help in greater accuracy in construction of classifiers, when compared with a purely automated approach~\cite{tam2017analysis}. In this work, Tam \etal used information theory to show how soft knowledge of model developers can be encoded in decision trees, and they advocate a tighter integration between human and machine-centric processes for model development. The goals for integrating visual analytic techniques and classification methods fall broadly into three categories, as proposed by Liu \etal~\cite{liu2017towards}: i) model understanding, ii) model diagnosis, and iii) model refinement. Our proposed diagnostic workflow~(Figure~\ref{figs:workflow}) encompasses the goals of understanding model behavior and diagnosing the model decision space for enabling data scientists and domain experts to generate insights about potential inadequacies in the data and in the model quality. The refinement step is an obvious action as a result of these insights, but is outside the scope of our work.
+
+Analyzing summary statistics of model performance through the lens of visualization techniques is the most common approach for finding matches and mismatches between model predictions and ground truth data. To this end, ModelTracker~\cite{amershi15} provides a unified interface for error detection and debugging for binary classifiers showing item-wise distributions of prediction scores. Bilal \etal propose the confusion wheel visualization~\cite{alsallakh2014visual} and other linked views to show probabilities of items belonging to different classes for multi-class classifiers.  Squares~\cite{ren2017squares} provides a single, unified visualization of performance metrics and easy accessibility to the data for debugging multi-class classifiers. For enhancing the interpretability of classifier predictions, Cortez and Embrechts~\cite{cortez2011opening} use a sensitivity analysis approach for letting users understand the effects of variation of input values on model outputs. While these methods are able to diagnose performance issues 
+at the level of a single item~\cite{alsallakh2014visual,amershi15,ren2017squares} or single features~~\cite{cortez2011opening}, they lack a holistic summary of the entire decision space that exposes associations among subsets of items and features, and communicates the reasons behind the model decisions. Through an explanation-based approach, we can let analysts explore these associations for a large, high-dimensional data set, drill-down to individual items, and diagnose potential problems with respect to both global and local decisions. This leads to actionable insights about the limits to which model quality can be improved, and ultimately, hints about how to improve the data.
+
+% %  \joschi{
+% As preliminary work we published previous iterations that helped to shape the proposed workflow here.
+% In \cite{class_signatures} we investigated alternative methods of grouping the data.
+% % set by relying solely on prediction scores of the model.
+% However, we realized that those methods mostly reflect the intrinsic structures of the data set instead of the decision making process of the model.
+% As such, detected relations stay superficial as those relations cannot be sufficiently complex to match those of a machine learning model.
+% In \cite{rivelo} we investigated model exploration capabilities of explanations by focusing on common features in explanations. This approach shows which features were used for predicting in general, which is at odds with mainly focusing on strongly correct or problematic behavior.
+% % }
+
+% Probabilistic Classifiers.
+
+% While a class of visual analytic techniques that help in feature selection~\cite{infuse,choo2010ivisclassifier} and feature engineering~\cite{brooks2015featureinsight,heimerl2012featureforge}, they work with the assumption that high quality data and useful features are already available to the model. In contrast the explanations we provide help analysts to use their domain knowledge and detect if the features used by the model are relevant, and how different combinations can be used to improve the prediction scores. 
+
+
+% \begin{itemize}
+%     \item Common method for analyzing quality of model predictions is by looking into summary statistics. Tools exist for visualizing model performance interactively (ModelTracker\cite{amershi15}, Squares\cite{ren2017squares}) Sensitivity Analysis.\cite{cortez2011opening}
+%     \item A concrete example why performance measures are necessary but not sufficient. Do we have one example paper we can cite?
+%     \item We use explanations as a richer way to expose the associations among items, features and labels, and diagnose why a model made a particular decision.
+% \end{itemize}
+
+% role of human in the loop:\cite{tam2017analysis}
+
+% Feature Engineering: 
+
+% \cite{infuse} Infuse
+
+% \cite{brooks2015featureinsight} FeatureInsight
+
+% \cite{heimerl2012featureforge} FeatureForge
+
+% \cite{alsallakh2014visual} Probabilistic Classification Models.
+
+% \cite{choo2010ivisclassifier} IvisClassifier
+
+% Semantic Quality: (degree to which the predictions reflect reality and features used in those predictions make sense for a domain expert)
+% \cite{rheingans2000visualizing}
+

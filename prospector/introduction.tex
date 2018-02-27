@@ -1,0 +1,47 @@
+% !TEX root = ../prospector.tex
+
+\section{Introduction}
+
+In the era of data-driven analytics, there is growing demand to generate and deploy predictive models in a variety of domains so that the patterns unearthed from massive amounts of data can be leveraged
+% for the greater good.
+and converted into actionable insights.
+Predictive modeling is defined as the process of developing a mathematical tool or model that generates an accurate prediction \cite{kuhn2013applied}.  As an example, in healthcare, if one can model the data characteristics of patients who will likely develop diabetes, healthcare institutions could deploy such a model on their patient databases, and automatically flag high risk patients to clinicians to make sure they are being treated appropriately.  However, building such models on noisy, real-world data is quite challenging.  
+
+Data scientists often turn to machine learning, where the goal is to create predictive models based on information automatically learned from data with ground truth.  However, these machine learning techniques are often black-boxes and may be selected based only on performance metrics such as high accuracy scores, and not necessarily based on the interpretability and actionable insights of the model.  There has recently been a variety of techniques to inject humans-in-the-loop when building predictive models based on machine learning, from interactive training \cite{export:241307} to interactive feature selection \cite{infuse}.  However, interactive systems to effectively assess and evaluate the interpretability and actionable insights of a predictive model that go beyond simple accuracy metrics is still lacking.  We believe bringing humans into the loop at this stage can possibly lead to better models and consequently improved outcomes when the models are deployed.
+
+Our research aims to support data scientists to go beyond judging predictive models solely based on their accuracy scores by also including model interpretability and actionable insights.  Towards this goal, we developed \prospector, a novel visual analytics system designed to help analysts better understand  predictive models.  \prospector leverages the concept of partial dependence, a diagnostic technique that was designed to communicate how features affect the prediction, and makes this technique fully interactive.  \prospector also supports localized inspection, so users can understand why certain data results in a specific prediction, and even lets users hypothesize new data by tweaking values and seeing how the predictive model responds.  We also demonstrate, through a case study, how the system can lead to important insights for clinical researchers building models that try to predict patient outcomes based on electronic medical records.
+
+Concretely, our contributions include:
+
+\begin{itemize}
+\item A design and implementation of an interactive visual analytics system,
+\prospector, for assessing the interpretability and actionable insights of trained predictive models by supporting:
+\begin{itemize}
+    \item Interactive partial dependence diagnostics to understand how features affect the prediction overall. There are novel visual representations, sampling strategies, and support for comparing multiple models.
+    \item Localized inspection to understand how and why specific data points are predicted as they are.  Users can interactively tweak feature values and see how the prediction responds, as well as find the most impactful features using a novel local feature importance metric.
+  \end{itemize}
+\item A case study of data scientists using
+\prospector to improve predictive models for detecting the onset of diabetes trained from electronic medical record data.
+\end{itemize}
+
+% \begin{itemize}
+%   \item Machine learning algorithms increasingly being relied on in data science.
+%   \item One such class of machine learning algorithms are predictive classifiers.
+%   \item Predictive models offered judged by their accuracy score, and not necessarily by their components.
+%   \item For those examining components, judgment is often done via naive importance weights
+%   \item Our contribution is to go beyond these naive metrics to provide:
+%   \begin{enumerate}
+%     \item Partial Dependence.  Understand how features affect the prediction overall.  Leverage an existing diagnostic technique called partial dependence, but make it interactive/coordinated.
+%     \item Localized Inspection.  How does the model affect specific data rows (patients).
+%   \end{enumerate}
+%   \item Deeper inspection of predictive models can help ensure the models are grounded in reality.
+%   \item Help data scientists focus on determining actionable features (to go beyond prediction) e.g. focusing clinicians on features that may improve the patient's health, or focusing city managers on features that may lower crime.
+% \end{itemize}
+
+% Theme of 2016 conference is \#chi4good.  Play up how bringing humans in the loop for important domain predictions can possibly lead to better models and better outcomes.
+
+% Two parts:
+% 1. what are partial dependence plots good for? (global)
+% its useful for inspecting and improving models.
+% 2. how to use partial dependence for predicting single rows (local)
+% its also useful as a local tool for understanding the impact of the model on specific data points.

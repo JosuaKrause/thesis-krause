@@ -1,0 +1,105 @@
+%!TEX program = xelatex
+
+% \documentclass[journal]{vgtc}                % final (journal style)
+% \documentclass[review,journal]{vgtc}         % review (journal style)
+%\documentclass[widereview]{vgtc}             % wide-spaced review
+%\documentclass[preprint,journal]{vgtc}       % preprint (journal style)
+%\documentclass[electronic,journal]{vgtc}     % electronic version, journal
+
+% \usepackage{mathptmx}
+% \usepackage{graphicx}
+% \usepackage{times}
+% \usepackage{subfigure}
+% \usepackage{amsmath}
+% \usepackage[usenames,dvipsnames]{xcolor}
+% \usepackage{tikz}
+% % \input{tex/packages}
+% \usepackage[bookmarks,backref=section,linkcolor=black]{hyperref} %,colorlinks
+% \hypersetup{
+%   pdfauthor = {},
+%   pdftitle = {},
+%   pdfsubject = {},
+%   pdfkeywords = {},
+%   colorlinks=true,
+%   linkcolor= black,
+%   citecolor= black,
+%   pageanchor=true,
+%   urlcolor = black,
+%   plainpages = false,
+%   linktocpage
+% }
+% \usepackage[numbers,square]{natbib}
+% \usepackage{doi}
+% \usepackage{url}
+
+%\newcommand{\enrico}[1]{\textcolor{NavyBlue}{[#1]}}
+%\newcommand{\joschi}[1]{\textcolor{JungleGreen}{[#1]}}
+%\newcommand{\adam}[1]{\textcolor{RedOrange}{[#1]}}
+
+% \onlineid{0}
+% \vgtccategory{Research}
+% \vgtcinsertpkg
+
+% \title{INFUSE: Interactive Feature Selection for Predictive Modeling of High Dimensional Data}
+% \author{Josua Krause, Adam Perer, Enrico Bertini}
+% \authorfooter{
+% %% insert punctuation at end of each item
+% \item
+%  Josua Krause is with NYU Polytechnic School of Engineering. E-mail: jk4560@nyu.edu.
+% \item
+%  Adam Perer is with IBM T.J. Watson Research Center. E-mail: adam.perer@us.ibm.com.
+% \item
+%  Enrico Bertini is with NYU Polytechnic School of Engineering. E-mail: enrico.bertini@nyu.edu.
+% }
+
+% \shortauthortitle{Krause \MakeLowercase{\textit{et al.}}: }
+
+\input{infuse/abstract}
+
+% \keywords{Predictive modeling, feature selection,
+% classification, visual analytics, high-dimensional data}
+% %% ACM Computing Classification System (CCS).
+% %% See <http://www.acm.org/class/1998/> for details.
+% %% The ``\CCScat'' command takes four arguments.
+
+% \CCScatlist{ % not used in journal version
+%  \CCScat{K.6.1}{Management of Computing and Information Systems}%
+% {Project and People Management}{Life Cycle};
+%  \CCScat{K.7.m}{The Computing Profession}{Miscellaneous}{Ethics}
+% }
+
+% Uncomment below to include a teaser figure.
+
+
+\begin{figure*}
+\includegraphics[width=0.95\textwidth]{infuse/teaser}
+\caption{
+An overview of \infuse, a visual analytics tool that supports users to understand the predictive power of features in their models.  Each feature is ranked by various feature selection algorithms, and the ranking information is visualized in each of the three views within the system.  On the left, the Feature View provides a way to visualize an overview of all features according to their rank using a variety of layouts.  On the top-right, the List View provides a sorted list of all features, useful for selections.  On the bottom-right, the Classifier View provides access to the quality scores of each model.  Each of the views are coordinated, and users can brush between all three views.
+}
+\label{fig:teaser}
+\end{figure*}
+
+%% Uncomment below to disable the manuscript note
+%\renewcommand{\manuscriptnotetxt}{}
+
+%% Copyright space is enabled by default as required by guidelines.
+%% It is disabled by the 'review' option or via the following command:
+% \nocopyrightspace
+
+% \begin{document}
+\section{Introduction}
+
+% \maketitle
+
+\input{infuse/introduction}
+\input{infuse/motivation}
+\input{infuse/related_work}
+\input{infuse/system}
+\input{infuse/use_case}
+\input{infuse/conclusion_and_future_work}
+
+\input{infuse/acknowledgements}
+
+% \bibliographystyle{abbrvnat}
+% \bibliography{progressive_vis}
+% \end{document}

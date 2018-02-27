@@ -1,0 +1,103 @@
+% !TEX root = ../featureselection.tex
+
+\section{Related Work}
+While visualization of multidimensional data has traditionally focused
+more on the visualization of the data space, visualizing data features
+has important applications in real-world scenarios;
+especially when confronted with hundreds or even thousands of dimensions.
+In this context, visualization helps data analyst making sense of the
+feature space while including their background knowledge in the process.
+Visual feature selection can, for instance, help rank features according
+to predefined scores, detect similarities among dimensions
+(thus gauging intrinsic dimensionality of feature spaces),
+merge or combine features into composite features.
+In the following we review visualization literature that consider
+the specific problem of visualizing large sets of features.
+
+\subsection{Visual Feature Selection}
+%\enrico{I am wondering if there is a way to structure these techniques into some classes. For instance some are more into finding similarities and groups of dimensions others are more into ranking.}
+
+Several approaches to feature selection and dimensionality reduction, in general, exist in visualization.
+The early work of Guo~\cite{Guo2003} introduced the idea of
+visualizing relationships between features sets.
+His system is based on an interactive matrix view where rows and
+columns represent features and the cells are colored according to
+feature similarity (calculated as entropy and ${\chi}^2$).
+The matrix is automatically sorted to allow selection of subspaces
+(feature subsets) where data shows interesting clusters.
+Visual hierarchical dimension reduction \cite{wang2003interactive}
+allows detection and grouping of similar features as well.
+The technique is based on a hierarchical clustering algorithm
+which clusters dimensions in terms of their similarity and present
+them in a \textit{sunburst} visualization \cite{yang2003interactive}.
+Users can interactively choose an aggregation level and use the aggregated
+dimensions to display data with the reduced set of dimensions.
+Johansson and Johansson \cite{Johansson2009} present an integrated environment based on
+\textit{parallel coordinates} visualization where the number and order of
+dimensions (axes) presented at any time is guided by a ranking algorithm
+that takes into account associations as well as intrinsic interestingness of
+each feature to interactively choose how many features to visualize.
+Similar in spirit is the \textit{rank-by-feature} framework \cite{seo2005rank} in which
+the data features are organized, ranked and visualized in
+1D and 2D visual representations
+(e.g. histograms, bar charts and scatterplots).
+The user can for instance inspect a matrix of feature pairs,
+ranked by one of the available ranking functions, and single
+out those that show interesting associations.
+A similar mechanism is also used in \textit{scagnostics} \cite{wilkinson2005graph} a
+quality metric approach \cite{bertini2011quality} that ranks axis pairs according to the pattern/shape they create in a scatterplot visualization.
+
+More similar to the solution presented in this paper are visualizations that
+focus on plotting dimensions as data points in the visual representation
+(rather than, for example, as axes of a visualization where the data
+items represent records of a data table).
+\textit{Value and Relation Display} visualizes data features as icons
+in a scatter plot visualization \cite{YangPHMWR04}.
+The icons are positioned using a \textit{multidimensional scaling}
+algorithm which positions dimensions with
+similar distributions close together.
+The icons are designed to represent the distribution of the
+data values within the feature.
+Such a display allows to detect groups of similar dimensions
+and to construct multidimensional visualizations by subsetting
+the original feature space.
+\textit{Brushing Dimensions} \cite{Turkay2011} is a similar approach
+where data features are plotted as dots in a scatter plot using
+descriptive statistics as axes (e.g. variance, median, kurtosis).
+The plot is paired with a data item scatter plot which allows for data
+and feature linking and exploration.
+
+All of the methods described above are based on the calculation
+of statistical parameters from the data as a way to characterize
+and expose relationships between the features.
+Our approach differs in that \infuse interacts directly
+with feature selection and classification algorithms to help in
+the discovery of predictive feature sets.
+A similar approach is found in \textit{SmartStripes} \cite{May2011},
+a visual analytics system that allows tight interaction between feature selection algorithms and visualization. Our system differs in that our focus is on the comparison of the output of multiple feature selection algorithms rather than a single one.
+
+
+
+%\joschi{\cite{Guo2003} interactive feature selection -- entropy matrix etc}
+%\joschi{\cite{Ingram2010} creating workflow for feature reduction}
+%\joschi{\cite{Johansson2009} interactive dim reduction via user defined weighting}
+%\joschi{\cite{Kidwell2008} visualizing partially ranked data}
+%\joschi{\cite{May2011} guiding fs with interactive system}
+%\joschi{\cite{YangPHMWR04} features as points in scatterplot -- high dimension exploration -- MDS of correlation as layout}
+%\joschi{\cite{Seo2005} rank by feature -- dendogram, scatterplot, matrix, list view}
+%\joschi{\cite{Turkay2011} brushing dimensions}
+
+%\enrico{Other things we might want to include is subspace visualization as in a way it deal with the problem of finding feature subsets. E.g., Work from myself and from Wilkinson at VAST.}
+%\joschi{PARAMO \cite{paramo}}
+%\enrico{Should we briefly review feature selection strategies and algorithms as well?}
+
+\subsection{Visualization in Predictive Modeling}
+%\cite{kuhn2013applied} for examples of other predictive modeling systems.}
+
+%\adam{should we put general interactive machine learning techniques, e.g. Amershi, S., Fogarty, J., Kapoor, A., and Tan, D.(2011) Effective End-User Interaction with Machine Learning. In Proceedings of the AAAI Conference on Artificial Intelligence (AAAI 2011), Nectar Track, pp. 1529-1532.}
+%\enrico{Yes, now I realized there is quite some stuff to cite here. Some work on interactive visual classification from Ankerst and Kwan Lu Ma. SOme recent work at VAST. Some stuff from the MSR folks.}
+
+Visualization has also been used to aid in the creation of predictive models, not only in the selection of features that might be helpful in constructing such models. Visual construction and assessment of decision tree models have been the subject of a good number of works in the field. Ankerst \emph{et al.}, introduced the idea of using pixel-based visualization as a way to manually construct decision trees by giving the user the ability to observe class distributions within each node and to interactively select splitting points \cite{ankerst1999visual, ankerst2000towards}. A similar idea is proposed in \textit{PaintingClass} a visualization technique to manually build a decision tree through interaction of parallel coordinates and multidimensional scaling techniques to identify coherent groups of multidimensional data \cite{Teoh:2003:PIC:956750.956837}. More recently, \textit{BaobabView} has been presented as a system to inspect and validate a classification model through a tree representation. The paper presents a thorough analysis of the number of tasks that visualization can support in this area and how they are covered by the proposed system \cite{van2011baobabview}.
+
+While all the aforementioned systems focus largely on decision trees, visualization has been used in other classification and regression systems that leverage other prediction models. The \textit{iVisClassifier} \cite{choo2010ivisclassifier} for instance uses \textit{linear discriminant analysis (LDA)}, a supervised dimensionality reduction method, to project multidimensional data in a scatterplot visualization taking into account information provided by the data labels. The technique allows to visually link the high-dimensional structure to the low-dimensional representation and build clusters. The clusters are then used to classify new data that is progressively introduced into the system to refine the model. Steed \emph{et al.}, in their \textit{cyclone trend analysis} provide a parallel coordinates visualization that leverage computational analysis to identify features with high predictive power in stepwise regression tasks and allows to build predictive models for multidimensional climate data \cite{steed2009guided, steed2009tropical}. Recently, a visual analytics system for regression analysis has been proposed by M\"uhlbacher and Piringer \cite{muhlbacher2013partition}. The system is more similar to our work in nature as it also focuses on the predictive power of feature sets and guides the user in the predictive modeling process. The main difference between this work and ours is our focus on classification rather than regression models and the use of multiple feature selection and classification models to better understand how features score across multiple models.
+

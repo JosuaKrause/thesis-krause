@@ -1,0 +1,187 @@
+\section{Model Diagnostics}
+\label{sec:model-diagnostics}
+
+We use the term \textit{model diagnostics} to indicate the steps necessary for a domain expert or a model developer to semantically validate the decisions made by a model using their domain knowledge. In this section we outline the different goals for a user when using a model diagnostic interface and provide an overview of the implementation of the resulting workflow~(Figure~\ref{figs:workflow}). 
+The workflow was derived through a long term collaboration among visual analytic researchers and model developers and domain experts in the medical field, specifically in the application scenario of hospital visits. The over-arching goal in this scenario is to use predictive modeling for reducing patient wait time and optimizing the hospital resources needed for admitted patients.
+
+% The main purpose of the workflow we propose is to support the experts in answering the following key questions for model understanding and diagnostics.
+
+\subsection{User Goals}
+
+In the course of our interactions with domain and machine learning experts and analyzing a variety of model building problems, we realized that the model diagnostics problem can be decomposed into the following main goals; which we express as a set of questions as shown in Figure~\ref{figs:workflow}.  
+
+% \aritra{There is a lot if literature on model performance analysis. We should explain what we mean by diagnostics and why it goes beyond performance analysis.}
+
+\textit{G1: What is the overall accuracy of the model?} In this step, experts need to get an overview of the distribution of prediction scores across the data items, derive an understanding about the uncertainty associated with predictions of certain items, and generally where the predictions are correct or incorrect.
+
+%A simple manual inspection of prediction scores for large, high-dimensional data sets is often inefficient as significant number of iterations are required between switching between analysis of predictions scores and the associated sets of features and items.
+
+\textit{G2: What are the main decisions the model makes?} A trained classifier creates a decision space that maps a (potentially high-dimensional) input space into the output space defined by the two labels \textit{true} and \textit{false}. Understanding what these decisions are and how frequently they are made is a crucial piece of knowledge domain experts want to draw from the classifier. For instance, in the healthcare scenario we explore in this paper it is crucial for domain experts to know that the vast majority of decisions the classifier makes are based on a small set of drugs (features). They also want to ensure that different sets of drugs are used by the classifier to make decisions about different sets of patients (\eg, a group of patients is characterized by \emph{Ondansetron} and \emph{Sodium Chloride}, whereas another is characterized by antibiotic drugs).
+
+\textit{G3: How accurate are the decisions the model makes?} Together with knowing what decisions the model makes, it is crucial to also know how accurate these decisions are. Using the same example as above, it is not sufficient to know that the model classifies a group of patients according to the drugs they received, but also how often this decisions are correct or incorrect.
+
+\textit{G4: How can one change the data or the model to improve its decisions}? Understanding decisions and assessing their accuracy is relatively useful, but the ultimate goal for a model developer is to actually gain \textit{actionable} insights on how the model can be \textit{improved}. Some of the insights experts want to derive include: whether the model parameters should be tuned or a better set of features should be derived.
+
+% \aritra{added some text to refer to the figure}
+In this work we do not provide specific support for the actual parameter tuning or data processing steps necessary to improve the model.
+The black-box nature of our approach is illustrated in Figure~\ref{figs:workflow}, which shows that the model diagnostic workflow is an extension of (and not a part of) the existing model building workflows that data scientists follow as part of their routine. Modelers have specific ways and tools to perform these steps and intervening on their established practices is out of the scope of this work. Rather, in this work we focus on providing support for the diagnostic part experts may want to execute at the end of each modeling round and which is currently not well supported by existing tools and practices.
+% Our workflow takes a trained model as an input.
+The diagnostic insights produced by our workflow provides hints about whether the input data or the model structure needs to be changed for improving the prediction quality.
+
+\subsection{Workflow}
+\label{sec:workflow}
+
+% \aritra{edited to remove redundancy and make terms used more clear.}
+
+The workflow we propose results from two pre-processing operations: \textit{explanation generation} and \textit{visual mapping}.
+
+\textit{Explanation generation} takes as an input a data set and a trained binary classifier and creates for each instance in the data set an \textit{explanation}. An explanation is a description of the logic (or rule) the classifier uses to assign a given label to the instance. For this purpose, we leverage a method developed by Martens and Provost~\cite{martens2007comprehensible}, which computes, for a given instance which features need to be ``removed" in order to change the classification outcome. For instance, in a text classification problem, an explanation for a document consists of the words that need to be removed in order to change the label originally assigned by the classifier. In Section~\ref{sec:algo} we describe in more detail how the explanation method works.
+
+\textit{Visual mapping} takes as an input the data set and the set of explanations, and builds a set of interactive visualizations~(Figure~\ref{figs:workflow}) that support the user goals we outlined above. The interactive workflow revolves around three main linked interfaces; each one supporting the analysis of model decisions at different levels of granularity and addressing the user goals. 
+
+%\aritra{Too much detail and forward referencing in the text below. We should not expect people to refer to figures that are 4-5 pages later. I also think it is too early to describe the visualizations/interface. We are also calling it "interface" here and later terming them as "panels".}
+
+% \begin{enumerate}
+\par \noindent \textbf{Outcome-level.} The first step focuses on overall accuracy of the model, using a representation similar to a confusion matrix. The main goal of this step is to get a sense of how data distributes across the prediction score computed by the classifier (typically a score between $[0, 1]$), and the four possible outcomes: true or false positive and true or false negative. By visualizing how data distributes across the four possible outcomes the user can gain a sense of how accurate the model is~(\textbf{G1}) and whether errors cluster around particular sets of scores.
+    
+    %Figure~\ref{figs:overview}, shows an examples of how this information is visualized. The x-axis represents the prediction score computed by the classifier, an the bars show how data distributes across the four possible outcomes: false positive (orange hatchet bars), true positive (orange bars), false negative (blue hatchet bars), and true negative (blue bars) instances.
+    
+\par \noindent \textbf{Feature-level.} The second step uses the computed explanations to generate an overview of decisions made by the classifier and their accuracy. Each explanation is described by the set of features it uses to explain an instance and, as such, it provides a description of how the model makes its decisions. In this step, we group together all the explanations (and thus the instances) that contain the same set of features, compute accuracy statistics on top of them, and use these groups as a visual interactive summary of the decisions the model makes. By visualizing the explanations and their accuracy the user can get a sense of what are the major decisions the model makes and how accurate they are~(\textbf{G2, G3}).
+    
+    %For each explanation we also compute the proportion of false / true negative / positive outcomes and visualize them as shown in Figure~\ref{figs:expl_main}. Each row represent one explanation. The labels represent the set of features contained in the explanation. And the stacked bars show how many instances are covered by the explanation and how they distribute across the four possible outcomes.
+    
+\par \noindent \textbf{Instance-level.} The third step focuses on the analysis of a single user-selected explanation and the instances it explains. Once an interesting explanation has been found in the previous step, it is often useful and necessary to drill-down to the individual instances to observe how the data items contained in an explanation distributes in the original data space. Being able to observe their actual data values and the decisions the model enables experts in formulating hypotheses about why the classifier fails to make correct decisions with some instances. In other words, when it is possible to visually compare the data values of instances that have the same explanation but different outcomes, users can draw inferences on the root cause of the diverging outcomes. Therefore, by visualizing single instances the user can reason on how the model makes decisions and derive potentially useful hypotheses about how they can be improved~(\textbf{G4}). 
+    
+    %based on a matrix layout (Figure~\ref{figs:inspect}), visualizes the set of instances contained in a user-selected explanation. Each column represents one feature in the data set and each row represents one instance. While the previous feature-level step helps gaining an overview of what decisions the model makes overall, and what features it uses for these decisions, the instance-level step helps derive more specific hypotheses about how and why a model makes its decisions on single instances.
+% \end{enumerate}
+
+These three steps are linked in a sequence by user-driven filtering mechanisms. The user can select specific sets of values at the outcome-level and visualize them at the features-level. While observing the main set of decisions at the feature-level, she or he can select specific explanations and inspect individual instances in the instance-level interface.
+
+% These three steps support the questions we have outlined above. By visualizing how data distributes across the four possible outcomes, the user can gain a sense of how accurate the model is overall and whether the errors cluster around particular sets values. By visualizing the explanations and their accuracy the user can get a sense of what are the major decisions the model makes and how accurate they are. By visualizing single instances the user can reason on how the model makes decisions and derive potentially useful hypotheses and how it can be improved (we will provide specific examples in the case study in Section~\ref{sec:case_study}).
+
+It is important to stress the key role explanations play in the workflow. By computing the explanations and computing statistics on top of them we can effectively provide a description of the main set of decisions the model makes \textit{without} having access to the internal logic of the model. The relevant aspect of explanations is that they compute a compact description of which features the model uses to make \textit{local} decisions for a \textit{subset} of instances. 
+For example, in the medical data analysis explored in this work, where each patient is described by the medications he or she received (features) and the classifier predicts whether the patient will be admitted or not, an explanation can identify a group of patients characterized by a small set of medications; that is, the medications the classifier uses to make its prediction.
+
+
+
+
+
+
+%We developed a model diagnostics workflow a six-month long collaboration among visual analytic researchers, machine learning modelers, and healthcare researchers and doctors ~(henceforth referred to as \textit{experts}). The collaboration involved face-to-face discussions about the common problems in their analysis pipeline. Through these interactions we developed a shared understanding of the current practices in predictive modeling of medical data and the shortcomings of the existing solutions, and derived a set of analytical goals and tasks that fit in a unified workflow and can be realized using a visual analytic interface. 
+
+
+%\subsection{Challenges}
+%
+%\begin{itemize}
+%\item Lack of flexibility
+%\item greater transparency
+%\item efficiency- model-specific vs model-agnostic
+%\end{itemize}
+
+
+
+
+
+%\subsection{Model Diagnostic Goals and Tasks}
+
+
+
+%In the course of our discussions with experts, we distilled a set of high-level diagnostic goals and tasks that they intended to perform using model explanations as a core part of their workflow. In the following, we discuss the workflow with respect to the three key steps, and their associated tasks and intended outcomes as illustrated in Figure~\ref{figs:workflow}.
+
+
+% \par \noindent \textbf{G1: What is the model doing?}: In this step, experts need to get an overview of the distribution of prediction scores across the data items, derive an understanding about the uncertainty associated with predictions of certain items, and generally where the predictions are correct or incorrect. A simple manual inspection of prediction scores for large, high-dimensional data sets is often inefficient as significant number of iterations are required between switching between analysis of predictions scores and the associated sets of features and items.
+
+% The analytical tasks to address those goal are the following: 
+
+% \par \noindent \textbf{T1.} Identify the common predictions based on the prediction scores and thresholds.
+% \par \noindent \textbf{T2.} Detect any overfitting of the data by looking into performance measures. 
+% \par \noindent \textbf{T3.} Get a general sense about which items are easy or difficult to predict for the classifier.
+
+% \noindent The intended outcomes of these tasks are two-fold: i) experts may decide to use a different model that gives better performance, and ii) using statistical performance measures of models as a starting point, experts can decide to focus on items of interest by using domain knowledge of experts. 
+
+
+% \par \noindent \textbf{G2: How is the model making  predictions about specific items?}: Experts often need to diagnose the causes about predictions of items of interest by probing the high-dimensional feature space and bypassing the inner workings of the model. An item-level analysis of single prediction score and a single feature vector is too granular, and it does not offer insight into groupings that might exist both itemwise and with respect to subsets of features. Clustering items in the original data space is also ineffective and potentially misleading as the data-space distances among items may not correspond with distances with respect to the model manifold, resulting in completely different outcomes for neighbors in the original space.  
+
+% The analytical tasks to address this goal are the following: 
+
+% \par \noindent \textbf{T4.} Use explanations as a means to group items and find groups of items with similar explanations.
+% \par \noindent \textbf{T5.} Detect the most common explanations and use domain knowledge to verify if they are meaningful. 
+% \par \noindent \textbf{T6.} Browse associations among features, items, and labels and inspect if the decisions lead to expected and unexpected insights.
+
+% \noindent The intended outcome of these tasks is for experts to make associations among items, featurs, and predictive labels, to develop trust in the model's decisions by observing if relevant features are used in the predictions, and if the different groupings make sense.
+
+% \par \noindent \textbf{G3: Why are local and global predictions different?}: Once experts have developed a general understanding of the features used in the model's decisions, they like conduct more fine-grained analysis of subsets of items and find the most discriminating features for a given subset. This can leading to finding problems with the data itself: an exact same data point having different ground truths. This implies that model diagnostics can also be used to correct errors in the data and subsequently improve the features used in the data for any given model.
+
+% The analytical tasks to address this goal are the following: 
+
+% \par \noindent \textbf{T7.} Identify the discriminating features for subsets of items.
+% \par \noindent \textbf{T8.} Find means for correcting any model errors and make the model use alternative sets of features. 
+
+% \noindent The intended outcome for this step is for domai experts to understand how improvements can be made to the data and feature choices for the model.
+
+% \smallskip
+
+%These set of diagnostic tasks were used for developing an explanatory visual analytic interface. In the following sections, we first describe our explanation algorithm~(Section 4), followed by a description of the design of the visual interface~(Section 5), and a presentation of two case studies~(Section 6) and lessons learnt from them~(Section 7).
+
+%\subsection{Data and Model Characterization}
+
+% The workflow we propose accepts as an input a $n$-dimensional table $D=\{f_1, \dots, f_n, T\}$, where each $f_i$ represents one \textit{feature} describing a characteristic of the objects described by the data (e.g., patients described by the medications they received) and $T$ represents the \textit{target}, that is, the outcome associated to this object (e.g., whether a patient is admitted in the hospital or not).
+
+% In this work we focus exclusively on datasets in which both the features and the target are binary, that is, where $f_i \in \{0, 1\}$ and $T \in \{0, 1\}$. Such simplification makes the problem easier to manage while preserving sufficient relevance. Datasets with such a structure are indeed very common in predictive analytics and describe a large variety of real-world cases. In addition, many datasets that do not emit such a structure can often be transformed into binary datasets with a binary outcome through feature transformation operations. In the rest of the paper we thus assume to work exclusively with such type of data.
+
+% The specific problem that is addressed here is for experts to understand and diagnose the predictions of a binary classifier.
+% While a very large proportion of the efforts in predictive modeling is on achieving accurate \textit{predictions}, these kinds of scenarios have less to do with prediction itself and much more with whether a model is able to provide plausible \textit{explanations} of the intricate set of relationships between features, their values, and the outcome.
+
+%The problem of model \textit{transparency} and \textit{interpretation} is important and very well recognized in machine learning, where model transparency is largely believed to be at odds with its performance; that is, models that features high predictive performance have low transparency and vice-versa~\cite{breiman2001}.
+
+
+
+% ====> MOVE THESE TO RELATED WORK AND/OR INTRO ??? <=====
+
+% Two main approaches are available in machine learning to allow an expert to inspect and better interpret a model. The first approach consists of training models that are \textit{intrinsically transparent}; that is, models whose structure is amenable to human interpretation. In this class of methods reside \textit{decision trees}, which produce a hierarchy of binary decisions connecting feature values to outcomes, and \textit{classifications rules}, which achieve the same goal by producing lists of logical rules (with feature values as antecedents and outcomes as consequent). All models based on linear regression, notably the popular \textit{logistic regression} and \textit{generalized additive models (GAMs)} are also somewhat amenable to human interpretations thanks to the weights they produce which communicate, for each feature, the strength and sign of its association with the outcome (\eg, positive and large weights imply a positive strong association between the feature and the outcome).
+
+% The second approach consists of using a trained model as a black-box and deriving explanations by looking exclusively at input-output relationships obtained by probing the model. In this class of methods resides partial dependence and sensitivity analysis which both rely on strategically creating new data points to observe the reaction of the underlying model.
+% %In theory, albeit not feasible in practice, all possible data points could be created to get a wholly understanding of the model.
+% The main limitation of those methods is the issue of representing and exploring the results forcing the interaction to be mostly one dimensional.
+
+% %\enrico{shall we give a name to these two approaches? Maybe white-box and black-box?}
+
+% When we look at all these methods we can identify a number of important limitations. The first approach has \textbf{limited flexibility}. It works only with a narrow set of models and, as such, does not provide a solution for all those cases where a different method needs to be used. They also provide a very specific kind of explanatory structure (e.g., hierarchies and rules) thus preventing the use of more generic solutions. The second approach has \textbf{limited explanatory power}, mainly because all approaches limit their analysis to the relationship between a \textit{single feature} and the outcome; thus not being able to generate more expressive associations that involve \textit{multiple features}\footnote{multiple features as in arbitrary many features}
+% and the outcome.
+
+% In our approach, we consider the classifier as a black box and derive \textbf{explanations} by looking exclusively at input-output relationships obtained by probing the model. While methods like partial dependence and sensitivity analysis, which rely on strategically creating new data points to observe the reaction of the underlying model can be used for such purposes, the main limitation of those methods is the issue of representing and exploring the results forcing the interaction to be mostly one dimensional. The main goal of the workflow is to produce ``visual signatures" generated by model explanations that are able to describe existing and interesting associations between the features $f_i$ in a high-dimensional space and the target $T$.
+
+%\begin{itemize}
+%    \item \joschi{introduce healthcare application}
+%    \item \joschi{doctors want to understand and trust and improve the model}
+%    \item \joschi{pair of domain expert and ML modeler}
+%    \item \joschi{developed user interface over months with constant back and forth}
+%    \item \joschi{improving the data since model reached capacity}
+%    \item \joschi{tasks:}
+%    \item \joschi{prediction strength of items (using prediction score as indicator)}
+%    \item \joschi{which items are easy/hard to predict}
+%    \item \joschi{what are common features/predictions?}
+%    \item \joschi{where is the model correct/incorrect?}
+%    \item \joschi{why is that?}
+%    \item \joschi{is it possible to improve those errors and if yes how?}
+%    \item \joschi{problem:}
+%    \item \joschi{item level analysis (ie. single prediction score, single vector) too granular}
+%    \item \joschi{clustering items does not work since (original space) close data items are not necessarily close in the ML model manifold (neighbors in the original space might have completely differently strong outcomes)}
+%    \item \joschi{using explanations as filter for which features actually contributed to a prediction}
+%    \item \joschi{we can analyze data items with the same explanation as groups / subsets of the data}
+%    \item \joschi{we propose workflow that includes explanation subsets}
+%    \item \joschi{1. improving the model / experimenting with different ML techniques}
+%    \item \joschi{using common model statistics to compare models: accuracy, ROC, AUC, confusion matrix, prediction score distribution}
+%    \item \joschi{2. looking at explanation groupings}
+%    \item \joschi{are there few general (short) explanations or many very specific (long) explanations? $\rightarrow$ overfitting (also compare train AUC to test AUC)?}
+%    \item \joschi{what are the most common explanations? are they positive / negative / correct / incorrect?}
+%    \item \joschi{which explanation subgroups are significant wrt. to the overall data set (odds ratio)?}
+%    \item \joschi{domain experts input on sanity of explanations/predictions -- do the groupings make sense with the given prediction?}
+%    \item \joschi{what is the correct / incorrect ratio of a given explanation? 100\% incorrect easy to fix just flip label but 50\% incorrect hard to fix since flipping would just make other half incorrect. are there features beside explanation that can help discriminating those cases?}
+%    \item \joschi{checklist: high / low accuracy; 50\% accuracy; high / low significant odds ratio; large insignificant odds ratios}
+%    \item \joschi{3. looking at items of explanation subsets}
+%    \item \joschi{what are the most discriminating features for the given subset?}
+%    \item \joschi{is it possible to use them to correct the mistakes?}
+%    \item \joschi{would this make sense from a domain experts perspective?}
+%    \item \joschi{sometimes we run into the exact same data point with different ground truths -- a domain expert is needed to determine how we can improve the data (!!! not the model !!!) to fix those problems}
+%\end{itemize}
