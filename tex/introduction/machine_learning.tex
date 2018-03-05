@@ -74,12 +74,37 @@ However, following we will discuss the most commonly used algorithms.
 - underfitting
 - data
 - model
+- unexpected and different from how humans would fail
 
 \section{Visual Analytics}
-% Visual analytics is the area of studying interactive graphical representations of abstract information with the help of computational and statistical procedures, in order to effectively analyze complex data. With regards to understanding the decision making of predictive machine learning models, there are two main strategies: white-box and black-box analysis \cite{class_signatures}.
-\todo{visual analytics}
-- use of high processing power of human eye
-- interaction
-- principles like Gestalt principles or preattentive perception or cleveland mcgill
+Gaining meaningful insights about large datasets is hard.
+While computing various statistics about the data is often helpful it might oversimplify or in some cases even mislead information about the data.
+One example dataset often used to demonstrate this is Ancombe's quartett \todo{cite ancombe}.
+The quartett consists of four different datasets that all have the same mean, standard deviation, \todo{what else?}.
+However, plotting the values of the datasets reveals that each one of those datasets obeys a different, unique characteriztic \todo{image}.
+
+Visual analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Ancombe's quartett mentioned above.
+This is often done in addition to and with the help of computational and statistical procedures.
+Various studies (\todo{cite}
 % http://info.slis.indiana.edu/~katy/S637-S11/cleveland84.pdf
-- ancombes quartett
+% preattentive, gestalt
+) have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual cortex \todo{?}.
+Additionally, interaction with the graphical representations allows to hide some of the information and reveal it through interaction to not overwhelm the analyst.
+For example, ``overview first; details on demand" \todo{shneiderman} is a popular mantra taking advantage of interaction.
+
+In the context of machine learning, visual analytics, at first, seems to be a roadblock.
+Integrating a human in a machine learning workflow inevitable leads to said human being the bottleneck.
+Humans are magnitudes slower than computers which have to idle while waiting for human input.
+Thus, human input should only be required for tasks that are impossible without.
+
+\todo{maybe mention hyperparameter / architecture here}
+For example, with the goal of improving the accuracy of a model a human should not have the task of, \eg, manually picking the order of the features to be included in a decision tree.
+A good intuition might outperform the computer momentarily but having an objective goal makes it possible to eventually find a suitable algorithm that is en par or even outperforms the human.
+Additionally, manual decisions are not generalizable to other tasks and not scalable to larger datasets which in turn is the reason to use machine learning to begin with.
+
+However, \todo{}
+
+- accuracy vs. semantic accuracy
+- debugging models / data
+- domain expert
+- understanding /trusting models
