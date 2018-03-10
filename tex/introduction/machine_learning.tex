@@ -53,14 +53,61 @@ There are too many algorithms for predictive models to list all of them here.
 However, following we will discuss the most commonly used algorithms.
 
 \subsubsection{Logistic Regression}
-\todo{log regr}
-- logistic regression
+Logistic Regression is one of the most popular algorithms in machine learning.
+This is due to its simplicity and its interpretability of the results.
+Suppose $x_i$ is the value of the feature $i$ of our data, a binary classification using Logistic Regression is equivalent to:
+\[
+l(x) = b + \sum_{i \in \mathcal{C}} w_i x_i
+\]
+where $\mathcal{C}$ is the set of features, $b$ and $w_i$ are the learned weights of the model, and the outcome is determined by whether the weighted sum $l(x)$ is larger or smaller than zero.
+In order to work with probabilities, have greater precision around the boundary, and to penalize points close to the boundary, a logistic function is used:
+\[
+L(x) = \frac{1}{1 + e^{-l(x)}}
+\]
+which gives the likelihood of one of the classes.
+In order to train the model, \ie, finding the best values of $b$ and $w_f$, the expression $(L(x) - y)^2$, where $y$ represents the ground truth 0 or 1 of the training instances, needs to be minimized.
+This can be done with techniques such as gradient descent.
 
-\subsubsection{Additive Models}
-\todo{additive models}
+One of the main advantages of logistic regression is its interpretability.
+The weights $w_i$ can be directly interpreted as how influential a particular feature is.
+That is, if the magnitude of a weight is large, a small change in the value $x_i$ of the feature has a big impact on the overall sum.
+Additionally, the sign of a weight indicates whether a particular feature is positively or negatively correlated with the outcome.
+For example, a simple (not necessarily correct) predictor for Type 2 Diabetes\footnote{A disease, affecting the body's ability to regulate blood sugar, which is mostly driven by lifestyle choices and associated with obesity and hypertension. The most common age of onset is between ${\sim}45$ and ${\sim}65$.} could look like:
+\[
+l_\text{diabetes}(x) = -1.9 + 0.01 x_\text{age} + 0.02 x_\text{mass} + (-0.3) x_\text{height}
+\]
+with $x_\text{age}$ in years, $x_\text{mass}$ in kg, and $x_\text{height}$ in m.
+From here, we can see that the model assumes that a high mass leads to higher Diabetes risk, old age also leads to a higher risk but less so than high mass, and large body height leads to a smaller risk.
+This gives a very intuitive understanding of how the model is reaching its conclusion.
+
+However, this example also illustrates some limitations of logistic regression models.
+BMI (Body Mass Index; $x_\text{mass} / x_\text{height}^2$) is a better indicator than mass or height alone, but cannot be expressed or learned by a logistic regression model\footnote{Note, that we could provide BMI directly but only because domain experts had inferred the importance of this relationship in the past. Alternatively, we could also provide features in logarithmic space enabling logistic regression models to learn this relationship, since logarithmic BMI is $\log{(x_\text{mass})} - 2.0 \log{(x_\text{height})}$.}.
+Additionally, since the influence of the features is always the same, one feature can force a prediction if its values are large enough.
+For example, the model will predict a high Diabetes risk with high age independent of the mass or height.\todo{cite paper}
+
+\subsubsection{Generalized Additive Models}
+A Generalized Additive Model (GAM) extends the idea of logistic regression \todo{cite paper; show influence function} to functions instead of weights:
+\[
+g(x) = b + \sum_{i \in \mathcal{C}} f_i(x_i)
+\]
+where $\mathcal{C}$ is the set of features, $b$ is the learned bias of the model, $f_i$ are learned influence functions, and the outcome is determined by whether the sum $g(x)$ is larger or smaller than zero.
+Having influence functions overcomes the restricted expressiveness of logistic regression models while maintaining its interpretability.
+The impact of individual features can be seen in the plots of the influence functions.
+
+In the Diabetes example from above, a GAM could solve the issue of always connecting high age to high Diabetes risk by decreasing the influence of the feature age for higher values than ${\sim}65$.
+However, since GAMs only consider one feature at a time, the BMI ($x_\text{mass} / x_\text{height}^2$) can still not be expressed or learned by the model.
 
 \subsubsection{Decision Trees}
-\todo{decision trees}
+\todo{cite paper -- show image}
+Instead of computing predictions with a mathematical formula, Decision Trees determine predictions by following a sequence of tests on the data.
+Decision Trees are trees where each node represents a test $x_i > t_i$, with $x_i$ as the value of the feature $i$ and $t_i$ as learned threshold.
+The prediction algorithm starts at the root of the tree.
+Depending on the outcome of the test in the root node the algorithm continues with the corresponding sub-tree recursively, until a leaf node is reached.
+The leaf nodes contain the probabilities for the outcomes of the prediction task and are returned as result by the algorithm.
+
+Decision Trees are usually considered very interpretable, as their behaviour is intuitively understandable.
+However, this only holds true for trees with a relatively low number of nodes.
+Trees with hundreds or thousands of nodes \todo{expand}
 
 \subsubsection{Ensemble Methods}
 \todo{random forest / ensemble methods}
