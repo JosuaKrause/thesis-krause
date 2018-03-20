@@ -76,7 +76,7 @@ For example, a simple (not necessarily correct) predictor for Type 2 Diabetes\fo
 \[
 l_\text{diabetes}(x) = -1.9 + 0.01 x_\text{age} + 0.02 x_\text{mass} + (-0.3) x_\text{height}
 \]
-with $x_\text{age}$ in years, $x_\text{mass}$ in kg, and $x_\text{height}$ in m.
+with $x_\text{age}$ in years, $x_\text{mass}$ in \si{kg}, and $x_\text{height}$ in \si{m}.
 From here, we can see that the model assumes that a high mass leads to higher Diabetes risk, old age also leads to a higher risk but less so than high mass, and large body height leads to a smaller risk.
 This gives a very intuitive understanding of how the model is reaching its conclusion.
 
@@ -107,15 +107,39 @@ The leaf nodes contain the probabilities for the outcomes of the prediction task
 
 Decision Trees are usually considered very interpretable, as their behaviour is intuitively understandable.
 However, this only holds true for trees with a relatively low number of nodes.
-Trees with hundreds or thousands of nodes \todo{expand}
+Trees with hundreds or thousands of nodes are hard to interpret as their complexity makes it hard to gain a mental model.
+
+Decision Trees excel in cases where certain ranges of features have a clear impact on the outcome.
+For example, in our running Diabetes use case, the risk of becoming diabetic is significantly higher for ages between ${\sim}45$ and ${\sim}65$.
+A Decision Tree can then differentiate by age and infer the prediction differently for values inside or outside of that range.
+
+However, Decision Trees cannot model relationships between features very well and have to approximate them.
+For example, increasing the height of a person also increases that person's weight.
+This means that whether a person is overweight, not only depends on the weight of the person, but also how tall that person is.
+A person weighing $80\si{kg}$ can be considered overweight with a height of $1.7\si{m}$ but would not be with a height of $1.8\si{m}$.
+Since a Decision Tree cannot model this relationship ($x_\text{mass} / x_\text{height}^2 \geq 25$) directly it has to approximate it by breaking the values of $x_\text{mass}$ and $x_\text{height}$ into intervals and checking them separately.
+\todo{over-fitting}
 
 \subsubsection{Ensemble Methods}
-\todo{random forest / ensemble methods}
+A powerful method of utilizing several weak models are Ensemble Models.
+Instead of taking the prediction of one model, Ensembles combine the prediction of many models in order to get a definite result.
+This is typically done by majority voting, \ie, the most common prediction among the individual models is used as final prediction.
+\todo{cite papers}
+
+The main advantage of Ensemble Models is that it can improve the performance of otherwise worse performing models.
+Given a set of independent / uncorrelated models the error reduction of the Ensemble behaves linearly with number of individual models:
+\todo{formula and citation -- chapter regularization}
+
+One popular Ensemble Model is the Random Forest, which combines several Decision Trees trained on random sub-samples of the training data.
+\todo{avoid over-fitting; better than Decision Tree}
+\todo{link back to running example}
 
 \subsubsection{Neural Networks}
 \todo{neural network / multi-layer perceptron}
 
 \subsection{Failure Modes}
+Machine learning models not always perform perfectly.
+Most \todo{}
 \todo{failures}
 - overfitting
 - underfitting
