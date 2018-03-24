@@ -86,13 +86,22 @@ Additionally, since the influence of the features is always the same, one featur
 For example, the model will predict a high Diabetes risk with high age independent of the mass or height.\todo{cite paper}
 
 \subsubsection{Generalized Additive Models}
-A Generalized Additive Model (GAM) extends the idea of logistic regression \todo{cite paper; show influence function} to functions instead of weights:
+A Generalized Additive Model (GAM) extends the idea of logistic regression \todo{cite paper} to functions instead of weights:
 \[
 g(x) = b + \sum_{i \in \mathcal{C}} f_i(x_i)
 \]
 where $\mathcal{C}$ is the set of features, $b$ is the learned bias of the model, $f_i$ are learned influence functions, and the outcome is determined by whether the sum $g(x)$ is larger or smaller than zero.
 Having influence functions overcomes the restricted expressiveness of logistic regression models while maintaining its interpretability.
 The impact of individual features can be seen in the plots of the influence functions.
+
+\begin{figure}
+\centering
+\includegraphics[height=8em,valign=t]{tex/introduction/age.png}
+\caption{
+An influence function for ``age" of a Generalized Additive Model \cite{Caruana:2015:IMH:2783258.2788613}.
+}
+\label{figs:age}
+\end{figure}
 
 In the Diabetes example from above, a GAM could solve the issue of always connecting high age to high Diabetes risk by decreasing the influence of the feature age for higher values than ${\sim}65$.
 However, since GAMs only consider one feature at a time, the BMI ($x_\text{mass} / x_\text{height}^2$) can still not be expressed or learned by the model.
@@ -118,7 +127,8 @@ For example, increasing the height of a person also increases that person's weig
 This means that whether a person is overweight, not only depends on the weight of the person, but also how tall that person is.
 A person weighing $80\si{kg}$ can be considered overweight with a height of $1.7\si{m}$ but would not be with a height of $1.8\si{m}$.
 Since a Decision Tree cannot model this relationship ($x_\text{mass} / x_\text{height}^2 \geq 25$) directly it has to approximate it by breaking the values of $x_\text{mass}$ and $x_\text{height}$ into intervals and checking them separately.
-\todo{over-fitting}
+Because of this, Decision Trees are likely to over-fit on the training data.
+Over-fitting happens when a machine learning model does not generalize well because of a pattern in the data that is only present in the training data.
 
 \subsubsection{Ensemble Methods}
 A powerful method of utilizing several weak models are Ensemble Models.
@@ -127,39 +137,99 @@ This is typically done by majority voting, \ie, the most common prediction among
 \todo{cite papers}
 
 The main advantage of Ensemble Models is that it can improve the performance of otherwise worse performing models.
-Given a set of independent / uncorrelated models the error reduction of the Ensemble behaves linearly with number of individual models:
-\todo{formula and citation -- Machine Learning book; chapter regularization}
+Given a set of independent / uncorrelated models the error reduction of the Ensemble is proportional to the number of individual models.
+\todo{Deep Learning; Ian Goodfellow; chapter 7.11}
 
 One popular Ensemble Model is the Random Forest, which combines several Decision Trees trained on random sub-samples of the training data.
-\todo{avoid over-fitting; better than Decision Tree}
-\todo{link back to running example}
+This overcomes the tendency of Decision Trees to over-fit on their training data.
+Another advantage of Random Forests is that they typically produce good results on only few training instances already.
 
 \subsubsection{Neural Networks}
-\todo{neural network / multi-layer perceptron}
+With the recent advance of more powerful computation hardware, especially with highly parallelizable GPUs\footnote{Graphics Processing Unit}, (Deep) Neural Networks have become a popular class of machine learning models.
+The basic building block of a Neural Network is a \emph{layer}, that is a mathematical construct that has $N$ input features and $M$ output features.
+A layer can also have stored coefficients called \emph{weights}.
+
+A very common layer is the fully-connected layer.
+For each output feature or \emph{node}, it computes a weighted sum of all input features, much like Linear Regression:
+\[
+y_j(x) = b_j + \sum^{N}_{i = 1} w_{ij} x_i
+\]
+where the $y_j$ represents the $j$th output feature, $b_j$ is the corresponding bias and $w_{ij}$ the corresponding weights.
+
+Other common layers are ReLU (Rectified Linear Unit) and Softmax which both require $N = M$.
+ReLU computes as $y_j(x) = \max{(0, x_j)}$ which basically acts as filter to let only positive values through.
+Softmax computes as $y_j(x) = e^{x_j} / \sum^{N}_{i = 1} e^{x_i}$ and scales the input vector in a way that the output vector sums to one.
+
+With those layers we can build a Multi-Layer-Perceptron (MLP) classifier.
+A MLP chains a number of fully-connected layers and ReLUs to each other.
+This can be interpreted as a sequence of 1. transform the input, 2. filter out negative values, 3. repeat.
+Softmax is used as final layer to compute the actual classification.
+Each node here represents one of the classes of the classifier and the class with the highest value ``wins".
+
+Training a MLP or any Neural Network works as follows.
+We initialize all weights with random numbers.
+For each instance of the training data set, we first compute the outcome with the current weights.
+Then we compute the gradient of the loss function $(y(x) - \hat{y})^2$, which is the difference of the outcome $y(x)$ (\ie, values of the final layer) to the \emph{desired} outcome $\hat{y}$ (\ie, value of desired class set to one and zero otherwise).
+Then, going in reverse order we compute this gradient for each layer and nudge the weights of those layers into the direction of the gradient.
+This procedure is called back-propagation.
+Ideally, we repeat back-propagation until all weights converge towards fixed numbers, at which point the model is trained.
+
+Neural networks are a powerful machine learning tool, as they enable any function to be modeled \todo{cite} and allow for great flexibility through combining different layers.
+Multi-Layer Perceptrons can potentially be used on our running Diabetes example from above, as they do not have the limitations of any of the previously discussed models.
+However, neural networks typically require many thousand training examples in order to properly converge towards a performant model, making them a sub-optimal choice for tasks where acquiring data is time-consuming or expensive.
 
 \subsection{Failure Modes}
 Machine learning models not always perform perfectly.
-Most \todo{}
-\todo{failures}
-- overfitting
-- underfitting
-- data
-- model
-- unexpected and different from how humans would fail
+In general, for a given data set, failures to do so typically fall into two categories: under- and over-fitting.
+
+Under-fitting occurs when a model does not have enough \emph{capacity} to fully learn the input data.
+For example, a Logistic Regression model will never be able to learn to classify whether a point lies inside or outside of a circle, using Cartesian coordinates as input features.
+This is due to the linear nature of the model.
+Under-fitting can be prevented by using a more powerful model or increasing the capacity of the current model.
+
+Over-fitting occurs when a model learns its training data set too precisely.
+For example, a Decision Tree might create one leaf node for every instance in the training data memorizing the outcomes of the training data in full.
+In this case the model likely won't generalize to new, unseen data.
+Thus, in order to detect over-fitting, it is common to keep a separate data set, called hold-out or test data set, at hand that is not used for training the model.
+The trained model is then tested against this data set.
+If the model performs well on the training data but not on the test data, then it is over-fitting.
+A way to prevent this is to reduce the capacity of the model.
+For example, reducing the allowed maximum depth of a Decision Tree model is a good way to reduce its capacity.
+
+However, not all failures of machine learning models can be ascribed to the quality of the model.
+Failures can also stem from the quality of the data.
+Common cases include:
+
+\par \noindent \textbf{Biased Data:}
+Biased data might occur if the acquired data stems from a sub-population that insufficiently represents the entire population.
+For example, if we train our Diabetes model from above only with obese people the resulting model will most likely have a greater tendency to predict Diabetes.
+
+\par \noindent \textbf{Leaking Labels:}
+If a feature of the data is highly correlated to the outcome, a model might only learn this connection, preventing the model to generalize properly.
+For example, including an additional feature ``Takes Metformin" to the Diabetes model would leak the label, as only people that are already diagnosed with Type 2 Diabetes take the drug Metformin.
 
 \section{Visual Analytics}
-Gaining meaningful insights about large datasets is hard.
+Gaining meaningful insights about large data sets is hard.
 While computing various statistics about the data is often helpful it might oversimplify or in some cases even mislead information about the data.
-One example dataset often used to demonstrate this is Ancombe's quartett \todo{cite ancombe}.
-The quartett consists of four different datasets that all have the same mean, standard deviation, \todo{what else?}.
-However, plotting the values of the datasets reveals that each one of those datasets obeys a different, unique characteriztic \todo{image}.
+One example data set often used to demonstrate this is Ancombe's quartet \todo{cite ancombe}.
+The quartet consists of four different data sets that all have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
+However, plotting the values of the data sets reveals that each one of those data sets obeys a different, unique characteristic (see Figure~\ref{fig:ancombe}).
 
-Visual analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Ancombe's quartett mentioned above.
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth,valign=t]{tex/introduction/ancombe.png}
+\caption{
+Plots of the four data sets of Ancombe's quartet \todo{cite wikipedia}. All data sets have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
+}
+\label{figs:ancombe}
+\end{figure}
+
+Visual Analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Ancombe's quartet mentioned above.
 This is often done in addition to and with the help of computational and statistical procedures.
 Various studies (\todo{cite}
 % http://info.slis.indiana.edu/~katy/S637-S11/cleveland84.pdf
 % preattentive, gestalt
-) have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual cortex \todo{?}.
+) have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual system.
 Additionally, interaction with the graphical representations allows to hide some of the information and reveal it through interaction to not overwhelm the analyst.
 For example, ``overview first; details on demand" \todo{shneiderman} is a popular mantra taking advantage of interaction.
 
@@ -168,14 +238,21 @@ Integrating a human in a machine learning workflow inevitable leads to said huma
 Humans are magnitudes slower than computers which have to idle while waiting for human input.
 Thus, human input should only be required for tasks that are impossible without.
 
-\todo{maybe mention hyperparameter / architecture here}
 For example, with the goal of improving the accuracy of a model a human should not have the task of, \eg, manually picking the order of the features to be included in a decision tree.
 A good intuition might outperform the computer momentarily but having an objective goal makes it possible to eventually find a suitable algorithm that is en par or even outperforms the human.
 Additionally, manual decisions are not generalizable to other tasks and not scalable to larger datasets which in turn is the reason to use machine learning to begin with.
 
-However, \todo{}
+However, humans have \emph{soft-knowledge}.
+That is, they have a general understanding of the world that is typically not codified for machines in all details.
+Machines can only work with the data they have.
+Their data is their \emph{universe} and to them nothing else exists.
+Thus, only humans have the potential to detect and correct when machine learning models acquire incorrect assumptions about their environment.
+Visual Analytics can help debugging models, as well as, its data.
 
-- accuracy vs. semantic accuracy
-- debugging models / data
-- domain expert
-- understanding /trusting models
+Additionally, Visual Analytics can help humans, especially domain experts for a problem that is to be solved using machine learning, to verify the \emph{semantic accuracy} of a model.
+That is, whether decisions made by the model ``make sense".
+Often, the root cause of semantically inaccurate models is due to biased data.
+Thus, statistical accuracy (\ie, the proportion of correctly predicted instances) of a model can be higher than of a different model, while simultaneously being semantically less accurate (see \cite{Caruana:2015:IMH:2783258.2788613,explainer}).
+
+Finally, as humans use machine learning models to speed up and improve decision making, human users need to be able to trust the decisions made by the model.
+Visual Analytics can help with \emph{understanding} the decision's made by machine learning models and therefore improve the \emph{trust} in the correctness of those decisions.
