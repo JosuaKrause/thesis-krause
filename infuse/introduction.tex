@@ -2,7 +2,7 @@
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\linewidth]{infuse/pipeline}
-\caption{Steps of a typical predictive modeling pipeline.  For each step, we provide the details of the running example we use throughout the paper.
+\caption[Steps of a typical predictive modeling pipeline.]{Steps of a typical predictive modeling pipeline.  For each step, we provide the details of the running example we use throughout the paper.
 }
 \label{fig:pipeline}
 \end{figure*}
@@ -28,10 +28,10 @@ across feature selection algorithms, cross-validation folds, and classifiers.
 % "To develop an accurate and useful predictive model, a research- er generally needs to build and compare many different models as part of the discovery workflow. Each model can be viewed as an instance of the modeling pipeline and consists of a unique combination of the data, algorithms, and/or certain parameter configurations in the task components.
 % A number of factors combine to increase the number of models that need to be explored, resulting in a large set of pipelines that have to be processed. First, the volume, variability, and heteroge- neity of EHR data require significant processing in building predic- tive models [10]. Second, there is uncertainty in knowing a priori which feature construction, feature selection, and classification algorithms are most appropriate for the specific target application [27]. As such, composition of an appropriate predictive model re- quires exploring a potentially large space of possible algorithms and parameters and their combinations. Third, for some biomedi- cal applications, the ability to interpret how the model works is just as, if not more, important than the accuracy of the model. Here, it is important to explore a variety of classification algo- rithms (e.g. decision trees, Bayesian networks, and generalized regression models) that produce trained models which can be interpreted by domain experts to verify and validate that the mod- el is clinically meaningful [28]. It is likely that multiple models can have similar performance in terms of prediction accuracy, but may differ significantly in their internal model parameters. By building multiple models, it becomes possible to select ones that have more clinically meaningful interpretations. Fourth, it is critical to statis- tically validate the models to ensure generalizability and accuracy. Cross-validation techniques can help with this endeavor, but can dramatically increase the number of models that need to be built and evaluated.""
 
-\begin{figure*}[ht]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{infuse/system}
-\caption{
+\caption[Breakdown of the user interface of \infuse.]{
 An overview of \infuse, a system for interactive feature selection.  On the left, the Feature View provides a way to visualize an overview of all features grouped by type and then sorted by importance.  The color key for the feature types and subtypes are shown at the bottom.  The buttons and combo boxes at the bottom can be used to switch layouts and define the axes of the scatterplot view shown in
 Figure~\ref{fig:scatter}.  On the top-right, the List View provides a sorted list of all features, useful for selections.
 This list can be filtered using the search box above. Currently only features containing the term ``gl" are shown.

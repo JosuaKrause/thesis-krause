@@ -97,8 +97,8 @@ The impact of individual features can be seen in the plots of the influence func
 \begin{figure}
 \centering
 \includegraphics[height=8em,valign=t]{tex/introduction/age.png}
-\caption{
-An influence function for ``age" of a Generalized Additive Model \cite{Caruana:2015:IMH:2783258.2788613}.
+\caption[Influence function for ``age" from a Generalized Additive Model.]{
+An influence function for ``age" from a Generalized Additive Model \cite{Caruana:2015:IMH:2783258.2788613}.
 }
 \label{figs:age}
 \end{figure}
@@ -213,16 +213,17 @@ Gaining meaningful insights about large data sets is hard.
 While computing various statistics about the data is often helpful it might oversimplify or in some cases even mislead information about the data.
 One example data set often used to demonstrate this is Ancombe's quartet \todo{cite ancombe}.
 The quartet consists of four different data sets that all have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
-However, plotting the values of the data sets reveals that each one of those data sets obeys a different, unique characteristic (see Figure~\ref{fig:ancombe}).
+However, plotting the values of the data sets reveals that each one of those data sets obeys a different, unique characteristic (see Figure~\ref{figs:ancombe}).
 
-\begin{figure}
+\begin{figure*}[t]
 \centering
 \includegraphics[width=0.9\textwidth,valign=t]{tex/introduction/ancombe.png}
-\caption{
-Plots of the four data sets of Ancombe's quartet \todo{cite wikipedia}. All data sets have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
+\caption[Ancombe's quartet.]{
+Plots of the four data sets of Ancombe's quartet\footnotemark. All data sets have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
 }
 \label{figs:ancombe}
-\end{figure}
+\end{figure*}
+\footnotetext{Image source: Wikipedia}
 
 Visual Analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Ancombe's quartet mentioned above.
 This is often done in addition to and with the help of computational and statistical procedures.

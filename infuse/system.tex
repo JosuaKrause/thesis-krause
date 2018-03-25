@@ -11,7 +11,7 @@ In this section, we describe the design of \infuse, which aims to assist predict
 \centering
 \hspace*{0.02\linewidth}%
 \includegraphics[width=0.95\linewidth]{infuse/glyph-key}
-\caption{
+\caption[How to read the glyph representation of \infuse.]{
 (a) The glyph representation of a feature in the \infuse system.
 (b) Multiple models for each feature are represented as \emph{model sections}.  In this example, the feature is divided into four sections, as it was ranked by four feature selection algorithms (Information Gain, Fisher-Score, Relative Risk, and Odds Ratio.).
 (c) Each section is further divided into \emph{fold slices} representing each of the cross-validation folds. Each fold slices features a inward-filling bar that represents the rank of this feature in that fold.
@@ -49,7 +49,7 @@ A longer bar implies the feature has a better rank.  If no bar appears, the feat
 \caption{}
 \label{subfig:matrix}
 \end{subfigure}%
-\caption{
+\caption[Different glyph designs.]{
 Different glyph designs.
 \subref{subfig:inward} shows \emph{fold slices} with bars growing from perimeter to center
 whereas \subref{subfig:pie} grows from center to perimeter.
