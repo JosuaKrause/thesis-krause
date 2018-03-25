@@ -3,15 +3,32 @@
 
 In this thesis, we discussed the role of visualization and human interaction \todo{TODO}
 
+However, this approach has some limitations to overcome.
+Note, that many of the limitations are not necessarily an argument against the presented techniques but merely a starting point for future research.
+
 \section{Limitations and Assumptions of Black-Box Analysis}
-\todo{TODO}
-* only approximate understanding of the model behavior
-* no one algorithm for all use cases
-* complex interactions of input features
-% Feature engineering is the task of deciding which features will be collected for a particular machine learning problem and how those features are pre-processed or transformed in order to create favorable model results. It requires both expertise of the problem domain, as well as, experience in picking and manipulating features in "the right way". For the most part, feature engineering cannot be automated and is typically seen as "black-art", since it relies on intuition and creativity of the modeler \cite{Domingos:2012:FUT:2347736.2347755}.
+Analyzing machine learning models using black-box techniques can only approximate the true behavior of the model.
+Looking at more instances or increasing the sample rate for both partial-dependence plots or instance-level explanations increases the granularity and precision of the analysis but cannot express the underlying relationships of the input in full.
+On the other hand, those relationships can be too complex to be understood by a human.
+The challenge is to find a middle ground between the fidelity of explanations and their interpretability.
+
+Additionally, some tasks have complex interactions between input features that cannot be described by interpreting individual features.
+For example, instance-level explanations provide weights for the features for a given instance.
+However, those weights can be completely different for other instances.
+Instance-level explanations alone do not provide enough information to reason about why the weights changed in this particular way.
+A possible solution could be to expand the concept of explanations to allow for representing non-trivial relationships between features, such as using rules to express partial behaviors of the model or a higher dimensional partial dependence.
+
+Black-box analysis methods provide the convenience of using the same algorithm for multiple models.
+However, with regards to data some decisions still need to be made.
+For example, for the instance-level explanations in \chapref{chap:explainer} we determined that Martens and Provost's~\cite{Martens:2014:EDD:2600518.2600523} algorithm provided consistently better results than Riberio~\etal's\cite{DBLP:journals/corr/RibeiroSG16} algorithm for our use case of highly sparse binary data.
+This is due to the fact that different data types require different approaches for explanations.
+A binary feature can have an explanation that describes the presence or absence of the feature whereas for a numeric feature the actual value is important.
+Our Model Diagnostic Workflow is agnostic to the used instance-level explanation algorithm but this choice still has to be made.
 
 \section{Generalization to Other Forms of Machine Learning}
 \todo{TODO}
+* only predictions tasks
+* might be possible for LSTM
 * gradient to explanation
 * other machine learning tasks like reinforcement learning etc.
 
