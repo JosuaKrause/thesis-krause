@@ -46,7 +46,7 @@ This is achieved by outputting the positive class as prediction if its probabili
 The \emph{receiver operating characteristic} (ROC) curve for binary classifiers plots the true positive rate against the false positive rate for all thresholds between $0$ and $1$.
 The plot indicates the correctness of the model \wrt its confidence.
 The ROC curve for a perfect model ($100\%$ accuracy) would follow the left vertical axis and the top horizontal axis.
-The area under the ROC curve (\emph{AUC}) is a commonly used measure for model quality. \todo{cite paper???}
+The area under the ROC curve (\emph{AUC}) is a commonly used measure for model quality \cite{bradley19971145}.
 
 \subsection{Popular Algorithms}
 There are too many algorithms for predictive models to list all of them here.
@@ -140,7 +140,7 @@ The main advantage of Ensemble Models is that it can improve the performance of 
 Given a set of independent / uncorrelated models the error reduction of the Ensemble is proportional to the number of individual models.
 \todo{Deep Learning; Ian Goodfellow; chapter 7.11}
 
-One popular Ensemble Model is the Random Forest, which combines several Decision Trees trained on random sub-samples of the training data.
+One popular Ensemble Model is the Random Forest~\cite{Breiman:2001:RF:570181.570182}, which combines several Decision Trees trained on random sub-samples of the training data.
 This overcomes the tendency of Decision Trees to over-fit on their training data.
 Another advantage of Random Forests is that they typically produce good results on only few training instances already.
 
