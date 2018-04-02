@@ -108,12 +108,19 @@ In the Diabetes example from above, a GAM could solve the issue of always connec
 However, since GAMs only consider one feature at a time, the BMI ($x_\text{mass} / x_\text{height}^2$) can still not be expressed or learned by the model.
 
 \subsubsection{Decision Trees}
-\todo{show image}
 Instead of computing predictions with a mathematical formula, Decision Trees \cite{mlbook} determine predictions by following a sequence of tests on the data.
 Decision Trees are trees where each node represents a test $x_i > t_i$, with $x_i$ as the value of the feature $i$ and $t_i$ as learned threshold.
 The prediction algorithm starts at the root of the tree.
 Depending on the outcome of the test in the root node the algorithm continues with the corresponding sub-tree recursively, until a leaf node is reached.
 The leaf nodes contain the probabilities for the outcomes of the prediction task and are returned as result by the algorithm.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{tex/decisiontree}
+    \caption[Example Decision Tree]{A possible decision tree for the Diabetes prediction example\footnotemark. Note, that the tree has interval checks to model the relationship between ``weight'' in \si{kg} and ``height'' in \si{m}.}
+    \label{figs:dctree}
+\end{figure}
+\footnotetext{The decision tree or its parameters are \emph{not} based on data and serve only illustratory purposes.}
 
 Decision Trees are usually considered very interpretable, as their behaviour is intuitively understandable.
 However, this only holds true for trees with a relatively low number of nodes.
@@ -127,7 +134,7 @@ However, Decision Trees cannot model relationships between features very well an
 For example, increasing the height of a person also increases that person's weight.
 This means that whether a person is overweight, not only depends on the weight of the person, but also how tall that person is.
 A person weighing $80\si{kg}$ can be considered overweight with a height of $1.7\si{m}$ but would not be with a height of $1.8\si{m}$.
-Since a Decision Tree cannot model this relationship ($x_\text{mass} / x_\text{height}^2 \geq 25$) directly it has to approximate it by breaking the values of $x_\text{mass}$ and $x_\text{height}$ into intervals and checking them separately.
+Since a Decision Tree cannot model this relationship ($x_\text{mass} / x_\text{height}^2 \geq 25$) directly it has to approximate it by breaking the values of $x_\text{mass}$ and $x_\text{height}$ into intervals and checking them separately (see Figure~\ref{figs:dctree}).
 Because of this, Decision Trees are likely to over-fit on the training data.
 Over-fitting happens when a machine learning model does not generalize well because of a pattern in the data that is only present in the training data.
 
