@@ -1,0 +1,34 @@
+\section{Discussion}
+\label{sec:ag_discussion}
+We showed that aggregating instance-level explanations can be an effective way of enabling humans to identify biases in the input data of machine learning tasks.
+Even though, assisted aggregation is as effective as unassisted individual inspection it scales better with large data sets.
+Individually inspecting instances in the data is only possible on a sample of the data and requires extrapolation of findings to the whole data set.
+Aggregation does not suffer from this, as the representation of the data is independent from its size.
+Even though, it requires dedication, our test data set was small enough to still be able to scan in full if necessary.
+
+Furthermore, the bias planted in the data was simple enough to be able to be found in \emph{all} conditions.
+This might not be true for real-world data sets with more complex biases.
+Even though, histograms are advantageous with respect to tables in finding arbitrary patterns, they are still limited to only one dimension.
+Biases that are present only through combinations of features will not be detectable.
+
+In our study, we could confirm findings from Stumpf~\etal~\cite{harmful} and overcome their limitations by using instance-level explanations with aggregation.
+However, we could not overcome trust in machine learning model authority, despite being confronted with contradictory evidence, in all cases.
+Speculatively, this might stem from people being used to being presented with cleaned up and validated data, as this cumbersome process is often hidden from the end result.
+
+% On this note, in order to guarantee that our data is of value, we experienced a high churn rate of eligible participants ($\geq1.16$ per eligible participant), even though the task seemed relatively simple, from the perspective of visual analytics researchers. \todo{meh, sounds braggy...} \todo{Do we even need to mention this?  I'd just remove.}
+
+\section{Conclusion \& Future Work}
+\label{sec:conclusion}
+We presented a novel way of aggregating and comparing instance-level explanations.
+We found that this method can help humans identify biases in the input data to machine learning models.
+However, this is only the case in combination.
+Aggregation alone or individual instance-level explanations might lead to worse performance in this regard.
+We demonstrated, that an aggregated instance-level explanation approach is as effective as going through the data unassisted.
+This is promising, as the proposed method is independent of the size of the data set and thus likely more scalable than its non-aggregated counterpart.
+However, specifically confirming this hypothesis remains future work.
+
+As we were conducting an exploratory analysis of the study, individual findings remain to be tested in-situ in future work.
+Furthermore, experimenting with more complex forms of data biases opens up additional research opportunities.
+
+All in all, we presented a usable method for effectively utilizing instance-level explanations on a large scale.
+As machine learning models become more complex and opaque, this becomes an important stepping stone in tackling the behemoth of effectively improving machine learning models and their data alike.

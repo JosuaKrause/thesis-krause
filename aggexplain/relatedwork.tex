@@ -1,0 +1,60 @@
+\section{Related Work}
+\label{sec:relatedwork}
+
+We broadly divide related work into two parts.
+Studies focusing on the effectiveness of instance-level explanations and attempts in detecting bias, using visual analytics, in data provided to machine learning models.
+
+%\adam{This needs to be organized in some way, rather than just a list of work. -- low priority right now}
+
+\subsection{Effectiveness of instance-level explanations}
+When introducing their algorithm, LIME (Ribeiro~\etal~\cite{DBLP:journals/corr/RibeiroSG16, anchors:aaai18},2016arXiv161105817T), the authors conducted experiments to show the effectiveness of their method.
+However, instance-level explanations were only inspected individually and not in aggregate form.
+
+Kulesza~\etal~\cite{Kulesza:2015:PED:2678025.2701399} introduced explanatory debugging.
+Users are presented individual decisions, made by the model, in a list.
+Those can then can be used to ``personalize'' the model and improve its statistical performance by finding and giving feedback on incorrect decisions.
+
+%https://csjzhou.github.io/homepage/papers/INTERACT2017_Effects_Trust.pdf
+Zhou~\etal~\cite{Zhou:2017:EUC:3176444.3176447} analyzes how uncertainty and cognitive load affects trust in a machine learning model.
+Here models are compared that predict the risk of pipe failure in a sewer systems according to several features.
+In addition to the expected failure rate according to model, the length of the observed part of the pipes is shown to the user aggregated over all instances.
+The study found that showing the uncertainty of the model significantly decreased the trust of participants.
+Additionally, adding cognitive load in terms of limited decision time trust in the model decreased significantly as well.
+
+Narayanan~\etal~\cite{2018arXiv180200682N} explored how humans understand explanations from a machine learning model.
+Explanations for individual instances, in the form of simple rules, were presented and participants were asked to determine the predicted outcome of the underlying model.
+The study found that greater complexity, more rules and more variables, resulted in a higher response time and decreased accuracy.
+
+Note, that the works presented so far always assume that errors stem from the shortcomings of the model and not from incorrect or biased data.
+
+Stumpf~\etal~\cite{harmful} found that under some circumstances, explanations can be harmful to the end user, by invoking false confidence.
+This is on one hand due to the user extrapolating from few instance-level explanations, making their mental model seem correct.
+And, on the other hand, trust in the machine learning model \emph{overrides} their initial intuition: ``I guess this thing knows more than me. The system knows more than me. I'll accept [the diagnosis]''.
+We could confirm both of those findings in our experiments.
+
+\subsection{Detecting biases using visual analytics methods}
+Hohman~\etal~\cite{2018arXiv180106889H} identifies detecting biased data as one of their five use cases for visual analytics for machine learning.
+However, their examples focus on work that only looks at the data without the help of machine learning models~\cite{facets} or simple models where humans adjust the thresholds of the model manually~\cite{wattenberg}.
+
+Chang~\etal~\cite{revolt-collaborative-crowdsourcing-labeling-machine-learning-datasets} uses crowd-sourcing to label data and ensure its integrity.
+However, this approach does not work if domain expertise in the field is required to label data correctly.
+
+Simard~\etal~\cite{DBLP:journals/corr/SimardACPGMRSVW17} introduces Machine Teaching.
+This paradigm uses an already labeled data set for training a machine learning model.
+It then presents predicted instances to a domain expert who then can either, fix an incorrect label, manipulate features, change constrains, or post-pone a decision if the instance is ambiguous.
+This way an expert can ensure that the final model is correct and remove biases.
+However, finding biases is not scalable as the experts has to go through many examples and might miss problems, especially if the performance of the model increases but the underlying data is incorrect.
+
+Krause~\etal~\cite{explainer} demonstrates, how aggregated instance-level explanations can be used to find biases in hospital data.
+They used an instance-level algorithm optimized for sparse binary input data (Martens and Provost~\cite{Martens:2014:EDD:2600518.2600523}).
+Through aggregation, filtering, and reordering, they found biases in their data used for predicting hospital admission that made it impossible for the machine learning model to correctly predict admission in some cases.
+For example, the model knew about a CET or PET scan happening but was unaware of their results.
+Thus, the model was unable to predict the diagnosis since the result of the scan directly influences the outcome.
+
+
+
+% not worth it / not fitting
+%https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing
+%\cite{dasgupta2017familiarity}
+%\cite{2017arXiv171100867K}
+%Lei~\etal~\cite{DBLP:journals/corr/LeiBJ16}
