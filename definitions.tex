@@ -28,6 +28,7 @@
 % \usepackage{todonotes}
 \usepackage{url}
 \usepackage{siunitx}
+\usepackage{tcolorbox}
 
 \newfloat{algorithm}{t}{lop}
 
@@ -105,6 +106,16 @@
 \newcommand{\refalg}[1]{{Algorithm~\ref{#1}}}
 \newcommand{\myparagraph}[1]{\noindent \textbf{#1}}
 \newcommand{\highlight}[1]{{\color{black}#1}}
+
+\newenvironment{contributions}{
+\begin{centering}
+\begin{tcolorbox}[halign=center,title=Learning objectives:]
+\begin{itemize}
+}{
+\end{itemize}
+\end{tcolorbox}
+\end{centering}
+}
 
 \newcommand{\todo}[1]{\textcolor{blue}{[TODO] #1}\PackageWarning{definitions}{[TODO] #1}}
 \newcommand{\expand}{\textcolor{green}{[EXPAND]}\PackageWarning{definitions}{EXPAND}}

@@ -8,15 +8,15 @@ The input data typically consists of \emph{instances} with a given set of \emph{
 The values of those features can be binary, categorical, or numerical.
 We can think of the data as a table where features are columns and rows are instances.
 Thus, this kind of data is typically referred to as \emph{tabular} or \emph{structured} data.
-In the case of \emph{unstructured} data, such as plain text, the data needs to be converted into structured data first, before it can be used as input of predictive models.
-The predicted property, \emph{outcome} or \emph{label}, can be numerical, in which case the task is called \emph{regression}, or categorical, in which case the task is called \emph{classification}.
+In the case of \emph{unstructured} data, such as plain text, the data needs to be converted into structured data first, before it can be used as input of predictive models\footnote{In this case, the model input corresponds to a fixed-length transformed representation of the original input data. These transformations can be either learned (\ie, via deep learning or similar methods) or are manually specified.}.
+The predicted property, \emph{outcome} or \emph{label}, can be numerical, in which case the task is called \emph{regression}, or categorical, in which case the task is called \emph{classification}\footnote{A combination of multiple properties are also possible to predict, in which case the task is called multitask learning, structured learning, \etc. Currently, the most common form of predictive modeling involves either a single classification or single regression task.}.
 The different values the label can assume are called \emph{classes}.
 The task is call \emph{binary classification} if the categorical label has exactly two classes.
 
 The predictive model learns by \emph{training} with a set of example instances (\emph{training set}) and their associated labels.
-In order to verify that the model did indeed correctly learn from the given examples, a second, previously unseen, set of example instances (training or \emph{validation set}) with known labels is typically used.
+In order to verify that the model did indeed correctly learn from the given examples, a second, previously unseen, set of example instances (testing or \emph{validation set}) with known labels is typically used.
 The model is used to predict the labels of this set which are then compared to the actual labels of those instances.
-Various statistical measures can be computed on this relationship between the predicted and actual labels.
+Various statistical measures can be computed on this relationship between the predicted and actual labels \cite{mlbook}.
 
 For binary classification tasks (for simplicity \emph{positive} and \emph{negative} are used below to describe the outcomes) those statistical measures include:
 
@@ -53,7 +53,7 @@ There are too many algorithms for predictive models to list all of them here.
 However, following we will discuss the most commonly used algorithms.
 
 \subsubsection{Logistic Regression}
-Logistic Regression is one of the most popular algorithms in machine learning.
+Logistic Regression \cite{mlbook} is one of the most popular algorithms in machine learning.
 This is due to its simplicity and its interpretability of the results.
 Suppose $x_i$ is the value of the feature $i$ of our data, a binary classification using Logistic Regression is equivalent to:
 \[
@@ -62,11 +62,12 @@ l(x) = b + \sum_{i \in \mathcal{C}} w_i x_i
 where $\mathcal{C}$ is the set of features, $b$ and $w_i$ are the learned weights of the model, and the outcome is determined by whether the weighted sum $l(x)$ is larger or smaller than zero.
 In order to work with probabilities, have greater precision around the boundary, and to penalize points close to the boundary, a logistic function is used:
 \[
-L(x) = \frac{1}{1 + e^{-l(x)}}
+P(Y=1 | x) = L(x) = \frac{1}{1 + e^{-l(x)}}
 \]
 which gives the likelihood of one of the classes.
-In order to train the model, \ie, finding the best values of $b$ and $w_f$, the expression $(L(x) - y)^2$, where $y$ represents the ground truth 0 or 1 of the training instances, needs to be minimized.
-This can be done with techniques such as gradient descent.
+In order to train the model, \ie, finding the best values of $b$ and $w_f$, the expression $P(Y=y | x)$, where $y$ represents the ground truth 0 or 1 of the training instances, needs to be maximized.
+In practice, instead of maximizing $P(Y=y|x)$, the negative logarithm of this expression is minimized.
+When optimized over the entire training data, this expression is called \emph{negative log likelihood} and it can be optimized via techniques such as gradient descent, to find optimal values of $b$ and $w_f$.
 
 One of the main advantages of logistic regression is its interpretability.
 The weights $w_i$ can be directly interpreted as how influential a particular feature is.
@@ -83,10 +84,10 @@ This gives a very intuitive understanding of how the model is reaching its concl
 However, this example also illustrates some limitations of logistic regression models.
 BMI (Body Mass Index; $x_\text{mass} / x_\text{height}^2$) is a better indicator than mass or height alone, but cannot be expressed or learned by a logistic regression model\footnote{Note, that we could provide BMI directly but only because domain experts had inferred the importance of this relationship in the past. Alternatively, we could also provide features in logarithmic space enabling logistic regression models to learn this relationship, since logarithmic BMI is $\log{(x_\text{mass})} - 2.0 \log{(x_\text{height})}$.}.
 Additionally, since the influence of the features is always the same, one feature can force a prediction if its values are large enough.
-For example, the model will predict a high Diabetes risk with high age independent of the mass or height.\todo{cite paper}
+For example, the model will predict a high Diabetes risk with high age independent of the mass or height.
 
 \subsubsection{Generalized Additive Models}
-A Generalized Additive Model (GAM) extends the idea of logistic regression \todo{cite paper} to functions instead of weights:
+A Generalized Additive Model (GAM \cite{gam}) extends the idea of logistic regression to functions instead of weights:
 \[
 g(x) = b + \sum_{i \in \mathcal{C}} f_i(x_i)
 \]
@@ -107,8 +108,8 @@ In the Diabetes example from above, a GAM could solve the issue of always connec
 However, since GAMs only consider one feature at a time, the BMI ($x_\text{mass} / x_\text{height}^2$) can still not be expressed or learned by the model.
 
 \subsubsection{Decision Trees}
-\todo{cite paper -- show image}
-Instead of computing predictions with a mathematical formula, Decision Trees determine predictions by following a sequence of tests on the data.
+\todo{show image}
+Instead of computing predictions with a mathematical formula, Decision Trees \cite{mlbook} determine predictions by following a sequence of tests on the data.
 Decision Trees are trees where each node represents a test $x_i > t_i$, with $x_i$ as the value of the feature $i$ and $t_i$ as learned threshold.
 The prediction algorithm starts at the root of the tree.
 Depending on the outcome of the test in the root node the algorithm continues with the corresponding sub-tree recursively, until a leaf node is reached.
@@ -133,19 +134,17 @@ Over-fitting happens when a machine learning model does not generalize well beca
 \subsubsection{Ensemble Methods}
 A powerful method of utilizing several weak models are Ensemble Models.
 Instead of taking the prediction of one model, Ensembles combine the prediction of many models in order to get a definite result.
-This is typically done by majority voting, \ie, the most common prediction among the individual models is used as final prediction.
-\todo{cite papers}
+This is typically done either by using the average prediction of multiple models or by majority voting, \ie, the most common prediction among the individual models is used as final prediction \cite{mlbook}.
 
 The main advantage of Ensemble Models is that it can improve the performance of otherwise worse performing models.
-Given a set of independent / uncorrelated models the error reduction of the Ensemble is proportional to the number of individual models.
-\todo{Deep Learning; Ian Goodfellow; chapter 7.11}
+Given a set of independent / uncorrelated models the error reduction of the Ensemble is proportional to the number of individual models \cite{dlbook}. % chapter 7.11
 
 One popular Ensemble Model is the Random Forest~\cite{Breiman:2001:RF:570181.570182}, which combines several Decision Trees trained on random sub-samples of the training data.
 This overcomes the tendency of Decision Trees to over-fit on their training data.
 Another advantage of Random Forests is that they typically produce good results on only few training instances already.
 
 \subsubsection{Neural Networks}
-With the recent advance of more powerful computation hardware, especially with highly parallelizable GPUs\footnote{Graphics Processing Unit}, (Deep) Neural Networks have become a popular class of machine learning models.
+With the recent advance of more powerful computation hardware, especially with highly parallelizable GPUs\footnote{Graphics Processing Unit}, and availability of larger data sets, (Deep) Neural Networks have become a popular class of machine learning models.
 The basic building block of a Neural Network is a \emph{layer}, that is a mathematical construct that has $N$ input features and $M$ output features.
 A layer can also have stored coefficients called \emph{weights}.
 
@@ -160,27 +159,29 @@ Other common layers are ReLU (Rectified Linear Unit) and Softmax which both requ
 ReLU computes as $y_j(x) = \max{(0, x_j)}$ which basically acts as filter to let only positive values through.
 Softmax computes as $y_j(x) = e^{x_j} / \sum^{N}_{i = 1} e^{x_i}$ and scales the input vector in a way that the output vector sums to one.
 
-With those layers we can build a Multi-Layer-Perceptron (MLP) classifier.
-A MLP chains a number of fully-connected layers and ReLUs to each other.
+With those layers we can build a Multi-Layer-Perceptron (MLP \cite{mlp}) classifier.
+A MLP chains a number of fully-connected layers and ReLUs (or other non-linear functions) to each other.
 This can be interpreted as a sequence of 1. transform the input, 2. filter out negative values, 3. repeat.
 Softmax is used as final layer to compute the actual classification.
 Each node here represents one of the classes of the classifier and the class with the highest value ``wins".
 
 Training a MLP or any Neural Network works as follows.
 We initialize all weights with random numbers.
+%\footnote{Other initialization methods such as Xavier also exist.}
 For each instance of the training data set, we first compute the outcome with the current weights.
-Then we compute the gradient of the loss function $(y(x) - \hat{y})^2$, which is the difference of the outcome $y(x)$ (\ie, values of the final layer) to the \emph{desired} outcome $\hat{y}$ (\ie, value of desired class set to one and zero otherwise).
-Then, going in reverse order we compute this gradient for each layer and nudge the weights of those layers into the direction of the gradient.
+Then we compute the gradient of the loss function, (which can be either the negative log likelihood of training data labels for classification or mean of squared error for regression tasks), with respect to each parameter.
+The gradient is computed on the predicted outcome $y(x)$ (\ie, values of the final layer) and the \emph{desired} outcome $\hat{y}(x)$ (\ie, value of desired class set to one and zero otherwise).
+Then, going in reverse order we numerically compute this gradient for each layer and nudge the weights of those layers into the direction of the gradient.
 This procedure is called back-propagation.
 Ideally, we repeat back-propagation until all weights converge towards fixed numbers, at which point the model is trained.
 
-Neural networks are a powerful machine learning tool, as they enable any function to be modeled \todo{cite} and allow for great flexibility through combining different layers.
+Neural networks are a powerful machine learning tool, as they enable any function to be modeled \cite{hornik1991251} and allow for great flexibility through combining different layers.
 Multi-Layer Perceptrons can potentially be used on our running Diabetes example from above, as they do not have the limitations of any of the previously discussed models.
 However, neural networks typically require many thousand training examples in order to properly converge towards a performant model, making them a sub-optimal choice for tasks where acquiring data is time-consuming or expensive.
 
 \subsection{Failure Modes}
 Machine learning models not always perform perfectly.
-In general, for a given data set, failures to do so typically fall into two categories: under- and over-fitting.
+In general, for a given data set, failures to do so typically fall into two main categories: under- and over-fitting \cite{mlbook}.
 
 Under-fitting occurs when a model does not have enough \emph{capacity} to fully learn the input data.
 For example, a Logistic Regression model will never be able to learn to classify whether a point lies inside or outside of a circle, using Cartesian coordinates as input features.
@@ -206,33 +207,30 @@ For example, if we train our Diabetes model from above only with obese people th
 
 \par \noindent \textbf{Leaking Labels:}
 If a feature of the data is highly correlated to the outcome, a model might only learn this connection, preventing the model to generalize properly.
-For example, including an additional feature ``Takes Metformin" to the Diabetes model would leak the label, as only people that are already diagnosed with Type 2 Diabetes take the drug Metformin.
+For example, including an additional feature ``Takes Insulin" to the Diabetes model would leak the label, as only people that are already diagnosed with Type 2 Diabetes take the drug Insulin.
 
 \section{Visual Analytics}
 Gaining meaningful insights about large data sets is hard.
 While computing various statistics about the data is often helpful it might oversimplify or in some cases even mislead information about the data.
-One example data set often used to demonstrate this is Ancombe's quartet \todo{cite ancombe}.
+One example data set often used to demonstrate this is Anscombe's quartet~\cite{doi:10.1080/00031305.1973.10478966}.
 The quartet consists of four different data sets that all have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
-However, plotting the values of the data sets reveals that each one of those data sets obeys a different, unique characteristic (see Figure~\ref{figs:ancombe}).
+However, plotting the values of the data sets reveals that each one of those data sets obeys a different, unique characteristic (see Figure~\ref{figs:anscombe}).
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.9\textwidth,valign=t]{tex/introduction/ancombe.png}
-\caption[Ancombe's quartet.]{
-Plots of the four data sets of Ancombe's quartet\footnotemark. All data sets have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
+\includegraphics[width=0.9\textwidth,valign=t]{tex/introduction/anscombe.png}
+\caption[Anscombe's quartet.]{
+Plots of the four data sets of Anscombe's quartet\footnotemark. All data sets have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
 }
-\label{figs:ancombe}
+\label{figs:anscombe}
 \end{figure*}
 \footnotetext{Image source: Wikipedia}
 
-Visual Analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Ancombe's quartet mentioned above.
+Visual Analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Anscombe's quartet mentioned above.
 This is often done in addition to and with the help of computational and statistical procedures.
-Various studies (\todo{cite}
-% http://info.slis.indiana.edu/~katy/S637-S11/cleveland84.pdf
-% preattentive, gestalt
-) have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual system.
+Various studies \cite{doi:10.1080/01621459.1984.10478080,Treisman:1985:PPV:5088.5091,Chang:2002:GTV:820060.820062} have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual system.
 Additionally, interaction with the graphical representations allows to hide some of the information and reveal it through interaction to not overwhelm the analyst.
-For example, ``overview first; details on demand" \todo{shneiderman} is a popular mantra taking advantage of interaction.
+For example, ``overview first; details on demand"~\cite{Shneiderman96theeyes} is a popular mantra taking advantage of interaction.
 
 In the context of machine learning, visual analytics, at first, seems to be a roadblock.
 Integrating a human in a machine learning workflow inevitable leads to said human being the bottleneck.
