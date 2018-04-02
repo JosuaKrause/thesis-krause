@@ -107,14 +107,17 @@
 \newcommand{\myparagraph}[1]{\noindent \textbf{#1}}
 \newcommand{\highlight}[1]{{\color{black}#1}}
 
-\newenvironment{contributions}{
-\begin{centering}
-\begin{tcolorbox}[halign=center,title=Learning objectives:]
+\newenvironment{contributions}[1]{
+\begin{center}
+\begin{tcolorbox}[title=Summary:,width=0.75\linewidth]
+\textbf{Research Question:} \emph{#1}
+
+\textbf{Key Findings:}
 \begin{itemize}
 }{
 \end{itemize}
 \end{tcolorbox}
-\end{centering}
+\end{center}
 }
 
 \newcommand{\todo}[1]{\textcolor{blue}{[TODO] #1}\PackageWarning{definitions}{[TODO] #1}}
