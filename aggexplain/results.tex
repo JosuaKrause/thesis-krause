@@ -5,7 +5,7 @@ Following, we will perform an exploratory analysis of our study results.
 \begin{figure}
 \centering
 \includegraphics[width=0.5\linewidth]{aggexplain/correctness}
-\caption{
+\caption[Comparing whether participants correctly identified the bias.]{
 Comparing whether participants correctly identified the bias in the data, determined from plain-text answers. Note, that adding explanations to the table view hurt performance, whereas adding explanations to the histogram view improved performance.
 }
 \label{figs:correctness}
@@ -32,11 +32,11 @@ First, we can see a strong improvement in correctness when adding explanations t
 We hypothesize that explanations are a necessity for histograms to work effectively, since they point out which, of the possibly many, pattern seen in the distributions are meaningful.
 % The engagement with the histogram view was also higher when explanations were available (see Figure~\ref{figs:hist_interaction}).
 
-\begin{figure}[b]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.4\linewidth]{aggexplain/table_interaction}
-\caption{
-Interaction with the table view measured by counting how many table cells were hovered by the mouse.
+\includegraphics[width=0.25\linewidth]{aggexplain/table_interaction}
+\caption[Interactions with the table view.]{
+Interactions with the table view measured by counting how many table cells were hovered by the mouse.
 The plot shows the bootstrapped mean and confidence interval for each setting.
 }
 \label{figs:table_interaction}
@@ -47,10 +47,10 @@ At first, we were puzzled at this counter-intuitive result and we double and tri
 We hypothesize that, having explanations at hand in a table, focuses the attention of participants to fewer instances and additionally makes them more confident that they fully understood the model.
 This extrapolation from few instances aligns with the findings of Stumpf~\etal~\cite{harmful}, who found that explanations can be harmful in certain circumstances.
 
-\begin{figure}[b]
+\begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth]{aggexplain/timing2}
-\caption{
+\includegraphics[width=0.4\linewidth]{aggexplain/timing2}
+\caption[Overall completion time of the study divided by condition.]{
 Overall completion time of the study divided by condition.
 The plot shows the bootstrapped mean and confidence interval for each setting.
 There is no significant difference between the conditions.
@@ -62,7 +62,7 @@ In order to investigate this hypothesis further, we can look at the number of in
 We can see in Figure~\ref{figs:table_interaction} that participants engaged with the table view significantly more when no explanations were present.
 This might be an example of Hullman~\etal~\cite{6064986}, which states that information visualization might benefit from visual difficulties, as is the case with a table without any further help from the interface about what to look at, since people are forced to interact more with the visualization.
 
-% \begin{figure*}
+% \begin{figure}
 % \centering
 % \includegraphics[width=0.75\linewidth]{figs/trust}
 % \caption{
@@ -70,7 +70,7 @@ This might be an example of Hullman~\etal~\cite{6064986}, which states that info
 % Note, that some participants valued accuracy more than semantically correct data.
 % }
 % \label{figs:trust}
-% \end{figure*}
+% \end{figure}
 
 Despite that, we found no significant difference in the time participants took to complete the study, as can be seen in Figure~\ref{figs:timing}.
 % Additionally, Figure~\ref{figs:timing} also shows that participants spent less time on the histogram view with explanations than on the table view without explanations.

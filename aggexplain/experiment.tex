@@ -72,69 +72,69 @@ The vertical scale ranges to the highest percentage across both subsets.
 This allows for seeing where one subset is more concentrated than the other independent of the total size of each subset.
 In order to indicate big differences in the distribution we show a gray rectangle at the bottom of the histogram if one subset is strongly more concentrated at this value range than the other (see Figure~\ref{figs:histogram}).
 
-\begin{figure*}[ht!]
+\begin{figure}[t]
 \centering
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_all}}
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_all}}
 \raisebox{-0.2\height}{
 \parbox{0.16\linewidth}{
 \centering
-\textsf{$\leftarrow$ Unbiased data set}\\
-\textsf{Biased data set $\rightarrow$}\\
-\textsf{Compared subset:}\\
-\includegraphics[height=1em]{aggexplain/legend_all}
+\tiny{\textsf{$\leftarrow$ Unbiased data set}}\\
+\tiny{\textsf{Biased data set $\rightarrow$}}\\
+\tiny{\textsf{Compared subset:}}\\
+\includegraphics[height=0.75em]{aggexplain/legend_all}
 }
 }
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_all}}
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_all}}
 ~\\
 \noindent\rule{\linewidth}{0.4pt}
 ~\\
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_label_ok}}
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_label_ok}}
 \raisebox{-0.2\height}{
 \parbox{0.16\linewidth}{
 \centering
-\textsf{$\leftarrow$ Unbiased data set}\\
-\textsf{Biased data set $\rightarrow$}\\
-\textsf{Compared subset:}\\
-\includegraphics[height=1em]{aggexplain/legend_label}
+\tiny{\textsf{$\leftarrow$ Unbiased data set}}\\
+\tiny{\textsf{Biased data set $\rightarrow$}}\\
+\tiny{\textsf{Compared subset:}}\\
+\includegraphics[height=0.75em]{aggexplain/legend_label}
 }
 }
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_label_bad}}
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_label_bad}}
 ~\\
 \noindent\rule{\linewidth}{0.4pt}
 ~\\
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_pred_ok}}
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_pred_ok}}
 \raisebox{-0.2\height}{
 \parbox{0.16\linewidth}{
 \centering
-\textsf{$\leftarrow$ Unbiased data set}\\
-\textsf{Biased data set $\rightarrow$}\\
-\textsf{Compared subset:}\\
-\includegraphics[height=1em]{aggexplain/legend_pred}
+\tiny{\textsf{$\leftarrow$ Unbiased data set}}\\
+\tiny{\textsf{Biased data set $\rightarrow$}}\\
+\tiny{\textsf{Compared subset:}}\\
+\includegraphics[height=0.75em]{aggexplain/legend_pred}
 }
 }
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_pred_bad}}
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_pred_bad}}
 ~\\
 \noindent\rule{\linewidth}{0.4pt}
 ~\\
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_correct_ok}}
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_correct_ok}}
 \raisebox{-0.2\height}{
 \parbox{0.16\linewidth}{
 \centering
-\textsf{$\leftarrow$ Unbiased data set}\\
-\textsf{Biased data set $\rightarrow$}\\
-\textsf{Compared subset:}\\
-\includegraphics[height=1em]{aggexplain/legend_correct}
+\tiny{\textsf{$\leftarrow$ Unbiased data set}}\\
+\tiny{\textsf{Biased data set $\rightarrow$}}\\
+\tiny{\textsf{Compared subset:}}\\
+\includegraphics[height=0.75em]{aggexplain/legend_correct}
 }
 }
-\raisebox{-0.5\height}{\includegraphics[width=0.41\linewidth]{aggexplain/h_correct_bad}}
-\caption{
+\raisebox{-0.5\height}{\includegraphics[width=0.4\linewidth]{aggexplain/h_correct_bad}}
+\caption[Comparison of different subset selections on both models.]{
 Comparison of different subset selections on both the unbiased model (left side) and the biased model (right side).
 Features are sorted per segment by most important at the top-left, row-wise to least important at the bottom-right.
 Note, the feature ``Living Area'', in both the ``Label'' (\ie, ground truth) and ``Pred.'' (\ie, model prediction), has flipped outcomes for the biased model (right side).
 Each subset has a different color palette to not confuse different selections with each other.
 }
 \label{figs:good_vs_bad}
-\end{figure*}
+\end{figure}
 
 \subsection{Study Design}
 We study four conditions which result from combining different representations with the inclusion or exclusion of explanations.

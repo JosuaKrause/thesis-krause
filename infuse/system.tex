@@ -7,7 +7,7 @@
 
 In this section, we describe the design of \infuse, which aims to assist predictive modelers with the tasks introduced in Section~\ref{sec:task-analysis}. By providing visualizations for users to interpret the results of feature selection algorithms, as well as the ability to customize the models with domain knowledge that may have been missed by the automated algorithms, \infuse provides a user-centric way of manipulating predictive models.
 
-\begin{figure}[ht]
+\begin{figure}[t]
 \centering
 \hspace*{0.02\linewidth}%
 \includegraphics[width=0.95\linewidth]{infuse/glyph-key}
@@ -16,12 +16,11 @@ In this section, we describe the design of \infuse, which aims to assist predict
 (b) Multiple models for each feature are represented as \emph{model sections}.  In this example, the feature is divided into four sections, as it was ranked by four feature selection algorithms (Information Gain, Fisher-Score, Relative Risk, and Odds Ratio.).
 (c) Each section is further divided into \emph{fold slices} representing each of the cross-validation folds. Each fold slices features a inward-filling bar that represents the rank of this feature in that fold.
 A longer bar implies the feature has a better rank.  If no bar appears, the feature was unranked in the fold, and thus did not meet the importance threshold.
-\vspace*{2em}
 }
 \label{fig:glyph-key}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[t]
 \begin{subfigure}{0.23\linewidth}
 \centering
 \includegraphics[width=\linewidth,clip,trim={2.4cm 4cm 1.7cm 4cm}]{infuse/g0}
@@ -114,7 +113,7 @@ The primary goal of \infuse is to visualize this information so that users can u
 % is shown for every classification algorithm as matrix.
 % Models can be picked to select the features of the corresponding set.
 
-\begin{figure*}[ht]
+\begin{figure}[t]
 \centering
 \begin{subfigure}{0.24\linewidth}
 \includegraphics[width=\linewidth]{infuse/ap}
@@ -135,7 +134,7 @@ The primary goal of \infuse is to visualize this information so that users can u
 \includegraphics[width=\linewidth]{infuse/si}
 \label{subfig:si}
 \end{subfigure}
-\caption{
+\caption[Different axis combinations for the scatter-plot layout.]{
 Different axis combinations for the scatter-plot layout.
 In \subref{subfig:ap} the average rank is plotted against the pick count.
 Most of the features appear in the lower half because features are rarely picked by more than two algorithms in this example.  The bottom-right shows features that are only chosen
@@ -153,7 +152,7 @@ The peak to the top right consists of features that
 are consistently high ranked.
 }
 \label{fig:scatter}
-\end{figure*}
+\end{figure}
 
 \subsection{Feature View}
 The primary component of \infuse is the \textit{Feature View}, a zoomable visualization that displays all features as glyphs. Each glyph represents a feature from the original data set and is designed to provide the information outlined above. The main purpose of the feature view is to allow comparison between features and detection of interesting commonalities and differences in terms of how the algorithms rank them. The view allows the user to display the feature set according to two different configurable layouts: a grid layout (the default), which favors legibility, and a scatter plot layout which aims at laying out and grouping the features according to various statistics we collect from the ranks. In the following sections, we describe the design of the glyph as well as the different layouts.
@@ -226,7 +225,6 @@ Users can gain more details about each section and slice by hovering over the re
 % Also, normal starburst glyphs do not work very well when the
 % visualization is zoomed out as the lines become thinner and harder to see.
 
-\vspace*{1em}
 \subsubsection{Ranked Layout}\label{sec:rankedlayout}
 The first layout available to users is the ranked layout, which arranges glyphs by their feature type, and sorts them by their overall importance.  The name of the feature type is shown at the first position in the group, after that the features are laid out row-first in a grid-like manner, as shown in Figure \ref{fig:system}. This space-filling approach results in features that are always visible without overlaps.
 
@@ -313,8 +311,8 @@ and terms that occur multiple times in one feature description
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.8\linewidth]{infuse/classifier}
-\caption{The Classifier View displays the results of the classification algorithms for all models.
+\includegraphics[width=0.7\linewidth]{infuse/classifier}
+\caption[The Classifier View.]{The Classifier View displays the results of the classification algorithms for all models.
 Rows represent feature selection algorithms and columns represent classification algorithms.
 A more detailed description of the cells can be
 seen in Figure~\ref{fig:classifier-cell}.
@@ -324,21 +322,21 @@ feature selection algorithms are highlighted in yellow.  When users select a mod
 \label{fig:classifier}
 \end{figure}
 
-\begin{figure}[b]
-\centering
-\includegraphics[width=0.5\linewidth]{infuse/classifier-cell}
-\caption{
-Each cell in the Classifier View represents the scores of a particular model by a particular classifier.
-On the left, there is a bar for each of the validation folds.  The height of each bar corresponds to the AUC score for each fold.  Immediately to the right of the fold bars, the thicker and darker bar and its height represents the average value across all folds.  This bar also features an error bar depicting the standard deviation across the folds.  Finally, to the right of the bars, there is a numerical representation of the average AUC score.}
-\label{fig:classifier-cell}
-\end{figure}
-
 \subsection{Classifier View}
 
 The Feature View and the List View both focus on supporting users to interpret the rankings of features across multiple predictive models.  However, it is also important for users to understand the quality of each model in predicting the appropriate outcome.  The Classifier View, shown in the bottom-right panel of \infuse, is where the quality of each the predictive models can be analyzed.
 
 Typically, predictive models are evaluated using classification algorithms which provide an AUC score (area under ROC curve,
 the sensitivity as function of the false positive rate).  Perfect models will have an AUC score of 1, whereas random guessing will have an AUC score of 0.5.  The Classifier View was designed to show AUC scores for each model and fold.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.4\linewidth]{infuse/classifier-cell}
+\caption[A cell of the Classifier View.]{
+Each cell in the Classifier View represents the scores of a particular model by a particular classifier.
+On the left, there is a bar for each of the validation folds.  The height of each bar corresponds to the AUC score for each fold.  Immediately to the right of the fold bars, the thicker and darker bar and its height represents the average value across all folds.  This bar also features an error bar depicting the standard deviation across the folds.  Finally, to the right of the bars, there is a numerical representation of the average AUC score.}
+\label{fig:classifier-cell}
+\end{figure}
 
 As illustrated in Figure \ref{fig:classifier}, each row of the Classifier View represents the predictive model that resulted from each feature selection algorithm.  Each column represents a classification algorithm.  Multiple classifiers are used because there are a variety of techniques to evaluate models, and in order to avoid biases, \infuse provides the ability to compare the output from multiple classifiers.
 
@@ -360,10 +358,10 @@ Each cell, as shown in Figure \ref{fig:classifier-cell}, has several components.
 
 Rows are sorted by the average AUC scores across all classification algorithms, so more accurate predictive models appear at the top of this view.  Users can interact with this view in several ways.  Clicking on a fold bar selects all features that were a part of this model and highlights them in the List and Feature views.  The selected fold bar is highlighted in orange, and other scores this fold received by the other classifiers are highlighted in yellow so that they can easily be compared (as shown in Figure~\ref{fig:classifier}.)
 
-\begin{figure}[ht]
+\begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{infuse/selection}
-\caption{
+\caption[\infuse's Interactive Model Builder.]{
 \infuse's Interactive Model Builder allows users to select sets of features and measure its quality.
 Selected feature glyphs are highlighted by saturating their color.  The List View is sorted to show the selected features by their importance.  After a user has made their selections, they can evaluate their model by clicking the ``Evaluate Model" button.  This adds a new blue row to the the Classifier View, showing the results of the evaluation for the user-defined model.
 }

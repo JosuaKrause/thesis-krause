@@ -37,8 +37,8 @@ at \boxpos {\hspace*{\boxsize}};
     {\phantom{\includegraphics[width=\imgwidth]{infuse/lasso}}};
 \end{tikzpicture}%
 }
-\caption{
-The scatterplot view allows users to compare multiple types of rankings.  In the case study, users became curious of the medication features that were chosen by only half of the models.  When reviewing these medications with domain experts, it became clear that features picked by the upper-half algorithms were as clinically significant as those picked by the bottom-half.  This indicates that merging results from feature selection algorithms makes sense for this predictive model.
+\caption[The scatter-plot view allows users to compare multiple types of rankings.]{
+The scatter-plot view allows users to compare multiple types of rankings.  In the case study, users became curious of the medication features that were chosen by only half of the models.  When reviewing these medications with domain experts, it became clear that features picked by the upper-half algorithms were as clinically significant as those picked by the bottom-half.  This indicates that merging results from feature selection algorithms makes sense for this predictive model.
 }
 \label{fig:usecase2}
 \end{figure*}
@@ -50,7 +50,7 @@ expand their pipeline's feature selection algorithms from 2 to 4.
 The team has used Information Gain and Fisher Score extensively
 in prior work, and typically uses these same techniques due
 to their familiarity and past success.
-Nonetheless, the diabetes dataset introduced in Section \ref{sec:running_example} was new to them, and they were unsure which techniques would be the most appropriate. So, they asked their technologists to implement two new techniques: Odds Ratio and Relative Risk.
+Nonetheless, the diabetes data set introduced in Section \ref{sec:running_example} was new to them, and they were unsure which techniques would be the most appropriate. So, they asked their technologists to implement two new techniques: Odds Ratio and Relative Risk.
 
 After all four algorithms were available, they executed their modeling pipeline
 using \textit{PARAMO} \cite{paramo} and connected the results to \infuse.
@@ -110,10 +110,11 @@ ranked features from different types of feature selection algorithms.
 The researchers are convinced that by merging features, in addition
 to the interactive model building capability, their predictive models will be improved.
 
-\begin{figure}[ht]
+\begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{infuse/usecase1b}
-\caption{
+\caption[The clinical researchers found an interesting pattern among
+the glyphs.]{
 The clinical researchers found an interesting pattern among
 the glyphs indicating non-overlap of feature selection algorithm results.
 These features were highly ranked by 2 of the 4 feature algorithms,

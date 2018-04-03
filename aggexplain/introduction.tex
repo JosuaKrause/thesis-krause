@@ -13,6 +13,18 @@ After analyzing the model's behavior, Caruana~\etal detected that patients that 
 However, this finding goes against current medical knowledge, as the combination of Pneumonia and Asthma are associated with a significantly increased mortality risk.
 In fact, the data was biased because these high-risk patients with Asthma were given special attention during their hospital visits which contributed to their lower mortality.  The presence of Asthma was not responsible for their improvement in health, but rather a systematic bias. 
 
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=\linewidth]{aggexplain/teaser.pdf}
+ \caption[Showing the four study conditions.]{
+Showing the four conditions of our study: (1) instance-level explanations; (2) only instances; (3) only aggregated features; (4) aggregated features with explanations.
+On the left and the top are consistent parts of the user interface showing: (a) the problem description; (b) the confusion matrix; (c) the subset selector.
+%\adam{This teaser is a bit confusing. Would it be better to just have the complete UI here and this figure later.}
+% I keep it for now
+ }
+ \label{figs:teaser}
+\end{figure}
+
 Using the interpretable model and human expert knowledge, it was possible to detect this systematic bias in the data before deploying the model.
 However, using interpretable machine learning algorithms typically penalizes their capacity, thus lowering the potential accuracy of the model \cite{Caruana:2015:IMH:2783258.2788613} or is only superficially more interpretable by being interpretable on a small scale but not for more complex tasks (\cite{2016arXiv160603490L,2016arXiv160605685K}).
 As a way to interpret the behavior of machine learning models \emph{independently} from the used algorithm, black-box and more precisely, instance-level explanations recently became popular \cite{Martens:2014:EDD:2600518.2600523,DBLP:journals/corr/RibeiroSG16,krause2016interacting}.
@@ -22,16 +34,16 @@ This task becomes infeasible when dealing with thousands or more instances, also
 To that extent, we propose a visual way of reviewing instance level explanations with the help of aggregation in combination with navigation.
 This is implemented through the comparison of subsets of the test data under different conditions.
 
-\begin{figure*}[ht!]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.7\linewidth]{aggexplain/full_histogram}
-\caption{
+\includegraphics[width=\linewidth]{aggexplain/full_histogram}
+\caption[The full interface illustrating the aggregated histogram view.]{
 The full interface illustrating the aggregated histogram view.
 The user is comparing the model's prediction of ``high'' house prices (orange) to the prediction of ``low'' prices (purple).
 The user hovers over the feature ``House Style'' revealing a more detailed description, whether the feature is categorical or numeric, and the importance / feature weight for each of the subsets.
 }
 \label{figs:full_hist_view}
-\end{figure*}
+\end{figure}
 
 We conducted a study comparing aggregated instance-level explanations to their individual counterparts.
 Under both conditions different subsets of the test data could be compared by participants.
