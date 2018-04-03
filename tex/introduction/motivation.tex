@@ -3,9 +3,6 @@ Modern machine learning algorithms have reached a degree of potential that lets 
 But even though there are statistical measures to guarantee that the model is learning correctly without over-fitting on the training data, the model with the highest accuracy is not always the most usable model or even semantically correct.
 The following three examples aim to showcase this:
 
-\par \noindent (1)
-Caruana~\etal\cite{Caruana:2015:IMH:2783258.2788613} built a Generalized Additive Model with pairwise interaction ($GA^2M$) to predict mortality risk for hospitalized patients with pneumonia, a potentially life-threatening lung infection. This area of machine learning is called predictive modeling and uses machine learning to predict a certain outcome, in this case mortality risk, based on values of several input features, in this case laboratory measurements, comorbidities, or patient demographics, and is trained from and applied to many instances. It is not feasible to individually check each prediction of the model manually. However, the machine learning algorithm $GA^2M$ used for this study is an intelligible model, that sacrifices parts of its predictive quality in favor of being understandable by humans. This enabled the authors to inspect how features contributed to the predicted outcome. One of their findings was that the model associated having asthma, a chronic lung disease, with a lower mortality rate for pneumonia patients. However, this combination of diseases is known to have a significantly \emph{increased} mortality rate. The authors double checked their data and found that this phenomenon actually occurred in their dataset and thus appeared as correct prediction in their model. After further investigation it became clear that this bias in the dataset stemmed from patients, with those conditions, being treated with intensive care thus lowering their mortality risk below the average. Outside of a hospital the risk of those patients would have been significantly higher. The model, however, only learnt about hospitalized patients which led to it being confident in this false association.
-
 \begin{figure}
 \centering
 \includegraphics[height=6em,valign=t]{tex/introduction/pneumonia.png}
@@ -19,8 +16,8 @@ The influence functions of the features ``age" (middle) and ``asthma" (right) of
 \end{figure}
 \footnotetext{Image source: Google}
 
-\par \noindent (2)
-Layzell and Bird \cite{Bird:2002:ERI:1251972.1252349} used machine learning to automatically design an oscillator, an electronic circuit that produces a periodic oscillating signal, using a physical programmable circuit rather than a simulated circuit. After the model completed the task, the scientists looked at the resulting electronic circuit and were surprised to find that instead of the conventional design, using a feedback loop of an amplifier and a filter, the model designed a makeshift radio that responded to the desired frequency and amplified radio signals emitted by nearby computers instead. The output signal of this electronic circuit had the correct frequency and amplitude according to the specification but did not create a valid result due to a latent bias in the available data.
+\par \noindent (1)
+Caruana~\etal\cite{Caruana:2015:IMH:2783258.2788613} built a Generalized Additive Model with pairwise interaction ($GA^2M$) to predict mortality risk for hospitalized patients with pneumonia, a potentially life-threatening lung infection. This area of machine learning is called predictive modeling and uses machine learning to predict a certain outcome, in this case mortality risk, based on values of several input features, in this case laboratory measurements, comorbidities, or patient demographics, and is trained from and applied to many instances. It is not feasible to individually check each prediction of the model manually. However, the machine learning algorithm $GA^2M$ used for this study is an intelligible model, that sacrifices parts of its predictive quality in favor of being understandable by humans. This enabled the authors to inspect how features contributed to the predicted outcome. One of their findings was that the model associated having asthma, a chronic lung disease, with a lower mortality rate for pneumonia patients. However, this combination of diseases is known to have a significantly \emph{increased} mortality rate. The authors double checked their data and found that this phenomenon actually occurred in their dataset and thus appeared as correct prediction in their model. After further investigation it became clear that this bias in the dataset stemmed from patients, with those conditions, being treated with intensive care thus lowering their mortality risk below the average. Outside of a hospital the risk of those patients would have been significantly higher. The model, however, only learnt about hospitalized patients which led to it being confident in this false association.
 
 \begin{figure}
 \centering
@@ -30,25 +27,32 @@ The physical programmable circuit used by Bird and Layzell \cite{Bird:2002:ERI:1
 }
 \label{figs:emradio}
 \end{figure}
+
+\par \noindent (2)
+Layzell and Bird \cite{Bird:2002:ERI:1251972.1252349} used machine learning to automatically design an oscillator, an electronic circuit that produces a periodic oscillating signal, using a physical programmable circuit rather than a simulated circuit. After the model completed the task, the scientists looked at the resulting electronic circuit and were surprised to find that instead of the conventional design, using a feedback loop of an amplifier and a filter, the model designed a makeshift radio that responded to the desired frequency and amplified radio signals emitted by nearby computers instead. The output signal of this electronic circuit had the correct frequency and amplitude according to the specification but did not create a valid result due to a latent bias in the available data.
+
 % https://people.duke.edu/~ng46/topics/evolved-radio.pdf
 
 \par \noindent (3)
-\todo{toaster example}
+Brown~\etal~\cite{2017arXiv171209665B} exploited weaknesses of popular image classification machine learning models in order to create an adversarial patch.
+This adversarial patch, when added to any image will overwrite the original classification of the model and force it to predict the desired outcome.
+Concretely, the patch seen in Figure~\ref{figs:toaster} forces image classification models to predict any image as toaster.
+The existence of such patches illustrates the fragility of modern machine learning models to unexpected input data, which leads to surprising and counter-intuitive mispredictions.
 % \cite{2017arXiv171209665B}
 % https://arxiv.org/pdf/1712.09665.pdf
 % https://arxiv.org/abs/1712.09665
+
+Those three examples all exhibit limitations of machine learning models where increasing the statistical accuracy of the model does not result in a semantically more correct model.
+This is due to inherent biases of the data.
 
 \begin{figure}
 \centering
 \includegraphics[height=10em]{tex/introduction/adversarialtoaster.png}
 \caption[The adversarial patch.]{
-The adversarial patch. When put on any image, the image will get classified as toaster.
+The adversarial patch. When put on any image, the image will get classified as toaster~\cite{2017arXiv171209665B}.
 }
 \label{figs:toaster}
 \end{figure}
-
-Those three examples all exhibit limitations of machine learning models where increasing the statistical accuracy of the model does not result in a semantically more correct model.
-This is due to inherent biases of the data.
 
 In the pneumonia example (1) patients with exceptionally high mortality risk were removed from the data leading to the model being unable to detect the severity of those cases.
 In the radio example (2) the model utilized contextual data from the environment that is present but \emph{should} not be used in the model.
@@ -58,13 +62,11 @@ Furthermore, the process of detecting those errors, or even optimizing for seman
 This is in contrast to statistical accuracy where a higher number always indicates a better model.
 As a result, human judgment and contextual knowledge is absolutely necessary.
 
-% There has been research...specialized models
-% In order for a technique to be effectively useful for a human it needs to have few restrictions \todo{}
-* black-box vs. white-box
-* reasons for black box
-\todo{problem statement}
-
-The above example illustrates the need for human understanding and supervision in machine learning and the incorrect correct result could easily be identified since the authors used a special, intelligible, model. However, not all models used in machine learning are, or even attempt to be, easily interpretable by human experts. To counteract this, visual analytics has been successfully used to visualize machine learning processes in order to understand and gain insights into predictive models. Visual analytics is the area of studying interactive graphical representations of abstract information with the help of computational and statistical procedures, in order to effectively analyze complex data. With regards to understanding the decision making of predictive machine learning models, there are two main strategies: white-box and black-box analysis \cite{class_signatures}.
+The above examples illustrate the need for human understanding and supervision in machine learning.
+However, those cases required intricate understanding of the used machine learning models and are not easily generalized to other techniques.
+For example, in the case of Caruana~\etal\cite{Caruana:2015:IMH:2783258.2788613}, the incorrect correct result was easily identified since the authors used a special, intelligible, model.
+However, not all models used in machine learning are, or even attempt to be, easily interpretable by human experts.
+To counteract this, visual analytics has been successfully used to visualize machine learning processes in order to understand and gain insights into predictive models \todo{cite vis papers last year}. Visual analytics is the area of studying interactive graphical representations of abstract information with the help of computational and statistical procedures, in order to effectively analyze complex data. With regards to understanding the decision making of predictive machine learning models, there are two main strategies: white-box and black-box analysis \cite{class_signatures}.
 
 % \section{White-box vs. Black-box Analysis}
 In white-box analysis the main focus lies in communicating the internal structure of the model at hand. That is, the analysis is based on the assumption that knowing the full internal state of a model and being able to manually retrace decisions made by it, helps understanding the \emph{behavior} of the model in general.
@@ -92,9 +94,7 @@ As white-box analysis relies on the internal structure and thus the nature of a 
     & incurs performance penalty & & necessary \\
     \end{tabular}
     \centering
-    \vspace*{-0.5em}
     \caption[Comparison of black-box and white-box explanation strategies.]{Comparison of black-box and white-box explanation strategies. $\oplus$ indicates advantages of a technique while $\ominus$ indicates drawbacks.}
-    \vspace*{-0.75em}
     \label{tab:blackvswhite}
 \end{table}
 

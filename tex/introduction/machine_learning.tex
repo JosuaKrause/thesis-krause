@@ -223,16 +223,6 @@ One example data set often used to demonstrate this is Anscombe's quartet~\cite{
 The quartet consists of four different data sets that all have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
 However, plotting the values of the data sets reveals that each one of those data sets obeys a different, unique characteristic (see Figure~\ref{figs:anscombe}).
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.9\textwidth,valign=t]{tex/introduction/anscombe.png}
-\caption[Anscombe's quartet.]{
-Plots of the four data sets of Anscombe's quartet\footnotemark. All data sets have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
-}
-\label{figs:anscombe}
-\end{figure*}
-\footnotetext{Image source: Wikipedia}
-
 Visual Analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Anscombe's quartet mentioned above.
 This is often done in addition to and with the help of computational and statistical procedures.
 Various studies \cite{doi:10.1080/01621459.1984.10478080,Treisman:1985:PPV:5088.5091,Chang:2002:GTV:820060.820062} have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual system.
@@ -243,6 +233,16 @@ In the context of machine learning, visual analytics, at first, seems to be a ro
 Integrating a human in a machine learning workflow inevitable leads to said human being the bottleneck.
 Humans are magnitudes slower than computers which have to idle while waiting for human input.
 Thus, human input should only be required for tasks that are impossible without.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\textwidth,valign=t]{tex/introduction/anscombe.png}
+\caption[Anscombe's quartet.]{
+Plots of the four data sets of Anscombe's quartet\footnotemark. All data sets have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
+}
+\label{figs:anscombe}
+\end{figure}
+\footnotetext{Image source: Wikipedia}
 
 For example, with the goal of improving the accuracy of a model a human should not have the task of, \eg, manually picking the order of the features to be included in a decision tree.
 A good intuition might outperform the computer momentarily but having an objective goal makes it possible to eventually find a suitable algorithm that is en par or even outperforms the human.

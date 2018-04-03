@@ -3,4 +3,18 @@
 \input{aggexplain/template.tex}
 
 \section{General Discussion}
-\todo{TODO}
+In our study we found that aggregating instance-level explanations using histograms and subset comparison provides a scalable alternative to inspecting tabular data manually for finding biases in the input data of a predictive model.
+We only tested finding biases that were possible to find in all of our four conditions.
+It would be easy to construct a bias that is impossible to find looking at a table of the data, but this would be an unfair comparison.
+Thus, our method is more scalable, since it enables to find a super-set of biases detectable in tables.
+
+However, our method requires both aggregation and instance-level explanations.
+Without either of those, performance in finding biases decreased significantly.
+This also brings light to the issue that individual instance-level explanations can be misleading and thus harmful.
+We could confirm, that the findings of Stumpf~\etal~\cite{harmful}, which show that inspecting individual instance-level explanations can lead to harmful extrapolations of the model's behavior, also apply to a tabular representation.
+However, our method overcomes this harmfulness.
+
+Furthermore, even when confronted with evidence of an erroneous data set a quarter of the participants still preferred the model with higher accuracy but incorrect data.
+This implies a strong trust in statistical accuracy whose perception needs to be reevaluated.
+
+The presented work shows the effectiveness of aggregated instance-level explanations, and in extension of the previously presented Model Diagnostic workflow, but it also opens up further research opportunities.
