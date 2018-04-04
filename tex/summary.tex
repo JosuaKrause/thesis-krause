@@ -1,10 +1,26 @@
 \chapter{Thesis Summary}
 \label{chap:summary}
 
-In this thesis, we discussed the role of visualization and human interaction \todo{TODO}
+In this thesis, we discussed the role of visual analytics to explain black-box machine learning.
+We saw that global approaches, like feature selection methods, are not informative enough to help understand black-box model decisions.
+Different strategies preferred different, equally reasonable, feature sets without having a significant impact on predictive performance.
+This showed, that inspecting and comparing alternate settings let machine learning experts develop insights that overwrote their initial intuitions.
 
-However, this approach has some limitations to overcome.
-Note, that many of the limitations are not necessarily an argument against the presented techniques but merely a starting point for future research.
+Next, we saw that partial dependence with a derived feature importance score allowed to effectively detect model errors.
+Detectable errors included: over-fitting, under-fitting, errors caused by imputation, and incorrect cause-effect relationships.
+Furthermore, localized inspections helped to understand the how and why of specific instance predictions by finding locally impactful features.
+
+Then, we proposed and discussed the model diagnostic workflow, which is based on aggregating local instance-level explanations in order to gain insights about a model with the intent of improving it.
+We showed that the model diagnostic workflow enables a scalable understanding of local decision making of a predictive model and that aggregating instance-level explanations allows for semantic validation of the input data.
+As a model can only perform as well as its input data, gaining insights about the limitations of a model in turn help with feature engineering on the input data.
+
+Finally, we showed how histograms can be effectively used to aggregate instance-level explanations.
+With the help of comparing meaningful subsets, aggregated instance-level explanations significantly outperformed inspecting individual explanations or aggregation without explanations in detecting biases in the input data while being more scalable than a tabular representation.
+Furthermore, we showed that inspecting individual instance-level explanations can be misleading and hurt detecting biases in the input data.
+
+All in all, we demonstrated a workflow for effectively utilizing black-box instance-level explanations in order to improve model correctness via semantic validation.
+However, this approach has some limitations to overcome which we will explore next.
+Note, that many of those limitations are not necessarily an argument against the presented techniques but merely a starting point for future research.
 
 \section{Limitations and Assumptions of Black-Box Analysis}
 Analyzing machine learning models using black-box techniques can only approximate the true behavior of the model.
@@ -26,27 +42,29 @@ A binary feature can have an explanation that describes the presence or absence 
 Our Model Diagnostic Workflow is agnostic to the used instance-level explanation algorithm but this choice still has to be made.
 
 \section{Generalization to Other Forms of Machine Learning}
-\todo{TODO}
-* only predictions tasks
-* might be possible for LSTM
-* gradient to explanation
-* other machine learning tasks like reinforcement learning etc.
+We only focused on predictive modeling tasks with tabular inputs.
+Even though this is a large and popular subset it does not cover the entirety of machine learning or even predictive modeling.
+Presented techniques are not immediately transferable to tasks such as online learning or streaming input data, which requires recurrent models, such as LSTM (Long Short Term Memory) models~\cite{Hochreiter:1997:LSM:1246443.1246450}.
+Those areas pose further challenges and offer a variety of research opportunities.
+
+On a different note, the recent popularity of neural networks offers an additional opportunity in terms applicability of the work in this thesis.
+Neural networks are differentiable models, which makes it possible to compute gradients towards desired outcomes for given inputs.
+As instance-level explanations aim to approximate this gradient to some degree (LIME~\cite{DBLP:journals/corr/RibeiroSG16} is essentially a Monte-Carlo approximation of the above mentioned gradient) gradients might be used as drop-in replacements for instance-level explanations in the techniques proposed in this thesis.
+However, whether gradients are a computationally faster alternative to instance-level explanations and whether they can achieve similar results poses an interesting open research question.
 
 \section{Implications}
-\todo{TODO}
+Meta-learning, \ie, using machine learning to learn model architectures for solving the actual task, is recently growing in popularity.
+With systems, such as auto-sklearn~\cite{NIPS2015_5872} or AlphaGo~\cite{silver2016mastering}, the role of humans in machine learning shifts away from being the architect of models to being a domain expert of the modeled problem.
+Humans have vast contextual knowledge that is hard to communicate directly to machine learning models.
+As such, understanding the behavior of black-box machine learning models and semantic validation of their performance, as presented in this thesis, is becoming more and more relevant.
 
 Interestingly, because humans are used to having contextual knowledge about real world problems machine learning is trying to solve, it often seems surprising when and why a model failed, since the correct prediction ``is so obvious".
-This also means, that repeatedly seeing that a model performs correctly, especially when providing a reasoning behind the decision in the form of \emph{explanations} might lead to overconfidence of the human in the capabilities of the model~\cite{harmful}.
-\todo{TODO}
-* automl and the human role in ML
-* vis systems from last year
-* attention models
-* additive models
+% This also means, that repeatedly seeing that a model performs correctly, especially when providing a reasoning behind the decision in the form of \emph{explanations} might lead to overconfidence of the human in the capabilities of the model as we have seen in \chapref{chap:aggexplain}.
+Thus, it is crucial for machine learning models to correctly communicate their behavior to humans in order to prevent such fallacies to go unnoticed.
+This thesis provided an important step towards achieving this goal.
 
 % \todo{see motivation for building context}
 % \todo{discussion? -- also overfitting}
-
-
 % \todo{end???}
 % The model diagnostic workflow proposed in the previous chapter has so far only been tested with binary input features.
 % This poses the question on how to expand to general numeric features.
