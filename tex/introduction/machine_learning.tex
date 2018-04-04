@@ -211,6 +211,7 @@ Common cases include:
 \par \noindent \textbf{Biased Data:}
 Biased data might occur if the acquired data stems from a sub-population that insufficiently represents the entire population.
 For example, if we train our Diabetes model from above only with obese people the resulting model will most likely have a greater tendency to predict Diabetes.
+Note, that imputing missing values might also result in a biased data set.
 
 \par \noindent \textbf{Leaking Labels:}
 If a feature of the data is highly correlated to the outcome, a model might only learn this connection, preventing the model to generalize properly.
