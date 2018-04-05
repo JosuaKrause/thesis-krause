@@ -1,4 +1,5 @@
 \section{Machine Learning and Predictive Modeling}
+\label{sec:machinelearning}
 Machine learning enables computers to perform tasks without manually codifying all instructions.
 This automated programming makes machine learning a popular and widely used approach for many applications as it provides a time- and cost-effective alternative to manually created software solutions.
 Machine learning relies on algorithms that learn and generalize from examples in order to perform accurately on new or unseen data.
@@ -12,6 +13,17 @@ In the case of \emph{unstructured} data, such as plain text, the data needs to b
 The predicted property, \emph{outcome} or \emph{label}, can be numerical, in which case the task is called \emph{regression}, or categorical, in which case the task is called \emph{classification}\footnote{A combination of multiple properties are also possible to predict, in which case the task is called multitask learning, structured learning, \etc. Currently, the most common form of predictive modeling involves either a single classification or single regression task.}.
 The different values the label can assume are called \emph{classes}.
 The task is call \emph{binary classification} if the categorical label has exactly two classes.
+
+\begin{figure}
+\centering
+\includegraphics[height=8em]{figs/cm}
+\caption[Example of a confusion matrix.]{
+Example of a confusion matrix. Each cell represents the number of instances under a certain condition. Rows show the ground truth while columns show the predicted outcomes from the machine learning model.
+For example, there were 44 instances predicted ``high'' whose ground truth is actually ``low''.
+The edge of the matrix shows the tallies of the rows and columns.
+}
+\label{figs:cm_intro}
+\end{figure}
 
 The predictive model learns by \emph{training} with a set of example instances (\emph{training set}) and their associated labels.
 In order to verify that the model did indeed correctly learn from the given examples, a second, previously unseen, set of example instances (testing or \emph{validation set}) with known labels is typically used.
@@ -35,15 +47,24 @@ For binary classification tasks (for simplicity \emph{positive} and \emph{negati
     $FP / (FP + TN)$ The proportion of incorrectly predicted positive instances.
 \end{description}
 
+All of those measures can be read from a confusion matrix, as shown in Figure~\ref{figs:cm_intro}
+
 Additionally, a further model quality measurement can be derived from the confidence of a model in its prediction.
 Typically, classification models allow to output probabilities for each class instead of the predicted class directly.
 This allows for inspecting the \emph{confidence} of the model.
 In the case of binary classifiers a \emph{threshold} can be used to adjust predictions to favor confidence in a certain class higher than the other.
 This is achieved by outputting the positive class as prediction if its probability is higher than the threshold and the negative class otherwise.
 
-\input{figs/roc}
+\begin{figure}
+\centering
+\includegraphics[height=10em]{figs/roc}
+\caption[Example of a ROC curve.]{
+Example of a ROC curve. The plot indicates the correctness of the model with the false-positive rate as horizontal axis and the true-positive rate as vertical axis. The line traces those values for different prediction thresholds. The threshold minimizing incorrect predictions is highlighted by the colored axes.
+}
+\label{figs:roc_intro}
+\end{figure}
 
-The \emph{receiver operating characteristic} (ROC) curve for binary classifiers plots the true positive rate against the false positive rate for all thresholds between $0$ and $1$.
+The \emph{receiver operating characteristic} (ROC) curve for binary classifiers plots the true positive rate against the false positive rate for all thresholds between $0$ and $1$, as shown in Figure~\ref{figs:roc_intro}.
 The plot indicates the correctness of the model \wrt its confidence.
 The ROC curve for a perfect model ($100\%$ accuracy) would follow the left vertical axis and the top horizontal axis.
 The area under the ROC curve (\emph{AUC}) is a commonly used measure for model quality \cite{bradley19971145}.
@@ -120,7 +141,7 @@ The leaf nodes contain the probabilities for the outcomes of the prediction task
     \caption[Example Decision Tree.]{A possible decision tree for the Diabetes prediction example\footnotemark. Note, that the tree has interval checks to model the relationship between ``weight'' in \si{kg} and ``height'' in \si{m}.}
     \label{figs:dctree}
 \end{figure}
-\footnotetext{The decision tree or its parameters are \emph{not} based on data and serve only illustratory purposes.}
+\footnotetext{The tree and its parameters are \emph{not} based on any data and serve only illustratory purposes.}
 
 Decision Trees are usually considered very interpretable, as their behaviour is intuitively understandable.
 However, this only holds true for trees with a relatively low number of nodes.
@@ -218,6 +239,7 @@ If a feature of the data is highly correlated to the outcome, a model might only
 For example, including an additional feature ``Takes Insulin" to the Diabetes model would leak the label, as only people that are already diagnosed with Type 2 Diabetes take the drug Insulin.
 
 \section{Visual Analytics}
+\label{sec:visualanalytics}
 Gaining meaningful insights about large data sets is hard.
 While computing various statistics about the data is often helpful it might oversimplify or in some cases even mislead information about the data.
 One example data set often used to demonstrate this is Anscombe's quartet~\cite{doi:10.1080/00031305.1973.10478966}.

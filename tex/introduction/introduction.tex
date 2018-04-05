@@ -3,9 +3,17 @@ In computer science, machine learning is a set of methods for learning models fr
 
 However, the relative lack of human supervision in their creation makes it hard to fully understand the inner workings of trained models and limits the ability to verify that the models work correctly. Even though it is possible to statistically verify the correctness of a model by testing it against an unseen data set whose ground truth is known, models can unknowingly utilize latent variables that should not be used. Knowledge about those factors is often implicit in the domain of the task and neither encoded in the data nor the model. Human expertise is needed to detect and encode them explicitly or to block them out.
 
-\todo{State core contributions}
+With the growing complexity of machine learning models and the need for algorithm agnostic approaches, black-box explanations offer insights into the external behavior of such models.
+Visual analytics can be used to leverage the full potential of those explanations in a scalable way.
 
-\todo{outline of introduction}
+This thesis explores both global and local approaches for black-box explanations.
+Furthermore, it shows the advantage of the compromise of both techniques: aggregating instance-level explanations.
+This results in the Model Diagnostic workflow which not only helps improving machine learning models, but also offers insights about problems with the input data, assisting in the task of feature engineering.
+
+Following, we will discuss essentials in both machine learning, starting in Section~\ref{sec:machinelearning}, and visual analytics, in Section~\ref{sec:visualanalytics}.
+Then, in Section~\ref{sec:usecase}, we will briefly discuss the common use case, of machine learning for health care, within this thesis.
+Afterwards, we will motivate the work of the thesis in Section~\ref{sec:motivation_intro} followed by an overview of the research and contributions of the thesis in Section~\ref{sec:corecontributions}.
+In Section~\ref{sec:thesisoutline} we will then outline the remainder of this thesis.
 
 %%%
 %  Furthermore, a formalization or taxonomy of common machine learning modeling \emph{errors} in both the modeling and feature engineering steps is needed to fully determine the limitations of the proposed black-box analysis methodologies. This can be achieved by taking a survey with both machine learning and domain experts to get an understanding and relevance of different kinds of those errors.
