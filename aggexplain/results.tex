@@ -4,88 +4,141 @@ Following, we will perform an exploratory analysis of our study results.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\linewidth]{aggexplain/correctness}
-\caption[Comparing whether participants correctly identified the bias.]{
-Comparing whether participants correctly identified the bias in the data, determined from plain-text answers. Note, that adding explanations to the table view hurt performance, whereas adding explanations to the histogram view improved performance.
+% \begin{subfigure}{0.45\linewidth}
+\includegraphics[width=0.45\linewidth]{aggexplain/stats/tvss}%
+% \caption{Trust and sense in the biased model.}
+% \label{subfig:tvss}
+% \end{subfigure}%
+% \hfill%
+% \begin{subfigure}{0.45\linewidth}
+% \includegraphics[width=\linewidth]{aggexplain/stats/tvss-chg-all}%
+% \caption{Change between both models.}
+% \label{subfig:tvss-chg}
+% \end{subfigure}%
+\caption[Trust and whether the model makes sense.]{
+A kernel density estimation of the responses of participants on a five-point Likert scale
+about how much they trust the biased model and whether it makes sense to them.
+Note, that the majority of participants did not detect the bias of the model.
+% (b) shows the change of those values when comparing the unbiased model to biased model.
+% A positive value indicates that the response was higher in the unbiased model.
+}
+\label{figs:tvss}
+\end{figure}
+
+\subsection{Bias Detection and Trust}
+
+When comparing how much participants trust a particular model and whether they think that model makes sense, one can see that those responses are typically correlated (see for example Figure~\ref{figs:tvss} with a Pearson correlation coefficient of $0.759$ and Spearman rank-order correlation coefficient of $0.745$).
+This also extends to plain-text answers, which allow to detect whether participants correctly found the bias in the correct data set unambiguously.
+Participants were very verbose about their findings, if they found something:
+``\emph{It has higher accuracy so should be more trustworthy than the other one. However some of the results don't make sense to me. Maybe this is just an atypical property market.}'';
+``\emph{It is accurate, yet the predictions do not make much sense. Higher quality houses having a larger amount of low priced houses, percentage-wise? More rooms, area, or stories resulting in lower prices? The logic does not work out.}'';
+``\emph{larger houses are valued lower than others which are smaller}''.
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.45\linewidth}
+\includegraphics[width=\linewidth]{aggexplain/stats/tvss-chg-correct}%
+\caption{\centering Bias~detected~and correct~preference.}
+\label{subfig:tvss-chg-a}
+\end{subfigure}%
+\hfill%
+\begin{subfigure}{0.45\linewidth}
+\includegraphics[width=\linewidth]{aggexplain/stats/tvss-chg-change}%
+\caption{\centering Bias~detected~but no~preference~change.}
+\label{subfig:tvss-chg-b}
+\end{subfigure}%
+\caption[Change in trust and whether the model makes sense.]{
+How participants changed their responses comparing the unbiased model to the biased model.
+A positive value indicates that the response was higher in the unbiased model.
+(a) shows the case when participants detected the bias and subsequently preferred the unbiased model.
+(b) shows the case when participants detected the bias but still chose the biased model.
+}
+\label{figs:tvss-chg}
+\end{figure}
+
+However, the above mentioned correlation is not perfect.
+This is likely due to some participants not being convinced, that their correct discovery of the flaw in the data is enough that the corresponding model cannot be trusted:
+``\emph{If the data says it's true, then it's true I suppose and it's more trustworthy than my common sense.}'';
+``\emph{I feel like the results of [the biased model] where strange even though they where correct according to the dataset.}'' (sic);
+``\emph{I'm drawn to trusting the model which was more accurate even though it didn't entirely make sense to me.}''.
+
+This divergence in trust and the finding of flaws in the data can also be seen in Figure~\ref{figs:tvss-chg}.
+If finding the flaw in the data swayed the participant to not trust the model an increase in trust for the unbiased model compared to the biased model corresponds to an increase in the perception that the unbiased model makes more sense (Figure~\ref{subfig:tvss-chg-a}).
+However, if the finding did not influence the preference, trust between both models stayed the same (Figure~\ref{subfig:tvss-chg-b}).
+
+In total, $25\%$ of people who correctly identified the bias still opted to trust the biased model more, due to the higher reported accuracy of the model.
+A further $8\%$ who identified the bias trusted both models equally.
+This aligns with the findings of Stumpf~\etal~\cite{harmful} that trust in the machine learning model may \emph{override} people's initial intuition about its performance.
+
+\subsection{Comparison Across Conditions}
+
+\begin{figure}
+\centering
+% \hfill%
+\begin{subfigure}{0.45\linewidth}
+\includegraphics[width=\linewidth]{aggexplain/stats/correctness}%
+\caption{Correct trust}
+\label{subfig:correctness}
+\end{subfigure}%
+\hfill%
+\begin{subfigure}{0.45\linewidth}
+\includegraphics[width=\linewidth]{aggexplain/stats/correct-detect}%
+\caption{Detected bias}
+\label{subfig:correctdetect}
+\end{subfigure}%
+% \hfill%
+\caption[Comparison of participants' trust and ability to detect the bias.]{
+(a) compares how many participants trusted the unbiased, thus correct, model more.
+(b) compares how many participants correctly identified the bias in the data, determined from plain-text answers.
+Note, that in both cases adding explanations to the table view hurt performance, whereas adding explanations to the histogram view improved performance.
 }
 \label{figs:correctness}
 \end{figure}
 
-For reasons we will explore later, we used the plain-text answers of the participants to determine whether they correctly found the bias in the correct data set.
-This is an unambiguous way, since participants were verbose about their findings (if they found something):
-``It has higher accuracy so should be more trustworthy than the other one. However some of the results don't make sense to me. Maybe this is just an atypical property market.'';
-``It is accurate, yet the predictions do not make much sense. Higher quality houses having a larger amount of low priced houses, percentage-wise? More rooms, area, or stories resulting in lower prices? The logic does not work out.'';
-``larger houses are valued lower than others which are smaller''.
-
-% \begin{figure}
-% \centering
-% \includegraphics[width=0.4\linewidth]{figs/hist_interaction}
-% \caption{
-% Interaction with the histogram view measured by counting how many histogram bars were hovered by the mouse.
-% The plot shows the bootstrapped mean and confidence interval for each setting.
-% }
-% \label{figs:hist_interaction}
-% \end{figure}
-
 Comparing the correctness across all four conditions can be seen in Figure~\ref{figs:correctness}.
-First, we can see a strong improvement in correctness when adding explanations to histograms (p-value Fisher's $0.0359$, $\chi^2$ $0.0366$) or when switching from tables to histograms while having access to explanations (p-value Fisher's $0.0161$, $\chi^2$ $0.0169$).
+First, we can see a strong improvement both in correctness and whether the participant trusted the unbiased model more, when switching from tables to histograms while having access to explanations (p-value Figure~\ref{subfig:correctness}: Fisher's $0.0477$, $\chi^2$ $0.0489$; p-value Figure~\ref{subfig:correctdetect}: Fisher's $0.0161$, $\chi^2$ $0.0169$).
+When adding explanations to histograms (p-value Figure~\ref{subfig:correctdetect}: Fisher's $0.0359$, $\chi^2$ $0.0366$) we can see a significant improvement when comparing correctness.
 We hypothesize that explanations are a necessity for histograms to work effectively, since they point out which, of the possibly many, pattern seen in the distributions are meaningful.
+We can also see an improvement in whether the participant trusted the unbiased model, however, it is not significant (p-value Figure~\ref{subfig:correctness}: Fisher's $0.0982$, $\chi^2$ $0.0986$).
 % The engagement with the histogram view was also higher when explanations were available (see Figure~\ref{figs:hist_interaction}).
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.25\linewidth]{aggexplain/table_interaction}
-\caption[Interactions with the table view.]{
-Interactions with the table view measured by counting how many table cells were hovered by the mouse.
-The plot shows the bootstrapped mean and confidence interval for each setting.
-}
-\label{figs:table_interaction}
-\end{figure}
-
-However, we see a strong decline in correctness when adding explanations to tables (p-value Fisher's $0.0311$, $\chi^2$ $0.0320$).
+Furthermore, we see a strong decline in correctness when adding explanations to tables (p-value Figure~\ref{subfig:correctness}: Fisher's $0.0127$, $\chi^2$ $0.0137$; p-value Figure~\ref{subfig:correctdetect}: Fisher's $0.0311$, $\chi^2$ $0.0320$).
 At first, we were puzzled at this counter-intuitive result and we double and triple checked that those results were not a simple mix-up in conditions.
 We hypothesize that, having explanations at hand in a table, focuses the attention of participants to fewer instances and additionally makes them more confident that they fully understood the model.
 This extrapolation from few instances aligns with the findings of Stumpf~\etal~\cite{harmful}, who found that explanations can be harmful in certain circumstances, and shows that the findings also apply to a tabular representation of the explanations.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.4\linewidth]{aggexplain/timing2}
-\caption[Overall completion time of the study divided by condition.]{
-Overall completion time of the study divided by condition.
-The plot shows the bootstrapped mean and confidence interval for each setting.
-There is no significant difference between the conditions.
-}
-\label{figs:timing}
-\end{figure}
 
 In order to investigate this hypothesis further, we can look at the number of interactions of the participants performing the tasks.
 We can see in Figure~\ref{figs:table_interaction} that participants engaged with the table view significantly more when no explanations were present.
 This might be an example of Hullman~\etal~\cite{6064986}, which states that information visualization might benefit from visual difficulties, as is the case with a table without any further help from the interface about what to look at, since people are forced to interact more with the visualization.
 
-% \begin{figure}
-% \centering
-% \includegraphics[width=0.75\linewidth]{figs/trust}
-% \caption{
-% The participants' answer to whether they trust the model with higher accuracy, lower accuracy, or both equally. The orange colored part indicates the proportion of participants that correctly found the bias in the data.
-% Note, that some participants valued accuracy more than semantically correct data.
-% }
-% \label{figs:trust}
-% \end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=17em]{aggexplain/stats/table_interaction}%
+\hfill%
+\includegraphics[width=17em]{aggexplain/stats/histogram_interaction}%
+\caption[Interactions with the table and histogram views.]{
+The left side shows interactions with the table view measured by counting how many table cells were hovered by the mouse.
+The right side shows interactions with the histogram view measured by counting how many histogram bars were hovered by the mouse.
+The plot shows the bootstrapped mean and confidence interval for each setting.
+}
+\label{figs:table_interaction}
+\end{figure}
 
 Despite that, we found no significant difference in the time participants took to complete the study, as can be seen in Figure~\ref{figs:timing}.
 % Additionally, Figure~\ref{figs:timing} also shows that participants spent less time on the histogram view with explanations than on the table view without explanations.
 Even though the histogram view with explanations and the table view without explanations do not have a significant timing difference, we hypothesize that an aggregated representation of the model is a more effective method for finding biases.
-This hypothesis is rooted in both conditions performing equally well and histograms being a more scalable data representation than tables, since due to their independence from the magnitude of the data.
+This hypothesis is rooted in both conditions performing equally well and histograms being a more scalable data representation than tables, due to their independence from the magnitude of the data.
 
-As mentioned earlier, we chose the participants' written answers to determine whether the participant correctly identified the bias in the data.
-Even though participants correctly identified the flaw in the data, it sometimes was not enough to convince them that the corresponding model cannot be trusted as much:
-``If the data says it's true, then it's true I suppose and it's more trustworthy than my common sense.'';
-``I feel like the results of [the biased model] where strange even though they where correct according to the dataset.'' (sic);
-``I'm drawn to trusting the model which was more accurate even though it didn't entirely make sense to me.''.
-
-$25\%$ of people who correctly identified the bias still opted to trust the biased model more, due to the higher reported accuracy of the model.
-A further $8\%$ who identified the bias trusted both models equally.
-Again, this aligns with the findings of Stumpf~\etal~\cite{harmful} that trust in the machine learning model may \emph{override} people's initial intuition about its performance, and shows that the findings also apply to a tabular representation of the explanations.
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{aggexplain/stats/timings}
+\caption[Overall completion time of the study by condition.]{
+Overall completion time of the study by condition.
+The plot shows the bootstrapped mean and confidence interval for each setting.
+There is no significant difference between the conditions.
+}
+\label{figs:timing}
+\end{figure}
 
 % We categorized the written answers of the participants and noted when participants correctly detected the flaw in the biased data set (see Figure~\ref{figs:correctness}).
 % Looking at the figure we can see a significant\todo{compute as well} improvement in correctly detected biases when changing either from the table view to the histogram view or from the having no explanations to having explanations.
@@ -97,3 +150,32 @@ Again, this aligns with the findings of Stumpf~\etal~\cite{harmful} that trust i
 % However, some participants dismiss the unbiased model in favor of the higher accuracy of the biased model under all conditions: ``If the data says it's true, then it's true I suppose and it's more trustworthy than my common sense.''; ``I feel like the results of model 2 where strange even though they where correct according to the dataset.''; ``I'm drawn to trusting the model which was more accurate even though it didn't entirely make sense to me.''
 % This might be partially rooted in the participants not feeling ``expert'' enough but stemmed mostly from regarding accuracy higher than the bias in the data.
 % This aligns with the findings of Stumpf~\etal~\cite{harmful}.
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.5\linewidth]{aggexplain/correctness}
+% \caption[Comparing whether participants correctly identified the bias.]{
+% Comparing whether participants correctly identified the bias in the data, determined from plain-text answers. Note, that adding explanations to the table view hurt performance, whereas adding explanations to the histogram view improved performance.
+% }
+% \label{figs:correctness}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.4\linewidth]{figs/hist_interaction}
+% \caption{
+% Interaction with the histogram view measured by counting how many histogram bars were hovered by the mouse.
+% The plot shows the bootstrapped mean and confidence interval for each setting.
+% }
+% \label{figs:hist_interaction}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.75\linewidth]{figs/trust}
+% \caption{
+% The participants' answer to whether they trust the model with higher accuracy, lower accuracy, or both equally. The orange colored part indicates the proportion of participants that correctly found the bias in the data.
+% Note, that some participants valued accuracy more than semantically correct data.
+% }
+% \label{figs:trust}
+% \end{figure}
