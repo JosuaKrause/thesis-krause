@@ -23,8 +23,6 @@ However, a major drawback of using partial dependency is its limitations on exte
 \subsection{Model Diagnostic Workflow}
 In the third stage, we overcome this limitation by leveraging instance-level explanations. Instance-level explanations are defined as the smallest change, to an instance vector, necessary to change the predicted outcome label. Aggregating over those explanations and statistically analyzing the resulting instance subsets, proves as powerful novel approach for understanding the behavior of a model. Additionally, we propose a model diagnostic workflow (see \figref{figs:workflow_intro}) that helps identify flaws in the \emph{input data}, used to train and test the model.
 
-We use this workflow to analyze a predictive modeling problem revolving patient admission to a hospital, of patients in the emergency department of said hospital. Accurately predicting whether a patient eventually gets admitted to the hospital helps reducing costs. The major limiting factor of this prediction task is the need for input features readily, and electronically, available at the earliest point possible. To this extend we initially used features of prescribed medications as this information is immediately available electronically. Our analysis showed that there are clear groups of patients where the predictive model is very helpful. However, there are some groups of patients where it is impossible for the predictive model to make accurate predictions given the provided information. One of those groups is patients receiving Diatrizoate Meglumine, a contrast medium for CAT or PET scans. This medication only indicates that a scan was performed, but does not carry information about the result of the scan. However, the result of the scan is the deciding factor whether a patient needs further care or can get sent home. Thus, with the given information it is impossible for the predictive model to make a decision that performs better than random guessing. Including more information in the form of additional features does indeed help with this problem but pushes the time when a decision can be made further back. One possible solution is to utilize the predictive model only for the confident groups of patients and wait for the doctors' decisions in other cases. This example illustrates that it is not only possible to \textbf{understand decision making} of a predictive model through the \textbf{model diagnostic workflow} based on \textbf{aggregated instance-level explanations}, but also how it can be applied for \textbf{semantic validation} and \textbf{feature engineering} on the input data.
-
 \begin{table}[t]
      \begin{tabular}{l|c|c|c} 
      \textbf{Approach} & \makebox[0pt][l]{\textbf{Instances}}\phantom{Aggregated} & \textbf{Aggregated} & \makebox[0pt][l]{\textbf{Global}}\phantom{Aggregated} \\ 
@@ -41,17 +39,28 @@ We use this workflow to analyze a predictive modeling problem revolving patient 
     \label{tab:locality}
 \end{table}
 
+We use this workflow to analyze a predictive modeling problem revolving patient admission to a hospital, of patients in the emergency department of said hospital. Accurately predicting whether a patient eventually gets admitted to the hospital helps reducing costs. The major limiting factor of this prediction task is the need for input features readily, and electronically, available at the earliest point possible. To this extend we initially used features of prescribed medications as this information is immediately available electronically. Our analysis showed that there are clear groups of patients where the predictive model is very helpful. However, there are some groups of patients where it is impossible for the predictive model to make accurate predictions given the provided information. One of those groups is patients receiving Diatrizoate Meglumine, a contrast medium for CAT or PET scans. This medication only indicates that a scan was performed, but does not carry information about the result of the scan. However, the result of the scan is the deciding factor whether a patient needs further care or can get sent home. Thus, with the given information it is impossible for the predictive model to make a decision that performs better than random guessing. Including more information in the form of additional features does indeed help with this problem but pushes the time when a decision can be made further back. One possible solution is to utilize the predictive model only for the confident groups of patients and wait for the doctors' decisions in other cases. This example illustrates that it is not only possible to \textbf{understand decision making} of a predictive model through the \textbf{model diagnostic workflow} based on \textbf{aggregated instance-level explanations}, but also how it can be applied for \textbf{semantic validation} and \textbf{feature engineering} on the input data.
+
 \subsection{User Study on Aggregating Explanations}
 In order to show the generalizability of the Model Diagnostic Workflow we conducted a user study to explore the effectiveness of aggregated instance-level explanations in detecting biases in the input data.
 
 First, we generalized aggregating instance-level explanations to numerical input data.
 We achieved this by using histograms of the input features, similar to \cite{seekaview}, ordered by the features' aggregated importance.
 Furthermore, we allowed the comparison of selected, meaningful, subsets to each other.
-Then, we compared this aggregated representation to the commonly used approach of individually inspecting instance-level explanations one-by-one using a tabular representation.
+Then, we compared this aggregated representation, in a user study, to the commonly used approach of individually inspecting instance-level explanations one-by-one using a tabular representation.
 
+We found that aggregating instance-level explanations, with our method, significantly \textbf{outperforms} inspecting \textbf{individual explanations} in its ability to enable detection of biases in the data.
+However, our method \textbf{requires explanations} in order to perform correctly.
+Additionally, we found that instance-level explanations \textbf{hurt} bias detection performance for a \textbf{tabular representation}.
+We hypothesize that the added difficulty of inspecting a table without the help of explanations forces users to \textbf{interact} more strongly with the user interface, thus providing better results.
+This is a known effect (see Hullman~\etal~\cite{6064986}).
 
+All in all, aggregating instance-level explanations perform as well as explanation-free tabular representations, which require high user engagement.
+Additionally, our method promises a higher scalability due to its independence from the total number of instances.
 
-\todo{fill in latest work}
+Furthermore, we could reproduce findings from Stumpf~\etal~\cite{harmful}, claiming that instance-level explanations might make users over-confident in their understanding of a model.
+However, we also showed that aggregated instance-level explanations overcome this problem.
+
 % In addition to those promising results, there is still work to do.
 % It still needs to be shown that the proposed workflow of statistical analysis of instance-level explanations can be successfully applied to other data types than binary feature vectors, such as numerical features or highly redundant features such as found in images.
 % Early results in this direction indicate that it might be beneficial to abandon the focus on features to explain machine learning models, but rather focus on instances directly.
