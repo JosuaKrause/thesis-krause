@@ -78,8 +78,8 @@ In order to support the workflow of clinical researchers, as described above in 
 
 \subsubsection{Patient Selection}
 
-The patient selection tab allows users to find patients they may want to inspect, based on their ground truth (\eg, whether they actually had diabetes) and their predicted risk (\eg, assessed likelihood by the predictive model of having the disease).  \prospector provides a visual summary of the patient population by providing a patient selection visualization. The visualization, as seen in Figure~\ref{figs:select}, consists of two columns dividing the population according to their ground truth
-(case patients being those actually diagnosed with diabetes and control patients being not).
+The patient selection tab allows users to find patients they may want to inspect, based on their ground truth (\eg, whether they actually had Diabetes) and their predicted risk (\eg, assessed likelihood by the predictive model of having the disease).  \prospector provides a visual summary of the patient population by providing a patient selection visualization. The visualization, as seen in Figure~\ref{figs:select}, consists of two columns dividing the population according to their ground truth
+(case patients being those actually diagnosed with Diabetes and control patients being not).
 Each column is then separated into bins of predicted probabilities in steps of $0.1$
 which can be clicked to select the group of patients fitting those criteria.  For instance, if a case patient was predicted with a low risk score, that patient would appear in the top of the right column.  If a bin is too small to provide a clickable area, a box at the side of the column is displayed to allow choosing even small populations.  The selected population is then shown next to the visualization with the individual prediction results shown for each entry.
 
@@ -97,8 +97,8 @@ In this plot the local partial dependence of the current patient is shown as
 black curve and the global partial dependence of the whole population is shown
 in gray. The partial dependence plot is also clickable and users can change the feature value here as well, changing the black vertical line that, in this plot, shows the current value.  
 
-Users can change the sort order of the partial dependence bars by using the buttons at the top.  In addition to sorting by the feature weight and relevance as determined by the predictive model, users can also sort according to our local feature importance and impactful changes as described above.
-If impactful changes are chosen as the sort order, the suggested changes to each feature are indicated with a white circular label in the partial dependence bar, as shown in the bottom left of Figure~\ref{figs:ui}.
+Users can change the order of the partial dependence bars by using the buttons at the top.  In addition to sorting by the feature weight and relevance as determined by the predictive model, users can also sort according to our local feature importance and impactful changes as described above.
+If impactful changes are chosen as the order, the suggested changes to each feature are indicated with a white circular label in the partial dependence bar, shown on the bottom left of Figure~\ref{figs:ui}.
 
 Often after analysts have inspected a particular patient, they may wish to find other patients similar to them to see how they react to the predictive model.  If users wish to find patients similar to the one they are inspecting, they can click on the ``Neighborhood" button and \prospector will automatically find the closest patients to the current set of values using feature-wise Euclidean distance.  This similar set of patients are then used as the population in the patient selection tab that users can navigate.
 

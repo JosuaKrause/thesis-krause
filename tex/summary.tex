@@ -2,25 +2,25 @@
 \label{chap:summary}
 
 In this thesis, we discussed the role of visual analytics to explain black-box machine learning.
-We saw that global approaches, like feature selection methods, are not informative enough to help understand black-box model decisions.
+We saw that global approaches, like feature selection methods, are not informative enough to help understand model decisions.
 Different strategies preferred different, equally reasonable, feature sets without having a significant impact on predictive performance.
-This showed, that inspecting and comparing alternate settings let machine learning experts develop insights that overwrote their initial intuitions.
+This showed, that inspecting and comparing alternate settings may let machine learning experts develop insights that overwrite their initial intuitions.
 
 Next, we saw that partial dependence with a derived feature importance score allowed to effectively detect model errors.
-Detectable errors included: over-fitting, under-fitting, errors caused by imputation, and incorrect cause-effect relationships.
+Detectable errors included: over-fitting, under-fitting, biases caused by imputation, and leaking labels caused by incorrect cause-effect relationships.
 Furthermore, localized inspections helped to understand the how and why of specific instance predictions by finding locally impactful features.
 
-Then, we proposed and discussed the model diagnostic workflow, which is based on aggregating local instance-level explanations in order to gain insights about a model with the intent of improving it.
-We showed that the model diagnostic workflow enables a scalable understanding of local decision making of a predictive model and that aggregating instance-level explanations allows for semantic validation of the input data.
-As a model can only perform as well as its input data, gaining insights about the limitations of a model in turn help with feature engineering on the input data.
+Then, we proposed and discussed the Model Diagnostic workflow, which is based on aggregating local instance-level explanations in order to gain insights about a model with the intent of improving it.
+We showed that the Model Diagnostic workflow enables a scalable understanding of local decision making of a predictive model and that aggregating instance-level explanations allows for semantic validation of the input data.
+As a model can only perform as well as its input data, gaining insights about the limitations of a model in turn help with feature engineering on said data.
 
-Finally, we showed how histograms can be effectively used to aggregate instance-level explanations.
+Finally, we showed how histograms can be effectively used to analyze aggregated instance-level explanations.
 With the help of comparing meaningful subsets, aggregated instance-level explanations significantly outperformed inspecting individual explanations or aggregation without explanations in detecting biases in the input data while being more scalable than a tabular representation.
-Furthermore, we showed that inspecting individual instance-level explanations can be misleading and hurt detecting biases in the input data.
+Furthermore, we showed that inspecting individual instance-level explanations can be misleading and hurts detecting biases in the input data.
 
 All in all, we demonstrated a workflow for effectively utilizing black-box instance-level explanations in order to improve model correctness via semantic validation.
 However, this approach has some limitations to overcome which we will explore next.
-Note, that many of those limitations are not necessarily an argument against the presented techniques but merely a starting point for future research.
+Note, that those limitations are not an argument against the presented techniques but merely a starting point for future research.
 
 \section{Limitations and Assumptions of Black-Box Analysis}
 Analyzing machine learning models using black-box techniques can only approximate the true behavior of the model.
@@ -39,11 +39,11 @@ However, with regards to data some decisions still need to be made.
 For example, for the instance-level explanations in \chapref{chap:explainer} we determined that Martens and Provost's~\cite{Martens:2014:EDD:2600518.2600523} algorithm provided consistently better results than Riberio~\etal's\cite{DBLP:journals/corr/RibeiroSG16} algorithm for our use case of highly sparse binary data.
 This is due to the fact that different data types require different approaches for explanations.
 A binary feature can have an explanation that describes the presence or absence of the feature whereas for a numeric feature the actual value is important.
-Our Model Diagnostic Workflow is agnostic to the used instance-level explanation algorithm but this choice still has to be made.
+Our Model Diagnostic workflow is agnostic to the used instance-level explanation algorithm but this choice still has to be made.
 
 \section{Generalization to Other Forms of Machine Learning}
-We only focused on predictive modeling tasks with tabular inputs.
-Even though this is a large and popular subset it does not cover the entirety of machine learning or even predictive modeling.
+In this thesis, we only focused on predictive modeling tasks with structured inputs.
+Even though this is a large and popular subset, it does not cover the entirety of machine learning or even predictive modeling.
 Presented techniques are not immediately transferable to tasks such as online learning or streaming input data, which requires recurrent models, such as LSTM (Long Short Term Memory) models~\cite{Hochreiter:1997:LSM:1246443.1246450}.
 Those areas pose further challenges and offer a variety of research opportunities.
 

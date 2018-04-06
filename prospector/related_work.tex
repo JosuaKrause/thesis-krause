@@ -26,7 +26,7 @@ has been used.
 For Support Vector Machines,
 projection techniques (Caragea~\etal~\cite{Caragea2001}) and
 Nomograms (Jakulin~\etal~\cite{Jakulin:2005:NVS:1081870.1081886})
-to see the ``cut" in the data points were utilized.
+to see the ``cut" in the instances were utilized.
 Visualizing and interpreting the graph of a neural network has also been used by Tzeng and Ma~\cite{Tzeng:2005:OTB}.
 Kim~\etal~\cite{kim2014bayesian,kim2015MGM} introduce graphical models that allow for
 interpretability of its features.
@@ -65,7 +65,7 @@ export:141330})
 are more algorithm agnostic, but depend on general
 performance measures like confusion matrices,
 area under ROC curve (AUC) measures,
-result distribution of data points, and
+result distribution of instances, and
 feature weights according to model independent statistics.
 
 Frank and Hall~\cite{frank2003} use 2D projections of the data to show %classification
@@ -73,14 +73,14 @@ results for multiple classification algorithms, as well as Rheingans and desJard
 
 \subsection{Probing Models}
 Partial dependence was proposed by Friedman~\cite{friedman2001} for analyzing
-gradient boosting models and has since been used for other models as well (\eg Ehrlinger~\cite{ehrlinger2015} uses partial dependence to analyze the behavior of random forests
+gradient boosting models and has since been used for other models as well (\eg, Ehrlinger~\cite{ehrlinger2015} uses partial dependence to analyze the behavior of random forests
 in the \emph{R} package \emph{ggRandomForests}).
 
 Cortez and Embrechts~\cite{cortez2011opening,Cortez20131} and Kim~\etal~\cite{kim2014bayesian}
 use sensitivity analysis to analyze and compare machine learning models of different algorithms.
 Sensitivity analysis is similar to partial dependence except that it uses a few
 base vectors (usually the mean, median, or quartiles of all observed values)
-instead of computing the probabilities over all input points.
+instead of computing the probabilities over all instances.
 This method is faster than partial dependence but may miss critical details
 about the prediction function especially if the function is strongly non-linear.
 
@@ -90,11 +90,11 @@ We found, however, that this often clutters the plots too much and makes them ha
 We experimented further with showing standard deviations and quartiles of the partial dependence line
 but discarded this approach since the spread of the partial dependence results is always expected to
 be large unless one feature dominates the classification significantly and is able to solely change
-the classification even for the furthest data points.
+the classification even for the furthest instance.
 
 By not restricting ourselves to sampling only the observed input space, our approach on partial dependence
 enables a deeper analysis of the machine learning model. Furthermore, accepting the costs of computing
-partial dependence over all input points yields proper results even for highly non-linear models,
+partial dependence over all instances yields proper results even for highly non-linear models,
 while also not overwhelming users with too much detail.
 This is strengthened even further by our novel approach of using implementation details of the inspected
 models to improve the sampling and the representation of the results.

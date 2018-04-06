@@ -10,6 +10,18 @@ For this purpose, somebody knowledgeable with the domain has to verify that the 
 
 A second goal of this study is to better understand how explanations contribute to semantic validation. Explanations typically provide, for each instance, a weight or score that conveys information about how important each feature is, for a given decision, and for a given instance. An important question therefore is to better understand what particular benefits, if any, explanations bring to human validation; whether this is conducted using an instance-level exploration strategy or a more compact aggregation. Our hypothesis is that explanations may bring value if they manage to direct the user's attention to instances and features where biases and mistakes reside.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.7\linewidth]{aggexplain/histogram}
+\caption[Comparing the distribution of values by ``Actual Label''.]{
+Comparing the distribution of values by ``Actual Label'' (\ie, ground truth).
+The height of the bars show the percentage of values within the respective subset (green for ``high'' outcomes and pink for ``low'' outcomes).
+The average feature weight of each subset is shown next to the feature name.
+This is only visible in the condition including explanations.
+}
+\label{figs:histogram}
+\end{figure}
+
 In summary, our experiment aims at studying the effect of two main factors: \textit{aggregation level}, that is, instances vs. aggregations, and explanations, that is, whether feature weights are present or not.
 
 % Instance-level explanations provide an effective way of focusing the attention of a user towards which features are important for a prediction. If a bias in a data set has a non-negligible effects on the semantic quality of the prediction, then this bias will show up in the set of important features.
@@ -35,18 +47,6 @@ We selected subsets that help understanding the behavior of the model:
 
 It is thinkable to allow more freedom in selecting subsets to, \eg, compare only errors of a certain predicted label, however, this would increase the complexity of the user interface and a user has to understand when to use each of those subsets in order to be effective.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.7\linewidth]{aggexplain/histogram}
-\caption[Comparing the distribution of values by ``Actual Label''.]{
-Comparing the distribution of values by ``Actual Label'' (\ie, ground truth).
-The height of the bars show the percentage of values within the respective subset (green for ``high'' outcomes and pink for ``low'' outcomes).
-The average feature weight of each subset is shown next to the feature name.
-This is only visible in the condition including explanations.
-}
-\label{figs:histogram}
-\end{figure}
-
 When aggregating instances, comparing subsets to each other is not trivial.
 The na\"ive solution of showing the actual amount of instances with respect to the full data set disadvantages the smaller subset.
 However, it is not as important to know the actual distribution, but rather where one subset has a significantly higher or lower concentration of instances compared to the other.
@@ -55,14 +55,3 @@ Note, that we then compare percentages of instances within the respective subset
 We further indicate strong differences in the subsets by showing a gray bar at the bottom of the histogram.
 We are not aware of any literature that uses or explored this way of comparing subsets with histograms and claim it as a design contribution.
 We demonstrate the effectiveness of this design in Section~\ref{sec:results}.
-
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{aggexplain/full_table_expl}
-\caption[The full interface illustrating the table view.]{
-The full interface illustrating the table view showing individual instances.
-The user is comparing the model's prediction of ``high'' house prices (orange) to the prediction of ``low'' prices (purple).
-The feature ``Living Area'' is ordered by ascending values and the user hovers over the cell with the value ``605''.
-}
-\label{figs:full_view}
-\end{figure}

@@ -67,10 +67,12 @@ For this purpose we decided to introduce a few modifications to the original alg
 %adapted the explanation algorithm proposed by Martens and Provost to suit to our requirements for the analysis of classification models. We list our modifications below:
 % However, we changed some implementation details in order to adapt it :
 %
+% \vspace*{-0.5em}
 \begin{itemize}
 % \par \noindent \textbf{Explanation length}:
     \item The original algorithm enforces a maximum length of explanations and declares an item as unexplainable if it fails to find an explanation that is shorter than the limit. In our implementation we removed this restriction. The main consequence of this modification is that sometimes the algorithm may produce explanations that are very long and unintelligible. Those explanations however are interesting because they can help us detect and visualize edge cases which may reveal surprising information. In addition, having many long explanations that explain only a few data items can be an indicator of a highly complex model with few similar instances or that the model is overfitting as it is trying to memorize individual labels. 
-    
+
+\vspace*{-0.5em}
 % \par \noindent \textbf{Local maximum}:
     \item The algorithm can run into plateaus where removing any feature does not change the prediction score. The original algorithm gives up in this case. We circumvent this problem using the following two-step strategy: in this case we select a feature at random and let the algorithm work as usual. Once an explanation has been computed, we follow-up with a ``clean-up" step removing features that do not contribute to a change of the prediction in the end. This extra-step can be very computationally expensive if the input data is not sparse, however, it is necessary to ensure that the resulting explanation is minimal.
     

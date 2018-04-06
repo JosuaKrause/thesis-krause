@@ -31,6 +31,17 @@ The selections use different colors to distinguish the subsets in order to preve
 The colors are also used to highlight the confusion matrix cells corresponding to the current selection.
 Note, that all selections always represent all instances in the data and no two instances from the same confusion matrix cell can appear in opposing subsets.
 
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{aggexplain/full_table_expl}
+\caption[The full interface illustrating the table view.]{
+The full interface illustrating the table view showing individual instances.
+The user is comparing the model's prediction of ``high'' house prices (orange) to the prediction of ``low'' prices (purple).
+The feature ``Living Area'' is ordered by ascending values and the user hovers over the cell with the value ``605''.
+}
+\label{figs:full_view}
+\end{figure}
+
 The design of the user interface lets users iterate through multiple useful slices of the data (such as getting an overview of the data or comparing different, meaningful, subsets to each other).
 This design, inspired by SYF~\cite{perer2008systematic}, provides users with a systematic guide to iterate through meaningful views while also supporting flexible diversions to pursue insights.
 % \adam{Consider strongly making this a comparison discussion a section on its own (e.g. new Section 4, before Experiment, as its key for making it work.  Then, you could call this design out as a contribution in Intro.}
@@ -51,26 +62,6 @@ If explanations are available, the feature can also be sorted by ascending and d
 
 For comparing different subsets of the data we show two aligned tables.
 The colors representing the different subsets are shown on the far left side of the table.
-
-\subsubsection{Aggregated Condition}
-The user interface for the aggregated condition represents the distribution of feature values as histograms, similar to \cite{seekaview}.
-Feature names are shown above the histogram and the histograms are arranged left to right row-wise and top to bottom.
-For the condition with explanations available, a small bar chart next to the feature name indicates the average weight of this feature.
-In this condition, the histograms are ordered by descending magnitude of average feature weights.
-The averages are computed for each subset separately.
-The order is, more specifically, based on the average of the subsets' average weights, which allows features to appear first that are only important under certain conditions.
-If no explanations are provided, the order is alphabetically.
-
-Hovering over a histogram with the mouse reveals tool-tips showing the actual instance count of the hovered histogram segment, as well as, the full feature name and the feature weight number.
-For categorical features the bars of the histograms are slimmer so that distinct values are more easily separable.
-Additionally, the order of the values indicate their quantity in the data set with the most common categorical value first on the left.
-
-When comparing different subsets of the data, as seen in Figure~\ref{figs:good_vs_bad}, bars of each color are shown next to each other in the histogram.
-The height of the bars are scaled by their relative proportion \emph{within} each subset.
-This means the height indicates the percentage of instances in the respective subset.
-The vertical scale ranges to the highest percentage across both subsets.
-This allows for seeing where one subset is more concentrated than the other independent of the total size of each subset.
-In order to indicate big differences in the distribution we show a gray rectangle at the bottom of the histogram if one subset is strongly more concentrated at this value range than the other (see Figure~\ref{figs:histogram}).
 
 \begin{figure}[t]
 \centering
@@ -136,7 +127,29 @@ Each subset has a different color palette to not confuse different selections wi
 \label{figs:good_vs_bad}
 \end{figure}
 
+\subsubsection{Aggregated Condition}
+The user interface for the aggregated condition represents the distribution of feature values as histograms, similar to \cite{seekaview}.
+Feature names are shown above the histogram and the histograms are arranged left to right row-wise and top to bottom.
+For the condition with explanations available, a small bar chart next to the feature name indicates the average weight of this feature.
+In this condition, the histograms are ordered by descending magnitude of average feature weights.
+The averages are computed for each subset separately.
+The order is, more specifically, based on the average of the subsets' average weights, which allows features to appear first that are only important under certain conditions.
+If no explanations are provided, the order is alphabetically.
+
+Hovering over a histogram with the mouse reveals tool-tips showing the actual instance count of the hovered histogram segment, as well as, the full feature name and the feature weight number.
+For categorical features the bars of the histograms are slimmer so that distinct values are more easily separable.
+Additionally, the order of the values indicate their quantity in the data set with the most common categorical value first on the left.
+
+When comparing different subsets of the data, as seen in Figure~\ref{figs:good_vs_bad}, bars of each color are shown next to each other in the histogram.
+The height of the bars are scaled by their relative proportion \emph{within} each subset.
+This means the height indicates the percentage of instances in the respective subset.
+The vertical scale ranges to the highest percentage across both subsets.
+This allows for seeing where one subset is more concentrated than the other independent of the total size of each subset.
+In order to indicate big differences in the distribution we show a gray rectangle at the bottom of the histogram if one subset is strongly more concentrated at this value range than the other (see Figure~\ref{figs:histogram}).
+
+\vspace*{-0.5em}
 \subsection{Study Design}
+\vspace*{-0.5em}
 We study four conditions which result from combining different representations with the inclusion or exclusion of explanations.
 The different representations are:
 

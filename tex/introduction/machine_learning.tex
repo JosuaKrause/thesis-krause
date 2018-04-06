@@ -47,7 +47,7 @@ For binary classification tasks (for simplicity \emph{positive} and \emph{negati
     $FP / (FP + TN)$ The proportion of incorrectly predicted positive instances.
 \end{description}
 
-All of those measures can be read from a confusion matrix, as shown in Figure~\ref{figs:cm_intro}
+All of those measures can be read from a confusion matrix, as shown in Figure~\ref{figs:cm_intro}.
 
 Additionally, a further model quality measurement can be derived from the confidence of a model in its prediction.
 Typically, classification models allow to output probabilities for each class instead of the predicted class directly.
@@ -59,7 +59,7 @@ This is achieved by outputting the positive class as prediction if its probabili
 \centering
 \includegraphics[height=10em]{figs/roc}
 \caption[Example of a ROC curve.]{
-Example of a ROC curve. The plot indicates the correctness of the model with the false-positive rate as horizontal axis and the true-positive rate as vertical axis. The line traces those values for different prediction thresholds. The threshold minimizing incorrect predictions is highlighted by the colored axes.
+Example of a ROC curve. The plot indicates the correctness of the model with the false positive rate as horizontal axis and the true positive rate as vertical axis. The line traces those values for different prediction thresholds. The threshold minimizing incorrect predictions is highlighted by the colored axes.
 }
 \label{figs:roc_intro}
 \end{figure}
@@ -86,9 +86,9 @@ In order to work with probabilities, have greater precision around the boundary,
 P(Y=1 | x) = L(x) = \frac{1}{1 + e^{-l(x)}}
 \]
 which gives the likelihood of one of the classes.
-In order to train the model, \ie, finding the best values of $b$ and $w_f$, the expression $P(Y=y | x)$, where $y$ represents the ground truth 0 or 1 of the training instances, needs to be maximized.
+In order to train the model, \ie, finding the best values of $b$ and $w_i$, the expression $P(Y=y | x)$, where $y$ represents the ground truth 0 or 1 of the training instances, needs to be maximized.
 In practice, instead of maximizing $P(Y=y|x)$, the negative logarithm of this expression is minimized.
-When optimized over the entire training data, this expression is called \emph{negative log likelihood} and it can be optimized via techniques such as gradient descent, to find optimal values of $b$ and $w_f$.
+When optimized over the entire training data, this expression is called \emph{negative log likelihood} and it can be optimized via techniques such as gradient descent, to find optimal values of $b$ and $w_i$.
 
 One of the main advantages of logistic regression is its interpretability.
 The weights $w_i$ can be directly interpreted as how influential a particular feature is.
@@ -197,7 +197,7 @@ Training a MLP or any Neural Network works as follows.
 We initialize all weights with random numbers.
 %\footnote{Other initialization methods such as Xavier also exist.}
 For each instance of the training data set, we first compute the outcome with the current weights.
-Then we compute the gradient of the loss function, (which can be either the negative log likelihood of training data labels for classification or mean of squared error for regression tasks), with respect to each parameter.
+Then we compute the gradient of the loss function, (which can be either the negative log likelihood of training data labels for classification or the mean of squared errors for regression tasks), with respect to each parameter.
 The gradient is computed on the predicted outcome $y(x)$ (\ie, values of the final layer) and the \emph{desired} outcome $\hat{y}(x)$ (\ie, value of desired class set to one and zero otherwise).
 Then, going in reverse order we numerically compute this gradient for each layer and nudge the weights of those layers into the direction of the gradient.
 This procedure is called back-propagation.
@@ -205,7 +205,7 @@ Ideally, we repeat back-propagation until all weights converge towards fixed num
 
 Neural networks are a powerful machine learning tool, as they enable any function to be modeled \cite{hornik1991251} and allow for great flexibility through combining different layers.
 Multi-Layer Perceptrons can potentially be used on our running Diabetes example from above, as they do not have the limitations of any of the previously discussed models.
-However, neural networks typically require many thousand training examples in order to properly converge towards a performant model, making them a sub-optimal choice for tasks where acquiring data is time-consuming or expensive.
+However, Neural Networks typically require many thousand training examples in order to properly converge towards a performant model, making them a sub-optimal choice for tasks where acquiring data is time-consuming or expensive.
 
 \subsection{Failure Modes}
 Machine learning models not always perform perfectly.
@@ -219,9 +219,9 @@ Under-fitting can be prevented by using a more powerful model or increasing the 
 Over-fitting occurs when a model learns its training data set too precisely.
 For example, a Decision Tree might create one leaf node for every instance in the training data memorizing the outcomes of the training data in full.
 In this case the model likely won't generalize to new, unseen data.
-Thus, in order to detect over-fitting, it is common to keep a separate data set, called hold-out or test data set, at hand that is not used for training the model.
+Thus, in order to detect over-fitting, it is common to keep a separate data set, called hold-out, validation, or test data set, at hand that is not used for training the model.
 The trained model is then tested against this data set.
-If the model performs well on the training data but not on the test data, then it is over-fitting.
+If the model performs well on the training data but not on the test data, then the model is over-fitting.
 A way to prevent this is to reduce the capacity of the model.
 For example, reducing the allowed maximum depth of a Decision Tree model is a good way to reduce its capacity.
 
@@ -235,20 +235,20 @@ For example, if we train our Diabetes model from above only with obese people th
 Note, that imputing missing values might also result in a biased data set.
 
 \par \noindent \textbf{Leaking Labels:}
-If a feature of the data is highly correlated to the outcome, a model might only learn this connection, preventing the model to generalize properly.
+If a feature of the data is highly correlated to the outcome, a model might only learn this connection, preventing the model from generalizing properly.
 For example, including an additional feature ``Takes Insulin" to the Diabetes model would leak the label, as only people that are already diagnosed with Type 2 Diabetes take the drug Insulin.
 
 \section{Visual Analytics}
 \label{sec:visualanalytics}
 Gaining meaningful insights about large data sets is hard.
-While computing various statistics about the data is often helpful it might oversimplify or in some cases even mislead information about the data.
+While computing various statistics about the data is often helpful, it might oversimplify or in some cases even mislead information about the data.
 One example data set often used to demonstrate this is Anscombe's quartet~\cite{doi:10.1080/00031305.1973.10478966}.
 The quartet consists of four different data sets that all have the same mean and sample variance for both axes, the same correlation between the axes, and the same regression lines.
 However, plotting the values of the data sets reveals that each one of those data sets obeys a different, unique characteristic (see Figure~\ref{figs:anscombe}).
 
 Visual Analytics is the area of studying interactive graphical respresentations for analyzing complex data such as Anscombe's quartet mentioned above.
 This is often done in addition to and with the help of computational and statistical procedures.
-Various studies \cite{doi:10.1080/01621459.1984.10478080,Treisman:1985:PPV:5088.5091,Chang:2002:GTV:820060.820062} have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual system.
+Various studies (including but not limited to \cite{doi:10.1080/01621459.1984.10478080,Treisman:1985:PPV:5088.5091,Chang:2002:GTV:820060.820062}) have been performed to establish visual principles to effectively take advantage of the high processing power of the human visual system.
 Additionally, interaction with the graphical representations allows to hide some of the information and reveal it through interaction to not overwhelm the analyst.
 For example, ``overview first; details on demand"~\cite{Shneiderman96theeyes} is a popular mantra taking advantage of interaction.
 
@@ -269,7 +269,7 @@ Plots of the four data sets of Anscombe's quartet\footnotemark. All data sets ha
 
 For example, with the goal of improving the accuracy of a model a human should not have the task of, \eg, manually picking the order of the features to be included in a decision tree.
 A good intuition might outperform the computer momentarily but having an objective goal makes it possible to eventually find a suitable algorithm that is en par or even outperforms the human.
-Additionally, manual decisions are not generalizable to other tasks and not scalable to larger datasets which in turn is the reason to use machine learning to begin with.
+Additionally, manual decisions are not generalizable to other tasks and not scalable to larger data sets which in turn is the reason to use machine learning to begin with.
 
 However, humans have \emph{soft-knowledge}.
 That is, they have a general understanding of the world that is typically not codified for machines in all details.
@@ -278,7 +278,7 @@ Their data is their \emph{universe} and to them nothing else exists.
 Thus, only humans have the potential to detect and correct when machine learning models acquire incorrect assumptions about their environment.
 Visual Analytics can help debugging models, as well as, its data.
 
-Additionally, Visual Analytics can help humans, especially domain experts for a problem that is to be solved using machine learning, to verify the \emph{semantic accuracy} of a model.
+Additionally, Visual Analytics can help humans, especially domain experts with a problem that is to be solved using machine learning, to verify the \emph{semantic accuracy} of a model.
 That is, whether decisions made by the model ``make sense".
 Often, the root cause of semantically inaccurate models is due to biased data.
 Thus, statistical accuracy (\ie, the proportion of correctly predicted instances) of a model can be higher than of a different model, while simultaneously being semantically less accurate (see \cite{Caruana:2015:IMH:2783258.2788613,explainer}).

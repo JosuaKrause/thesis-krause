@@ -7,7 +7,7 @@ classify patients at high risk of developing diabetes.
 In this section, we describe how \infuse has led to a variety
 of insights when exploring the features of the models.
 
-\begin{figure*}[ht]
+\begin{figure}
 \centering
 \resizebox{0.9\linewidth}{!}{%
 \begin{tikzpicture}
@@ -41,9 +41,9 @@ at \boxpos {\hspace*{\boxsize}};
 The scatter-plot view allows users to compare multiple types of rankings.  In the case study, users became curious of the medication features that were chosen by only half of the models.  When reviewing these medications with domain experts, it became clear that features picked by the upper-half algorithms were as clinically significant as those picked by the bottom-half.  This indicates that merging results from feature selection algorithms makes sense for this predictive model.
 }
 \label{fig:usecase2}
-\end{figure*}
+\end{figure}
 
-\subsection{Insight 1: Data issues}
+\subsection{Insight 1: Data Issues}
 When the clinical researchers learned of \infuse's capabilities
 to compare multiple feature selection algorithms, they decided to
 expand their pipeline's feature selection algorithms from 2 to 4.
@@ -77,17 +77,17 @@ It turned out there was a bug within the Relative Risk implementation where a
 divide by zero error could happen if a feature did not occur
 in any of the control patients.  After fixing this bug, they noticed that much of the non-overlap still was evident.  Looking more closely at the algorithms provided a
 reason why the two new algorithms behave very differently:  they realized that both of the new algorithms only look at the presence and absence of the feature between the case and controls,
-and do not pay attention to the feature values in any other way (e.g. distribution of values).
+and do not pay attention to the feature values in any other way (\eg, distribution of values).
 This is in contrast to the Fisher Score and Information Gain algorithms that take
 the actual feature values into account.  This means that for features that are present in both case
 and control groups in the same proportion, there is no discrimination value.
 
 One of the team members mentioned, ``Each feature selection algorithm captures different types of information.  \infuse allows you to see what the effect of that information is being captured and gives you insight into the robustness of your predictive model."
 
-As different algorithms will make sense for different purposes depending on the dataset and goals, \infuse provides an ability to inspect the features and determine
+As different algorithms will make sense for different purposes depending on the data set and goals, \infuse provides an ability to inspect the features and determine
 which algorithms produce ranked sets of domain-relevant features.
 
-\subsection{Insight 2: Clinically relevant features}
+\subsection{Insight 2: Clinically Relevant Features}
 After the data issues were solved, the researchers began investigating
 the content of the predictive features.
 Using the scatterplot view,

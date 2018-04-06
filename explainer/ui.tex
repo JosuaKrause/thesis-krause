@@ -79,14 +79,18 @@ Odds ratio is a popular metric for determining effectiveness in evidence based m
 It is computed by comparing the subset explained by the given explanation with the full set of current data items.
 This way we can detect whether an explanation describes a consistent subset of instances or if the subset appears like a random sample.
 With this the odds ratio is:
+\vspace*{-0.5em}
 \[
 \frac{p_e / n_e}{p_t / n_t}
 \]
+\vspace*{-0.5em}
 where $p_e$ and $n_e$ is the ratio of positive and negative items respectively in the explanation subset and $p_t$ and $n_t$ is the ratio of those items in the remaining data set.
 The confidence interval of the odds ratio is then computed as:
+\vspace*{-0.5em}
 \[
 \exp{\left(\log{(\text{odds ratio})} \; \pm \; 1.96 \sqrt{P_e^{-1} + N_e^{-1} + P_t^{-1} + N_t^{-1}}\right)}
 \]
+\vspace*{-0.5em}
 where $P$ and $N$ are the actual number of positive and negative items in the explanation subset $e$ and the remaining data $t$.
 
 An odds ratio larger than one indicates that the explained subset is significantly positive with respect to the rest of the current data items.

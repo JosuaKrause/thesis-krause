@@ -23,26 +23,27 @@ Note, that the majority of participants did not detect the bias of the model.
 % A positive value indicates that the response was higher in the unbiased model.
 }
 \label{figs:tvss}
+\vspace*{-0.5em}
 \end{figure}
 
 \subsection{Bias Detection and Trust}
-
-When comparing how much participants trust a particular model and whether they think that model makes sense, one can see that those responses are typically correlated (see for example Figure~\ref{figs:tvss} with a Pearson correlation coefficient of $0.759$ and Spearman rank-order correlation coefficient of $0.745$).
+\vspace*{-0.5em}
+When comparing how much participants trust a particular model and whether they think this model makes sense, one can see that those responses are typically correlated (see for example Figure~\ref{figs:tvss} with a Pearson correlation coefficient of $0.759$ and Spearman rank-order correlation coefficient of $0.745$).
 This also extends to plain-text answers, which allow to detect whether participants correctly found the bias in the correct data set unambiguously.
 Participants were very verbose about their findings, if they found something:
 ``\emph{It has higher accuracy so should be more trustworthy than the other one. However some of the results don't make sense to me. Maybe this is just an atypical property market.}'';
 ``\emph{It is accurate, yet the predictions do not make much sense. Higher quality houses having a larger amount of low priced houses, percentage-wise? More rooms, area, or stories resulting in lower prices? The logic does not work out.}'';
-``\emph{larger houses are valued lower than others which are smaller}''.
+``\emph{larger houses are valued lower than others which are smaller}'' (sic).
 
-\begin{figure}
+\begin{figure}[t]
 \centering
-\begin{subfigure}{0.45\linewidth}
+\begin{subfigure}{0.49\linewidth}
 \includegraphics[width=\linewidth]{aggexplain/stats/tvss-chg-correct}%
 \caption{\centering Bias~detected~and correct~preference.}
 \label{subfig:tvss-chg-a}
 \end{subfigure}%
 \hfill%
-\begin{subfigure}{0.45\linewidth}
+\begin{subfigure}{0.49\linewidth}
 \includegraphics[width=\linewidth]{aggexplain/stats/tvss-chg-change}%
 \caption{\centering Bias~detected~but no~preference~change.}
 \label{subfig:tvss-chg-b}
@@ -59,8 +60,8 @@ A positive value indicates that the response was higher in the unbiased model.
 However, the above mentioned correlation is not perfect.
 This is likely due to some participants not being convinced, that their correct discovery of the flaw in the data is enough that the corresponding model cannot be trusted:
 ``\emph{If the data says it's true, then it's true I suppose and it's more trustworthy than my common sense.}'';
-``\emph{I feel like the results of [the biased model] where strange even though they where correct according to the dataset.}'' (sic);
-``\emph{I'm drawn to trusting the model which was more accurate even though it didn't entirely make sense to me.}''.
+``\emph{I feel like the results of [the biased model] where strange even though they where correct according to the dataset.}'';
+``\emph{I'm drawn to trusting the model which was more accurate even though it didn't entirely make sense to me.}'' (sic).
 
 This divergence in trust and the finding of flaws in the data can also be seen in Figure~\ref{figs:tvss-chg}.
 If finding the flaw in the data swayed the participant to not trust the model an increase in trust for the unbiased model compared to the biased model corresponds to an increase in the perception that the unbiased model makes more sense (Figure~\ref{subfig:tvss-chg-a}).
@@ -102,15 +103,6 @@ We hypothesize that explanations are a necessity for histograms to work effectiv
 We can also see an improvement in whether the participant trusted the unbiased model, however, it is not significant (p-value Figure~\ref{subfig:correctness}: Fisher's $0.0982$, $\chi^2$ $0.0986$).
 % The engagement with the histogram view was also higher when explanations were available (see Figure~\ref{figs:hist_interaction}).
 
-Furthermore, we see a strong decline in correctness when adding explanations to tables (p-value Figure~\ref{subfig:correctness}: Fisher's $0.0127$, $\chi^2$ $0.0137$; p-value Figure~\ref{subfig:correctdetect}: Fisher's $0.0311$, $\chi^2$ $0.0320$).
-At first, we were puzzled at this counter-intuitive result and we double and triple checked that those results were not a simple mix-up in conditions.
-We hypothesize that, having explanations at hand in a table, focuses the attention of participants to fewer instances and additionally makes them more confident that they fully understood the model.
-This extrapolation from few instances aligns with the findings of Stumpf~\etal~\cite{harmful}, who found that explanations can be harmful in certain circumstances, and shows that the findings also apply to a tabular representation of the explanations.
-
-In order to investigate this hypothesis further, we can look at the number of interactions of the participants performing the tasks.
-We can see in Figure~\ref{figs:table_interaction} that participants engaged with the table view significantly more when no explanations were present.
-This might be an example of Hullman~\etal~\cite{6064986}, which states that information visualization might benefit from visual difficulties, as is the case with a table without any further help from the interface about what to look at, since people are forced to interact more with the visualization.
-
 \begin{figure}
 \centering
 \includegraphics[width=17em]{aggexplain/stats/table_interaction}%
@@ -123,6 +115,15 @@ The plot shows the bootstrapped mean and confidence interval for each setting.
 }
 \label{figs:table_interaction}
 \end{figure}
+
+Furthermore, we see a strong decline in correctness when adding explanations to tables (p-value Figure~\ref{subfig:correctness}: Fisher's $0.0127$, $\chi^2$ $0.0137$; p-value Figure~\ref{subfig:correctdetect}: Fisher's $0.0311$, $\chi^2$ $0.0320$).
+At first, we were puzzled at this counter-intuitive result and we double and triple checked that those results were not a simple mix-up in conditions.
+We hypothesize that, having explanations at hand in a table, focuses the attention of participants to fewer instances and additionally makes them more confident that they fully understood the model.
+This extrapolation from few instances aligns with the findings of Stumpf~\etal~\cite{harmful}, who found that explanations can be harmful in certain circumstances, and shows that the findings also apply to a tabular representation of the explanations.
+
+In order to investigate this hypothesis further, we can look at the number of interactions of the participants performing the tasks.
+We can see in Figure~\ref{figs:table_interaction} that participants engaged with the table view significantly more when no explanations were present.
+This might be an example of Hullman~\etal~\cite{6064986}, who state that information visualization might benefit from visual difficulties, since people are forced to interact more with the visualization. This seems to be the case for a table, without any further help from the interface about what to look at.
 
 Despite that, we found no significant difference in the time participants took to complete the study, as can be seen in Figure~\ref{figs:timing}.
 % Additionally, Figure~\ref{figs:timing} also shows that participants spent less time on the histogram view with explanations than on the table view without explanations.

@@ -67,7 +67,7 @@ to interpret and distinguish than length and area are, as used by the other glyp
 
 \subsection{Data and Design}
 
-We provide a brief overview of data types utilized by the system. A predictive model, in our setting, is a model trained and validated with machine learning using a high number of features as an input to train the model. These features are the primary data items of \infuse. Each feature has a label representing the feature name (e.g. Diabetes), a category to which the feature belongs to (e.g. Diagnosis), and a subtype (e.g. Problem List, the health problems that led to the diagnosis).
+We provide a brief overview of data types utilized by the system. A predictive model, in our setting, is a model trained and validated with machine learning using a high number of features as an input to train the model. These features are the primary data items of \infuse. Each feature has a label representing the feature name (\eg, Diabetes), a category to which the feature belongs to (e.g. Diagnosis), and a subtype (\eg, Problem List, the health problems that led to the diagnosis).
 
 Feature selection algorithms receive as an input the whole set of existing features and return a subset of features selected and ranked according to their estimated predictive power. Since in our setting we use the output of multiple algorithms at once, each feature can further be described by the rankings they receive from all these algorithms (where features that are not selected are marked as unranked). Furthermore, since cross-validation is used, each feature actually gets ranked multiple times by each algorithm, leading to a total number of $\#\textit{feature selection algorithms} \times \#\textit{folds}$ ranks that quantitatively describe each feature.
 

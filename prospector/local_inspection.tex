@@ -2,7 +2,7 @@
 
 \input{prospector/li-explain}
 
-Our second core contribution is leveraging our implementation of partial dependence to support the user task of local inspection.  Users can use \prospector to inspect specific data points of interest and see how the models predict how they behave.  In addition, if the users are curious about how a particular data point's risk might change if it had different values, a user can explore this as well.  The idea of localized inspection is illustrated in Figure~\ref{figs:liexplain} using our running example of diabetes prediction.  At the top, the original patient's feature values are shown, along with the patient's original predicted low risk of having diabetes. Suppose the analyst was curious to see how the patient's risk would change if his BMI was increased to 35.
+Our second core contribution is leveraging our implementation of partial dependence to support the user task of local inspection.  Users can use \prospector to inspect specific data points of interest and see how the models predict how they behave.  In addition, if the users are curious about how a particular data point's risk might change if it had different values, a user can explore this as well.  The idea of localized inspection is illustrated in Figure~\ref{figs:liexplain} using our running example of Diabetes prediction.  At the top, the original patient's feature values are shown, along with the patient's original predicted low risk of having Diabetes. Suppose the analyst was curious to see how the patient's risk would change if his BMI was increased to 35.
 Localized inspection allows users to interactively change this value, and see the corresponding prediction.
 In order to streamline this kind of exploration we fully compute the
 predicted risk for all values of BMI similar to partial dependence.
@@ -15,7 +15,7 @@ yielding local partial dependence plots for each feature using a single input ro
 \subsubsection{Partial Dependence Bars}
 In order to increase interactivity, encourage exploration, and display a larger number of features at once, we use a novel visual encoding, \emph{partial dependence bars}, a color bar representation of a partial dependence plot, shown in Figure~\ref{figs:compress}. The horizontal axis of a partial dependence bar represents the range of values of a feature, and the color at a given position represents the predicted risk for that value.  Color is mapped to a three-point color scale, where blue represents low risk, yellow represents medium risk, and red represents high risk.  As these bars are meant to aid local inspection, the current feature value of the datapoint being inspected is positioned along the horizontal axis and annotated as a circular label.  Users can drag this circular label left or right to inspect how changes in the feature value affect the predicted risk as well as the local partial dependence of other features.
 
-\subsubsection{Local feature importance}
+\subsubsection{Local Feature Importance}
 The fourth novel contribution of our research is a technique to simplify the
 exploration of the predicted risk space by automatically finding features where a small change in value yields a significantly large change on the predicted risk.
 
