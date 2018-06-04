@@ -1,1 +1,1 @@
-# nyu-phd-thesis-template
+# Thesis
